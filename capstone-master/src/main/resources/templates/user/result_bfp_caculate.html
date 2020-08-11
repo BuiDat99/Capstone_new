@@ -1,0 +1,224 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title>Tính BFP</title>
+<meta name="description" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="shortcut icon" type="image/x-icon"
+	th:href="@{/assets/img/favicon.ico}" />
+
+<!-- CSS here -->
+<link rel="stylesheet" th:href="@{/assets/css/bootstrap.min.css}" />
+<link rel="stylesheet" th:href="@{/assets/css/owl.carousel.min.css}" />
+<link rel="stylesheet" th:href="@{/assets/css/slicknav.css}" />
+<link rel="stylesheet" th:href="@{/assets/css/animate.min.css}" />
+<link rel="stylesheet" th:href="@{/assets/css/magnific-popup.css}" />
+<link rel="stylesheet" th:href="@{/assets/css/fontawesome-all.min.css}" />
+<link rel="stylesheet" th:href="@{/assets/css/themify-icons.css}" />
+<link rel="stylesheet" th:href="@{/assets/css/slick.css}" />
+<link rel="stylesheet" th:href="@{/assets/css/nice-select.css}" />
+<link rel="stylesheet" th:href="@{/assets/css/style.css}" />
+<link rel="stylesheet" th:href="@{/assets/css/login.css}" />
+<link rel="stylesheet" th:href="@{/assets/css/BMI.css}" />
+</head>
+<body>
+	<div th:replace="/user/header :: head"></div>
+	<div class="form-signin">
+
+		<form class="form-signin" th:action="@{bfp}" method="POST">
+
+			<div class="container col-container">
+				<div class="d-flex justify-content-sm-center">
+					<div class="col-8 col-eq">
+						<div class="jumbotron ">
+							<div>
+								<h2 class="account-in text-center">Tính chỉ số BFP</h2>
+							</div>
+							<div class="form-group">
+								<span>Chiều cao</span> <input required=""  oninvalid="this.setCustomValidity('Hãy nhập chiều cao của bạn')" oninput="setCustomValidity('')" class="form-control"
+									placeholder="CM" type="number" name="height"/>
+							</div>
+							<div class="form-group ">
+								<span class="word">Cân nặng</span> <input required=""  oninvalid="this.setCustomValidity('Hãy nhập cân nặng của bạn')" oninput="setCustomValidity('')" type="text"
+									placeholder="KG" class="form-control" name="weight"/>
+							</div>
+							<div class="form-group ">
+								<span class="word">Tuổi</span> <input required=""  oninvalid="this.setCustomValidity('Hãy nhập tuổi của bạn')" oninput="setCustomValidity('')" type="number"
+									placeholder="từ 2 - 98 tuổi" class="form-control" name="age"/>
+							</div>
+							<div class="form-group" >
+								<span class="word form-check-inline">Giới tính</span>
+								<div class="form-check form-check-inline">
+									<input class="form-check-input" type="radio"
+										name="inlineRadioOptions" id="inlineRadio1" value="male"/>
+									<label class="form-check-label" for="inlineRadio1">Nam</label>
+								</div>
+								<div class="form-check form-check-inline">
+									<input class="form-check-input" type="radio"
+										name="inlineRadioOptions" id="inlineRadio2" value="female"/>
+									<label class="form-check-label" for="inlineRadio2">Nữ</label>
+								</div>
+								
+							</div>
+							<div class="text-center">
+								<input type="submit" class="btn btn-primary btn-block "
+								value="Tính BFP" />
+							</div>
+
+						</div>
+					</div>
+					</form>
+					<!--   <%-- bmi result--%>    -->
+					<div class="col-8 col-eq">
+						<div class="jumbotron ">
+							<div>
+								<h2 class="account-in text-center">Kết quả của bạn</h2>
+							</div>
+							<div class="text-center">
+								<p class="border-btn" th:text="${bfp}"></p>
+							</div>
+							<div class="text-center">
+								<p type="text" th:text="${tinhtrangbfp}"></p>
+							</div>
+							<div class="text-center">
+								<p type="text" class="">Có thể bạn quan tâm vền những điều
+									sau</p>
+							</div>
+							<div class="row">
+								<div class="text-center col">
+									<button class="border-tag">Béo</button>
+								</div>
+								<div class="text-center col">
+									<button class="border-tag">Ăn kiêng</button>
+								</div>
+								<div class="text-center col">
+									<button class="border-tag">Tăng căn</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div>
+					<!-- Default form register -->
+					<div class="border-info border-light p-5" action="#!">
+						<table class="table" cellspacing="3" cellpadding="2"
+							bgcolor="#E2e2e2" style="border-style: thin; padding-left: 5PX">
+							<tbody>
+								<tr>
+									<td>
+										<h2 align="center" style="line-height: 175%;" class="">
+											<strong>THÔNG TIN VỀ CHỈ SỐ BFP </strong>
+										</h2>
+										<h2 align="justify" style="" class="">
+											<strong><em><span
+													style="line-height: 175%; font-size: 10pt;">Chỉ số BFP (Body Fat Percentage) hay còn gọi là tỷ lệ mỡ cơ thể. Là một chỉ số kha quan trọng để biết được 
+													cơ thể mình có lượng mỡ có nằm trong mức an toàn hay không, cơ thể mình có dư mỡ hay thiếu lượng mỡ hay không.
+													 Ở công thức này chúng tôi đã nghiên cứu và xây dựng công cụ tính BFP  cho việc tính toán nhanh chóng.</span></em></strong>
+										</h2>
+									
+										<span style="font-size: 10pt;">
+											<strong><h2 style="">Cách tính và đánh giá
+													chỉ số BFP như thế nào?</h2></strong><strong> <br> <!--[if !supportLineBreakNewLine]-->
+												<br> <!--[endif]-->
+										</strong>
+									</span>
+										<p></p>
+
+										<table width="100%" align="center">
+											<tbody>
+												<tr>
+													<td align="center">
+
+														<div class="col-sm-12" style="padding-bottom: 15px;">
+															<div class="col-sm-2"></div>
+															<div class="col-sm-8">
+																<img
+																	th:src="@{assets/img/post/chi-so-bmi-do-can-nang-chieu-cao.jpg}"
+																	alt="Bảng đánh giá chỉ số BMI chuẩn cho cả nam và nữ">
+
+															</div>
+															<div class="col-sm-2"></div>
+														</div>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+										<p align="justify"
+											style="margin: 0in 0in 0.0001pt; line-height: 175%;"></p>
+										<h2 style="font-size: 10pt;">
+											<br> <strong>- &nbsp;Cách đánh giá chỉ số BMI </strong>
+											<br> Đối với người lớn từ 20 tuổi trở lên, Sử dụng bảng
+											phân loại chuẩn cho cả nam và nữ để đánh giá chỉ số BMI.
+										</h2>
+										<p></p>
+										<div align="justify">
+											<p>- BMI &lt;16: Gầy độ III</p>
+											<p>- 16 ≤ BMI &lt;17: Gầy độ II</p>
+											<p>- 17 ≤ BMI &lt;18.5: Gầy độ I</p>
+											<p>- 18.5 ≤ BMI &lt;25: Bình thường</p>
+											<p>- 25 ≤ BMI &lt;30: Thừa cân</p>
+											<p>- 30 ≤ BMI 35: Béo phì độ 1</p>
+											<p>- 35 ≤ BMI &lt;40: Béo phì độ II</p>
+											<p>- BMI &gt;40: Béo phì độ III</p>
+											<p>&nbsp;</p>
+										</div>
+										<p align="center"
+											style="margin: 0in 0in 0.0001pt; line-height: 175%;">
+											<span style="font-size: 10pt;">&nbsp;</span>---------------------------------------------------------------------------------
+										</p>
+										<p align="center"
+											style="margin: 0in 0in 0.0001pt; line-height: 175%;">&nbsp;</p>
+									</td>
+
+
+								</tr>
+
+
+
+							</tbody>
+						</table>
+					</div>
+
+					<!-- Default form register -->
+				</div>
+			</div>
+			<!--   <%--end bmi result--%> -->
+		
+	</div>
+	<div th:replace="/user/footer :: foot"></div>
+
+	<script th:src="@{/assets/js/vendor/modernizr-3.5.0.min.js}"></script>
+	<!-- Jquery, Popper, Bootstrap -->
+	<script th:src="@{/assets/js/vendor/jquery-1.12.4.min.js}"></script>
+	<script th:src="@{/assets/js/popper.min.js}"></script>
+	<script th:src="@{/assets/js/bootstrap.min.js}"></script>
+	<!-- Jquery Mobile Menu -->
+	<script th:src="@{/assets/js/jquery.slicknav.min.js}"></script>
+
+	<!-- Jquery Slick , Owl-Carousel Plugins -->
+	<script th:src="@{/assets/js/owl.carousel.min.js}"></script>
+	<script th:src="@{/assets/js/slick.min.js}"></script>
+
+	<!-- One Page, Animated-HeadLin -->
+	<script th:src="@{/assets/js/wow.min.js}"></script>
+	<script th:src="@{/assets/js/animated.headline.js}"></script>
+	<script th:src="@{/assets/js/jquery.magnific-popup.js}"></script>
+
+	<!-- Nice-select, sticky -->
+	<script th:src="@{/assets/js/jquery.nice-select.min.js}"></script>
+	<script th:src="@{/assets/js/jquery.sticky.js}"></script>
+
+	<!-- contact js -->
+	<script th:src="@{/assets/js/contact.js}"></script>
+	<script th:src="@{/assets/js/jquery.validate.min.js}"></script>
+	<script th:src="@{/assets/js/mail-script.js}"></script>
+	<script th:src="@{/assets/js/jquery.ajaxchimp.min.js}"></script>
+
+	<!-- Jquery Plugins, main Jquery -->
+	<script th:src="@{/assets/js/plugins.js}"></script>
+	<script th:src="@{/assets/js/main.js}"></script>
+</body>
+</html>

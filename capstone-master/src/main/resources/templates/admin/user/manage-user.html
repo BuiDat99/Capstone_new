@@ -1,0 +1,177 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Quản lý nguyên liệu</title>
+<!-- BOOTSTRAP STYLES-->
+<link th:href="@{/css/bootstrap.css}" rel="stylesheet" />
+<!-- FONTAWESOME STYLES-->
+<link th:href="@{/css/font-awesome.css}" rel="stylesheet" />
+<!-- MORRIS CHART STYLES-->
+
+<!-- CUSTOM STYLES-->
+<link th:href="@{/css/custom.css}" rel="stylesheet" />
+<!-- GOOGLE FONTS-->
+
+<!-- TABLE STYLES-->
+<link th:href="@{/js/dataTables/dataTables.bootstrap.css}"
+	rel="stylesheet" />
+<!-- <script type="text/javascript">
+	function submitForm(page) {
+		document.getElementById('page').value = page;
+		document.getElementById('frmSearch').submit();
+	}
+</script> -->
+<!-- <style type="text/css">
+a.underline {
+	text-decoration: underline;
+}
+</style> -->
+</head>
+<body>
+<!-- alert confrim delete -->
+	<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">Bạn có chắc chắn
+						muốn xoá không?</h4>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Không</button>
+					<a class="btn btn-danger btn-ok">Có</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--and alert confrim delete -->
+<!-- <input type="hidden" name="page" id="page" /> -->
+	<!-- <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+		<form id='frmSearch' th:action="@{/admin/resource/search}"
+			method="GET">
+			 <input type="text"
+				name="keyword" th:value="${keyword}" /> <input type="submit"
+				value="Search" />
+		</form> -->
+	</nav>
+	<div id="wrapper">
+
+		<div th:replace="/admin/nav-bar :: nav_bar"></div>
+		<!-- /. NAV TOP  -->
+		<div th:replace="/admin/slide-bar :: slide_bar"></div>
+		<!-- /. NAV SIDE  -->
+		<div id="page-wrapper">
+			<div id="page-inner">
+				<div class="row">
+					<div class="col-md-12">
+						<h2>Tất cả người dùng</h2>
+					</div>
+				</div>
+				<!-- /. ROW  -->
+				<hr />
+
+				<div class="row">
+					<div class="col-md-12">
+						<!-- Advanced Tables -->
+						<div class="panel panel-default">
+							<div class="panel-heading">Bảng chi tiết</div>
+							<div class="panel-body">
+								<div class="table-responsive">
+
+									<!-- <h2 th:if="${resourceList.size() == 0}">Not Found</h2> -->
+									<table class="table table-striped table-bordered table-hover"
+										id="dataTables-example" th:if="${userList.size() != 0}"
+										border="1">
+										<thead>
+											
+											<tr>
+												<th>STT</th>
+												<th>Tài khoản</th>
+												<th>Email</th>
+												<th>Role</th>
+												<th>Enable</th>									
+												<th>Tuỳ chỉnh</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr class="odd gradeX" th:each="u : ${userList}">
+												<td th:text="${u.userId}"></td>
+												<td th:text="${u.username}"></td>
+												<td th:text="${u.email}"></td>																																			
+												<td>
+													<i style="font-style: normal;" th:each="role : ${u.roles}" th:text="|${role}, |"></i>
+											    </td>												
+												<td>
+												<div >
+												<p th:if="${u.enable == '1'}">Yes</p>
+  												<p th:if="${u.enable == '0'}">No</p> 
+												</div>
+												</td>
+												<td><a
+													th:href="@{'/admin/user/update?id='+${u.userId}}">Sửa</a>											
+												</td>
+											</tr>
+										</tbody>
+
+									</table>
+									<!-- <img alt="" src="/imgData/resource/1.png">	 -->								
+									<!-- <div class="page">
+										<span th:each="pageIndex : ${listCount}"> <a
+											class="underline" style="cursor: pointer;"
+											th:if="${page == pageIndex}"
+											th:onclick="'submitForm('+${pageIndex}+')'"
+											th:text="${pageIndex} "></a> <a class="underline"
+											style="cursor: pointer;" th:if="${page != pageIndex}"
+											th:onclick="'submitForm('+${pageIndex}+')'"
+											th:text="${pageIndex} "></a>
+										</span>
+									</div> -->
+								</div>
+
+							</div>
+						</div>
+						<!--End Advanced Tables -->
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+		<!-- /. PAGE INNER  -->
+	</div>
+	<!-- /. PAGE WRAPPER  -->
+	<!-- /. WRAPPER  -->
+	<!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
+	<!-- JQUERY SCRIPTS -->
+
+
+	<script th:src="@{/js/jquery-1.10.2.js}"></script>
+	<!-- BOOTSTRAP SCRIPTS -->
+	<script th:src="@{/js/bootstrap.min.js}"></script>
+	<!-- METISMENU SCRIPTS -->
+	<script th:src="@{/js/jquery.metisMenu.js}"></script>
+	<!-- DATA TABLE SCRIPTS -->
+	<script th:src="@{/js/dataTables/jquery.dataTables.js}"></script>
+	<script th:src="@{/js/dataTables/dataTables.bootstrap.js}"></script>
+	<script>
+            $(document).ready(function () {
+                $('#dataTables-example').dataTable();
+            });
+        </script>
+         <script>
+        $('#confirm-delete').on('show.bs.modal', function(e) {
+            $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+            
+            $('.debug-url').html('Delete URL: <strong>' + $(this).find('.btn-ok').attr('href') + '</strong>');
+        });
+    </script>
+
+
+</body>
+</html>

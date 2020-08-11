@@ -1,0 +1,154 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title>Restaurant |
+	<title>Education | Template</title>
+	<meta name="description" content="" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link rel="shortcut icon" type="image/x-icon"
+		th:href="@{/assets/img/favicon.ico}" /> <!-- CSS here -->
+	<link rel="stylesheet" th:href="@{/assets/css/bootstrap.min.css}" />
+	<link rel="stylesheet" th:href="@{/assets/css/owl.carousel.min.css}" />
+	<link rel="stylesheet" th:href="@{/assets/css/slicknav.css}" />
+	<link rel="stylesheet" th:href="@{/assets/css/animate.min.css}" />
+	<link rel="stylesheet" th:href="@{/assets/css/magnific-popup.css}" />
+	<link rel="stylesheet" th:href="@{/assets/css/fontawesome-all.min.css}" />
+	<link rel="stylesheet" th:href="@{/assets/css/themify-icons.css}" />
+	<link rel="stylesheet" th:href="@{/assets/css/slick.css}" />
+	<link rel="stylesheet" th:href="@{/assets/css/nice-select.css}" />
+	<link rel="stylesheet" th:href="@{/assets/css/style.css}" />
+</head>
+<body>
+	<header th:fragment="head">
+		<!-- Header Start -->
+		<div class="header-area">
+			<div class="main-header ">
+				<div class="header-top d-none d-lg-block">
+
+
+					<div class="container">
+						<div class="col-xl-12">
+							<div
+								class="row d-flex justify-content-between align-items-center">
+								<div class="header-info-left">
+									<ul>
+										<li></li>
+										<li></li>
+									</ul>
+								</div>
+								<div class="header-info-right">
+									<ul>
+										<li sec:authorize="!isAuthenticated()"><a
+											th:href="@{/login}"><i class="ti-user"></i>Đăng Nhập</a></li>
+										<li sec:authorize="!isAuthenticated()"><a
+											th:href="@{/register}"><i class="ti-lock"></i>Đăng ký</a></li>
+										<li sec:authorize="isAuthenticated()"><a
+											th:href="@{/userInfoPage}"><i class="ti-user"></i>chào <span
+												th:utext="${#request.userPrincipal.name}"></span></a></li>
+										<li sec:authorize="isAuthenticated()"><a
+											th:href="@{/logout}"><i class="ti-lock"></i>Đăng xuất</a></li>
+
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="header-bottom header-sticky">
+					<!-- Logo -->
+					<div class="logo d-none d-lg-block">
+						<a th:href="@{/home}"><img
+							th:src="@{/assets/img/logo/logo_1.png}" alt=""></a>
+					</div>
+					<div class="container">
+						<div class="menu-wrapper">
+							<!-- Logo -->
+							<div class="logo logo2 d-block d-lg-none">
+								<a th:href="index.html"><img
+									th:src="@{/assets/img/logo/logo.png}" alt=""></a>
+							</div>
+							<!-- Main-menu -->
+							<div class="main-menu d-none d-lg-block">
+								<nav>
+									<ul id="navigation">
+										<li><a th:href="@{/home}">Trang chủ</a></li>
+										<li><a th:href="@{/tintuc}">Tin tức</a></li>
+										<!-- <ul class="submenu">
+												<li><a th:href="@{blog.html}">cate1</a></li>
+												<li><a th:href="@{blog_details.html}">cate 2</a></li>
+												<li><a th:href="@{elements.html}">cate 3</a></li>
+											</ul></li> -->
+
+										<li><a th:href="@{/tintuc}">Món ăn</a></li>
+										<li><a th:href="@{/estimate}">Tạo Món ăn</a></li>
+										<li><a th:href="@{#}">Tính chỉ số</a>
+											<ul class="submenu">
+												<li><a th:href="@{/bmi}">BMI</a></li>
+												<li><a th:href="@{/bfp}">BFP</a></li>
+												<li><a th:href="@{elements.html}">BMI</a></li>
+											</ul></li>
+										<li><a th:href="@{contact.html}">Liên hệ</a></li>
+									</ul>
+								</nav>
+							</div>
+							<!-- Header-btn -->
+							<div class="header-search d-none d-lg-block">
+								<form action="#" class="form-box f-right ">
+									<input type="text" name="Search" placeholder="Tìm kiếm">
+									<div class="search-icon">
+										<i class="fas fa-search special-tag"></i>
+									</div>
+								</form>
+							</div>
+						</div>
+						<!-- Mobile Menu -->
+						<div class="col-12">
+							<div class="mobile_menu d-block d-lg-none"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Header End -->
+	</header>
+
+
+	<script th:src="@{/assets/js/vendor/modernizr-3.5.0.min.js}"></script>
+	<!-- Jquery, Popper, Bootstrap -->
+	<script th:src="@{/assets/js/vendor/jquery-1.12.4.min.js}"></script>
+	<script th:src="@{/assets/js/popper.min.js}"></script>
+	<script th:src="@{/assets/js/bootstrap.min.js}"></script>
+	<!-- Jquery Mobile Menu -->
+	<script th:src="@{/assets/js/jquery.slicknav.min.js}"></script>
+
+	<!-- Jquery Slick , Owl-Carousel Plugins -->
+	<script th:src="@{/assets/js/owl.carousel.min.js}"></script>
+	<script th:src="@{/assets/js/slick.min.js}"></script>
+
+	<!-- One Page, Animated-HeadLin -->
+	<script th:src="@{/assets/js/wow.min.js}"></script>
+	<script th:src="@{/assets/js/animated.headline.js}"></script>
+	<script th:src="@{/assets/js/jquery.magnific-popup.js}"></script>
+
+	<!-- Nice-select, sticky -->
+	<script th:src="@{/assets/js/jquery.nice-select.min.js}"></script>
+	<script th:src="@{/assets/js/jquery.sticky.js}"></script>
+
+	<!-- contact js -->
+	<script th:src="@{/assets/js/contact.js}"></script>
+	<script th:src="@{/assets/js/jquery.form.js}"></script>
+	<script th:src="@{/assets/js/jquery.validate.min.js}"></script>
+	<script th:src="@{/assets/js/mail-script.js}"></script>
+	<script th:src="@{/assets/js/jquery.ajaxchimp.min.js}"></script>
+
+	<!-- Jquery Plugins, main Jquery -->
+	<script th:src="@{/assets/js/plugins.js}"></script>
+	<script th:src="@{/assets/js/main.js}"></script>
+
+</body>
+</html>

@@ -1,0 +1,121 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<script th:src="@{/ckeditor/ckeditor.js}" type="text/javascript"></script>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sửa nguyên liệu</title>
+<!-- BOOTSTRAP STYLES-->
+<link th:href="@{/css/bootstrap.css}" rel="stylesheet" />
+<!-- FONTAWESOME STYLES-->
+<link th:href="@{/css/font-awesome.css}" rel="stylesheet" />
+<!-- MORRIS CHART STYLES-->
+
+<!-- CUSTOM STYLES-->
+<link th:href="@{/css/custom.css}" rel="stylesheet" />
+<!-- GOOGLE FONTS-->
+
+<link th:href="@{/js/dataTables/dataTables.bootstrap.css}"
+	rel="stylesheet" />
+</head>
+<body>
+	<div id="wrapper">
+		<div th:replace="/admin/nav-bar :: nav_bar"></div>
+		<!-- /. NAV TOP  -->
+		<div th:replace="/admin/slide-bar :: slide_bar"></div>
+		<!-- /. NAV SIDE  -->
+		<div id="page-wrapper">
+			<div id="page-inner">
+				<div class="row">
+					<div class="col-md-12">
+						<h2>Sửa Nguyên Liệu</h2>
+
+					</div>
+				</div>
+				<!-- /. ROW  -->
+				<hr />
+				<div class="row">
+					<div class="col-md-12">
+						<!-- Form Elements -->
+						<div class="panel panel-default">
+							<div class="panel-heading">Sửa nguyên liệu</div>
+							<div class="panel-body">
+								<div class="row">
+									<div class="col-md-6">
+										<h3>Thông tin nguyên liệu</h3>
+
+										<form role="form" th:action="@{/admin/resource/update}"
+											method="post" th:object="${resource}"
+											enctype="multipart/form-data">
+
+											<input class="form-control" type="hidden" th:field="*{id}" />
+											<div class="form-group">
+												<label>Tên nguyên liệu:</label> <input class="form-control"
+													placeholder="Tên nguyên liệu" th:field="*{resourceName}" />
+											</div>
+
+											<div class="form-group">
+												<label>Mô tả</label> <input class="form-control"
+													placeholder="Mô tả" th:field="*{resourceDescription}" />
+											</div>
+											<div class="form-group">
+												<label>Hình ảnh</label> <input class="form-control"
+													placeholder="gram" th:field="*{image}" />
+											</div>
+											<div class="form-group">
+												<label>Lượng calo trên 1g</label> <input
+													class="form-control" placeholder="gram"
+													th:field="*{kcal1g}" />
+											</div>
+											<div class="form-group">
+												<label>CategoryId</label> <select th:field="*{category.id}">
+													<option class="form-control" th:each="cat: ${categoryList}"
+														th:value="${cat.id}" th:text="${cat.categoryName}"></option>
+												</select>
+											</div>
+
+
+											<button type="submit" class="btn btn-default">Cập
+												nhật</button>
+											<button type="reset" class="btn btn-primary">Làm mới</button>
+										</form>
+
+
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- End Form Elements -->
+					</div>
+				</div>
+				<!-- /. ROW  -->
+				<div class="row">
+					<div class="col-md-12"></div>
+				</div>
+				<!-- /. ROW  -->
+			</div>
+			<!-- /. PAGE INNER  -->
+		</div>
+		<!-- /. PAGE WRAPPER  -->
+	</div>
+	<!-- /. WRAPPER  -->
+	<!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
+	<!-- JQUERY SCRIPTS -->
+	<script th:src="@{/js/jquery-1.10.2.js}"></script>
+	<!-- BOOTSTRAP SCRIPTS -->
+	<script th:src="@{/js/bootstrap.min.js}"></script>
+	<!-- METISMENU SCRIPTS -->
+	<script th:src="@{/js/jquery.metisMenu.js}"></script>
+	<!-- DATA TABLE SCRIPTS -->
+	<script th:src="@{/js/dataTables/jquery.dataTables.js}"></script>
+	<script th:src="@{/js/dataTables/dataTables.bootstrap.js}"></script>
+	<script>
+            $(document).ready(function () {
+                $('#dataTables-example').dataTable();
+            });
+        </script>
+	<!-- CUSTOM SCRIPTS -->
+	<!--        <script th:src="../static/js/custom.js"></script>-->
+</body>
+</html>

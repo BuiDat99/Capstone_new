@@ -1,0 +1,70 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Jun 23, 2020, 8:41:07 PM
+    Author     : DATLV
+*/
+
+.col_h {
+	height: 100%;
+}
+
+img {
+	width: auto;
+	height: auto;
+	max-width: 100%;
+}
+
+/* .col-container {
+	display: table; Make the container element behave like a table
+	width: 100%; Set full-width to expand the whole page
+}
+ */
+.col-eq {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+}
+.col {
+	display: table-cell;
+ 
+}
+
+.jumbotron {
+	width: 100%;
+	margin-top: 15px;
+}
+
+.border-info {
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
+		rgba(0, 0, 0, 0.19);
+}
+
+.bmi-result {
+	background: green;
+}
+
+.border-tag {
+	border: 1px solid #212529;
+	color: #464d65;
+	background: none;
+	border-radius: 5px;
+	text-transform: capitalize;
+	padding: 1px 4px;
+	-moz-user-select: none;
+	cursor: pointer;
+	display: inline-block;
+	font-size: 14px;
+	font-weight: 500;
+	letter-spacing: 1px;
+	margin-bottom: 0;
+	position: relative;
+	position: relative;
+	overflow: hidden;
+	margin: 0;
+	width: 100%;
+}

@@ -1,0 +1,176 @@
+<!doctype html>
+<html class="no-js" lang="zxx">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title>Chi tiết</title>
+<meta name="description" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="shortcut icon" type="image/x-icon"
+	href="assets/img/favicon.ico">
+
+<!-- CSS here -->
+<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+<link rel="stylesheet" href="assets/css/owl.carousel.min.css">
+<link rel="stylesheet" href="assets/css/slicknav.css">
+<link rel="stylesheet" href="assets/css/animate.min.css">
+<link rel="stylesheet" href="assets/css/magnific-popup.css">
+<link rel="stylesheet" href="assets/css/fontawesome-all.min.css">
+<link rel="stylesheet" href="assets/css/themify-icons.css">
+<link rel="stylesheet" href="assets/css/slick.css">
+<link rel="stylesheet" href="assets/css/nice-select.css">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+	<div th:replace="/user/header.html :: head"></div>
+
+	<!--? Preloader Start -->
+	<div id="preloader-active">
+		<div
+			class="preloader d-flex align-items-center justify-content-center">
+			<div class="preloader-inner position-relative">
+				<div class="preloader-circle"></div>
+				<div class="preloader-img pere-text">
+					<img src="assets/img/logo/loder.png" alt="">
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Preloader Start -->
+
+	<main>
+
+		<!--================Blog Area =================-->
+		<section class="blog_area single-post-area section-padding">
+			<div class="container" th:object="${news}">
+				<div class="row">
+					<div class="col-lg-8 posts-list">
+						<div class="single-post">
+							<div class="feature-img">
+								<img class="img-fluid"
+									th:src="@{#{imagePath.post.title} + *{imageTitle}}" alt="post">
+							</div>
+
+							<div class="blog_details">
+								<h2 style="color: #2d2d2d;" th:text="*{title}">Tiêu đề</h2>
+								<ul class="blog-info-link mt-3 mb-4">
+									<li><a href="#" th:text="*{poster}"><i
+											class="fa fa-user"></i> </a></li>
+									<li><a href="#" th:text="*{creationDate}"><i
+											class="fa fa-comments"></i> 03 Comments</a></li>
+								</ul>
+								<p th:utext="*{detailDescription}"></p>
+
+							</div>
+						</div>
+						<!-- blog detail -->
+						<!-- 11 -->
+						<div class="comments-area">						
+							<h4 th:text="${countCom} +' Comments'"> </h4>							
+							<div class="comment-list" th:each="c : ${comment}">
+								<div class="single-comment justify-content-between d-flex">
+									<div class="user justify-content-between d-flex">
+										<div class="thumb">
+											<img src="assets/img/comment/comment_1.png" alt="">
+										</div>
+										<div class="desc">
+											<p class="comment" th:utext=${c.commentContent}></p>
+											<div class="d-flex justify-content-between">
+												<div class="d-flex align-items-center">
+													<h5>
+														<p th:text=${c.user.username}></p>
+													</h5>
+													<p class="date" th:utext=${c.commentDate}></p>
+												</div>
+												<div class="reply-btn">
+													<a href="#" class="btn-reply text-uppercase">reply</a>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>				
+						</div>
+						<!-- 11 -->
+
+						<!-- comment-form -->
+						<div class="comment-form">
+							<h4>Bình luận</h4>
+							<form class="form-contact comment_form" th:action="@{'/user/comment/add?postId='+*{id}}" method="POST"
+								id="commentForm">
+								<div class="row">
+									<div class="col-12">
+										<div class="form-group">
+												 <input type="hidden" class="form-control"
+													placeholder="Ngày tạo" th:value="${#dates.format(#dates.createNow(), 'dd MMM')}" name="commentDate" />
+													<!-- dd MMM yyyy HH:mm  -->
+											</div>
+										<div class="form-group">
+											<textarea class="form-control w-100" name="commentContent"
+												id="comment" cols="30" rows="9" placeholder="Viết bình luận"></textarea>
+										</div>
+									</div>
+									<!-- <div class="col-sm-6">
+										<div class="form-group">
+											<input class="form-control" name="name" id="name" type="text"
+												placeholder="Name">
+										</div>
+									</div> -->
+
+								</div>
+								<div class="form-group">
+									<button type="submit"
+										class="button button-contactForm btn_1 boxed-btn">Bình
+										luận</button>
+								</div>
+							</form>
+						</div>
+						<!-- end comment-form -->
+					</div>
+					<!-- right side -->
+					<div th:replace="/user/rightSide.html :: rightSide"></div>
+					<!-- end right side -->
+				</div>
+			</div>
+			</div>
+		</section>
+		<!--================ Blog Area end =================-->
+	</main>
+	<div th:replace="/user/footer :: foot"></div> 
+	
+	<!-- JS here -->
+	<script src="./assets/js/vendor/modernizr-3.5.0.min.js"></script>
+	<!-- Jquery, Popper, Bootstrap -->
+	<script src="./assets/js/vendor/jquery-1.12.4.min.js"></script>
+	<script src="./assets/js/popper.min.js"></script>
+	<script src="./assets/js/bootstrap.min.js"></script>
+	<!-- Jquery Mobile Menu -->
+	<script src="./assets/js/jquery.slicknav.min.js"></script>
+
+	<!-- Jquery Slick , Owl-Carousel Plugins -->
+	<script src="./assets/js/owl.carousel.min.js"></script>
+	<script src="./assets/js/slick.min.js"></script>
+
+	<!-- One Page, Animated-HeadLin -->
+	<script src="./assets/js/wow.min.js"></script>
+	<script src="./assets/js/animated.headline.js"></script>
+	<script src="./assets/js/jquery.magnific-popup.js"></script>
+
+	<!-- Nice-select, sticky -->
+	<script src="./assets/js/jquery.nice-select.min.js"></script>
+	<script src="./assets/js/jquery.sticky.js"></script>
+
+	<!-- contact js -->
+	<script src="./assets/js/contact.js"></script>
+	<script src="./assets/js/jquery.form.js"></script>
+	<script src="./assets/js/jquery.validate.min.js"></script>
+	<script src="./assets/js/mail-script.js"></script>
+	<script src="./assets/js/jquery.ajaxchimp.min.js"></script>
+
+	<!-- Jquery Plugins, main Jquery -->
+	<script src="./assets/js/plugins.js"></script>
+	<script src="./assets/js/main.js"></script>
+
+</body>
+</html>

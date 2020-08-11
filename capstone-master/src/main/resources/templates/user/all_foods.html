@@ -1,0 +1,119 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title>Món ăn</title>
+<meta name="description" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="shortcut icon" type="image/x-icon"
+	th:href="@{/assets/img/favicon.ico}" />
+
+<!-- CSS here -->
+<link rel="stylesheet" th:href="@{/assets/css/bootstrap.min.css}" />
+<link rel="stylesheet" th:href="@{/assets/css/owl.carousel.min.css}" />
+<link rel="stylesheet" th:href="@{/assets/css/slicknav.css}" />
+<link rel="stylesheet" th:href="@{/assets/css/animate.min.css}" />
+<link rel="stylesheet" th:href="@{/assets/css/magnific-popup.css}" />
+<link rel="stylesheet" th:href="@{/assets/css/fontawesome-all.min.css}" />
+<link rel="stylesheet" th:href="@{/assets/css/themify-icons.css}" />
+<link rel="stylesheet" th:href="@{/assets/css/slick.css}" />
+<link rel="stylesheet" th:href="@{/assets/css/nice-select.css}" />
+<link rel="stylesheet" th:href="@{/assets/css/style.css}" />
+<link rel="stylesheet" th:href="@{/assets/css/login.css}" />
+</head>
+<body>
+	<div th:replace="/user/header.html :: head"></div>
+
+	<main>
+		<!--================Blog Area =================-->
+		<section class="blog_area section-padding">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-8 mb-5 mb-lg-0">
+						<div class="blog_left_sidebar">
+							<article class="blog_item" th:each="news : ${NewList}">
+								<div class="blog_item_img">
+									<a th:href="@{'/detailNews?id='+${news.id}}"> <img
+										class="card-img rounded-0"
+										th:src="@{#{imagePath.post.title} + ${news.imageTitle}}"
+										alt="">
+									</a>
+									<h3 class="blog_item_date" th:text="${news.creationDate}"></h3>
+								</div>
+								<div class="blog_details">
+									<a class="d-inline-block"
+										th:href="@{'/detailNews?id='+${news.id}}">
+										<h2 class="blog-head" style="color: #2d2d2d;"
+											th:text="${news.title}"></h2>
+									</a>
+									<p th:text="${news.shortDescription}"></p>
+									<ul class="blog-info-link">
+										<li><a href="#"><i class="fa fa-user"></i> Travel,
+												Lifestyle</a></li>
+										<li><a href="#"><i class="fa fa-comments"></i> 03
+												Comments</a></li>
+									</ul>
+								</div>
+							</article>
+							<nav class="blog-pagination justify-content-center d-flex">
+								<ul class="pagination">
+									<li class="page-item"><a href="#" class="page-link"
+										aria-label="Previous"> <i class="ti-angle-left"></i>
+									</a></li>
+									<li class="page-item"><a href="#" class="page-link">1</a>
+									</li>
+									<li class="page-item active"><a href="#" class="page-link">2</a>
+									</li>
+									<li class="page-item"><a href="#" class="page-link"
+										aria-label="Next"> <i class="ti-angle-right"></i>
+									</a></li>
+								</ul>
+							</nav>
+						</div>
+					</div>
+					<!-- right side -->
+					<div th:replace="/user/rightSideOfFoods.html :: rightSideF"></div>
+					<!-- end right side -->
+				</div>
+			</div>
+		</section>
+		<!--================Blog Area =================-->
+	</main>
+
+	<div th:replace="/user/footer :: foot"></div>
+
+	<script th:src="@{/assets/js/vendor/modernizr-3.5.0.min.js}"></script>
+	<!-- Jquery, Popper, Bootstrap -->
+	<script th:src="@{/assets/js/vendor/jquery-1.12.4.min.js}"></script>
+	<script th:src="@{/assets/js/popper.min.js}"></script>
+	<script th:src="@{/assets/js/bootstrap.min.js}"></script>
+	<!-- Jquery Mobile Menu -->
+	<script th:src="@{/assets/js/jquery.slicknav.min.js}"></script>
+
+	<!-- Jquery Slick , Owl-Carousel Plugins -->
+	<script th:src="@{/assets/js/owl.carousel.min.js}"></script>
+	<script th:src="@{/assets/js/slick.min.js}"></script>
+
+	<!-- One Page, Animated-HeadLin -->
+	<script th:src="@{/assets/js/wow.min.js}"></script>
+	<script th:src="@{/assets/js/animated.headline.js}"></script>
+	<script th:src="@{/assets/js/jquery.magnific-popup.js}"></script>
+
+	<!-- Nice-select, sticky -->
+	<script th:src="@{/assets/js/jquery.nice-select.min.js}"></script>
+	<script th:src="@{/assets/js/jquery.sticky.js}"></script>
+
+	<!-- contact js -->
+	<script th:src="@{/assets/js/contact.js}"></script>
+	<script th:src="@{/assets/js/jquery.form.js}"></script>
+	<script th:src="@{/assets/js/jquery.validate.min.js}"></script>
+	<script th:src="@{/assets/js/mail-script.js}"></script>
+	<script th:src="@{/assets/js/jquery.ajaxchimp.min.js}"></script>
+
+	<!-- Jquery Plugins, main Jquery -->
+	<script th:src="@{/assets/js/plugins.js}"></script>
+	<script th:src="@{/assets/js/main.js}"></script>
+</body>
+</html>

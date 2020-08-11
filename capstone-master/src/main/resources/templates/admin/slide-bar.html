@@ -1,0 +1,31 @@
+<div th:fragment="slide_bar">
+	<nav class="navbar-default navbar-side" role="navigation">
+		<div class="sidebar-collapse">
+			<ul class="nav" id="main-menu">
+				<li class="text-center"><img th:src="@{/img/find_user.png}"
+					class="user-image img-responsive" /></li>
+				<!-- <li><a class="active-menu" th:href="@{/admin/home}"><i
+						class="fa fa-dashboard fa-3x"></i> Dashboard</a></li>
+ -->
+				<li><a th:href="@{/admin/news/search}"><i class="fa fa-book fa-3x"></i>
+						Quản lý bài viết</a></li>
+				<li><a th:href="@{/admin/newCat/search}"><i
+						class="fa fa-book fa-3x"></i> Quản lý loại bài viết </a></li>
+				<li><a th:href="@{/admin/product/search}"><i class="fa fa-cutlery fa-3x"></i> Quản lý món ăn </a></li>
+				<li><a th:href="@{/admin/menu/search}"><i class="fa fa-cutlery fa-3x"></i> Quản lý thực đơn </a></li>
+				<li><a th:href="@{/admin/tag/search}"><i
+						class="fa fa-tag fa-3x"></i> Quản lý thẻ tag </a></li>
+				<li><a th:href="@{/admin/user/search}"><i class="fa fa-user fa-3x"></i> Quản lý người dùng</a></li>
+				<li><a th:href="@{/admin/resourceCat/search}"><i
+						class="fa fa-list fa-3x"></i> Quản lý loại nguyên liệu</a></li>
+				<li><a th:href="@{/admin/resource/search}"><i
+						class="fa fa-list fa-3x"></i> Quản lý nguyên liệu</a></li>
+				<li><a th:href="@{/admin/comment/search}"><i
+						class="fa fa-list fa-3x"></i> Quản lý Bình Luận</a></li>
+
+			</ul>
+
+		</div>
+
+	</nav>
+</div>

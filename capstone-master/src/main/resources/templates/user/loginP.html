@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="x-ua-compatible" content="ie=edge" />
+<title>Đăng nhập</title>
+<meta name="description" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="shortcut icon" type="image/x-icon"
+	th:href="@{/assets/img/favicon.ico}" />
+
+<!-- CSS here -->
+<link rel="stylesheet" type="text/css"
+	th:href="@{/assets/css/bootstrap.min.css}" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/assets/css/owl.carousel.min.css}" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/assets/css/slicknav.css}" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/assets/css/animate.min.css}" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/assets/css/magnific-popup.css}" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/assets/css/fontawesome-all.min.css}" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/assets/css/themify-icons.css}" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/assets/css/slick.css}" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/assets/css/nice-select.css}" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/assets/css/style.css}" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/assets/css/login.css}" />
+</head>
+<body>
+	<div th:if="${#request.getParameter('error') == 'true'}"
+		style="color: red; margin: 10px 0px;">
+		Login Failed!!!<br /> Reason : <span
+			th:if="${#session!= null and #session.getAttribute('SPRING_SECURITY_LAST_EXCEPTION') != null}"
+			th:utext="${#session.getAttribute('SPRING_SECURITY_LAST_EXCEPTION').message}">
+			Static summary </span>
+
+	</div>
+	<div th:replace="/user/header :: head"></div>
+
+	<br>
+	<div></div>
+	<form name='f' class="form-signin"
+		th:action="@{/j_spring_security_check}" method="POST">
+
+		<div class="container">
+			<h2 class="account-in text-center">Đăng nhập</h2>
+
+			<div class="accordion">
+				<div class="col-lg-3 col-md-3 col-sm-3 col-xl-12">
+					<div class="col-lg-6 col-md-6 col-sm-6 col-xl-12">
+						<div class="jumbotron">
+
+							<div class="form-group">
+								<span>Tài khoản *</span> <input class="form-control" type="text"
+									name="username" />
+							</div>
+							<div class="form-group">
+								<span class="word">Mật khẩu *</span> <input type="password"
+									class="form-control" name="password" />
+							</div>
+							<div class="fogot-flex">
+								<div class="custom-control custom-checkbox mb-3">
+									<input type="checkbox" name="remember-me"
+										class="custom-control-input" id="customCheck1"> <label
+										class="custom-control-label" for="customCheck1">Nhớ
+										mật khẩu</label>
+								</div>
+								<a class="a-forgot" th:href="@{/resetPass}">Bạn đã quên mật
+									khẩu?</a>
+							</div>
+							<div class="text-center">
+								<button type="submit" class="btn btn-primary btn-block ">Đăng
+									nhập</button>
+							</div>
+							<div class="or-container">
+								<div class="line-separator"></div>
+								<div class="or-label">Đăng nhập bằng cách khác</div>
+								<div class="line-separator"></div>
+							</div>
+							<a
+								th:href="@{https://accounts.google.com/o/oauth2/auth?scope=email&redirect_uri=http://localhost:8080/login-google&response_type=code
+    &client_id=390029381067-iqks8f3944br60f97tbi2k3tcgahu3ia.apps.googleusercontent.com&approval_prompt=force}">
+								<button class="btn btn-block btn-login btn-google" type="button">
+									<i class=" fab fa-google"></i> Đăng nhập bằng Google
+								</button>
+							</a>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<!-- <form method="get">
+		<div class="">
+			<button class="btn btn-block btn-login btn-google" type="submit"
+				th:formaction="@{https://accounts.google.com/o/oauth2/auth?scope=email&redirect_uri=http://localhost:8080/login-google&response_type=code
+    &client_id=390029381067-iqks8f3944br60f97tbi2k3tcgahu3ia.apps.googleusercontent.com&approval_prompt=force}">
+				<i class=" fab fa-google"></i> Đăng nhập bằng Google
+			</button>
+		</div>
+	</form> -->
+
+	<input type="hidden" name="${_csrf.parameterName}"
+		value="${_csrf.token}" />
+	<div th:replace="/user/footer :: foot"></div>
+
+	<script type="text/javascript"
+		th:src="@{/assets/js/vendor/modernizr-3.5.0.min.js}"></script>
+	<!-- Jquery, Popper, Bootstrap -->
+	<script type="text/javascript"
+		th:src="@{/assets/js/vendor/jquery-1.12.4.min.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/js/popper.min.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/js/bootstrap.min.js}"></script>
+	<!-- Jquery Mobile Menu -->
+	<script type="text/javascript"
+		th:src="@{/assets/js/jquery.slicknav.min.js}"></script>
+
+	<!-- Jquery Slick , Owl-Carousel Plugins -->
+	<script type="text/javascript"
+		th:src="@{/assets/js/owl.carousel.min.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/js/slick.min.js}"></script>
+
+	<!-- One Page, Animated-HeadLin -->
+	<script type="text/javascript" th:src="@{/assets/js/wow.min.js}"></script>
+	<script type="text/javascript"
+		th:src="@{/assets/js/animated.headline.js}"></script>
+	<script type="text/javascript"
+		th:src="@{/assets/js/jquery.magnific-popup.js}"></script>
+
+	<!-- Nice-select, sticky -->
+	<script type="text/javascript"
+		th:src="@{/assets/js/jquery.nice-select.min.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/js/jquery.sticky.js}"></script>
+
+	<!-- contact js -->
+	<script type="text/javascript" th:src="@{/assets/js/contact.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/js/jquery.form.js}"></script>
+	<script type="text/javascript"
+		th:src="@{/assets/js/jquery.validate.min.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/js/mail-script.js}"></script>
+	<script type="text/javascript"
+		th:src="@{/assets/js/jquery.ajaxchimp.min.js}"></script>
+
+	<!-- Jquery Plugins, main Jquery -->
+	<script type="text/javascript" th:src="@{/assets/js/plugins.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/js/main.js}"></script>
+</body>
+</html>
