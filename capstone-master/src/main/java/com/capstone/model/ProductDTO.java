@@ -8,6 +8,35 @@ public class ProductDTO {
 	private String productName;
 	private String image;
 	private List<String> resources;
+	private List<ResourceDTO> resource;
+	private List<ProductResourceDTO> productResourceDTOs;
+	private String productDescription;
+
+	public List<ProductResourceDTO> getProductResourceDTOs() {
+		return productResourceDTOs;
+	}
+
+	public void setProductResourceDTOs(List<ProductResourceDTO> productResourceDTOs) {
+		this.productResourceDTOs = productResourceDTOs;
+	}
+
+	public List<ResourceDTO> getResource() {
+		return resource;
+	}
+
+	public void setResource(List<ResourceDTO> resource) {
+		this.resource = resource;
+	}
+
+	
+
+	public String getProductDescription() {
+		return productDescription;
+	}
+
+	public void setProductDescription(String productDescription) {
+		this.productDescription = productDescription;
+	}
 
 	public List<String> getResources() {
 		return this.resources;
@@ -51,7 +80,5 @@ public class ProductDTO {
 	public void setImage(String image) {
 		this.image = image;
 	}
-	
-	
-	
+
 }

@@ -113,7 +113,7 @@ a.underline {
 													<i style="font-style: normal;" th:each="res : ${pro.resources}" th:text="|${res}, |"></i>
 											    </td> 												
 												<td><a
-													th:href="@{'/admin/resource/update?id='+${pro.id}}">Sửa</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+													th:href="@{'/admin/product/edit-product?id='+${pro.id}}">Sửa</a>&nbsp;&nbsp;|&nbsp;&nbsp;
 													<a data-target="#confirm-delete" data-toggle="modal" th:data-href="@{'/admin/product/delete?id='+${pro.id}}" th:href="@{#}">Xoá</a>
 												</td>
 											</tr>

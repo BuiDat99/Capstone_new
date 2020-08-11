@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.capstone.dao.ProductDAO;
+import com.capstone.dao.ProductResourceDAO;
 import com.capstone.entity.Product;
 import com.capstone.entity.ProductResource;
 import com.capstone.entity.Resource;
@@ -25,14 +26,17 @@ public class ProductServiceimpl implements ProductService {
 	@Autowired
 	private ProductDAO productDao;
 	
+	@Autowired
+	private ProductResourceDAO productResourceDAO;
+	
 	@Override
-	public void addProduct(ProductDTO product) {
+	public void addProduct(ProductDTO productDTO) {
 		Product p = new Product();
-		p.setImage(product.getImage());
-		p.setProductName(product.getProductName());
+		p.setImage(productDTO.getImage());
+		p.setProductName(productDTO.getProductName());
 		productDao.addProduct(p);		
 		//tao moi 1 product
-		product.setId(p.getId());
+		productDTO.setId(p.getId());
 		// lay duoc id cua product
 		
 		ResourceDTO resource = new ResourceDTO();
@@ -50,13 +54,23 @@ public class ProductServiceimpl implements ProductService {
 
 	@Override
 	public void updateProduct(ProductDTO productDTO) {
-		// TODO Auto-generated method stub
+		Product p =new Product();
+		if(productDTO.getImage()!=null) {
+			p.setImage(productDTO.getImage());
+		}
+		p.setId(productDTO.getId());
+		p.setProductDescription(productDTO.getProductDescription());
+		p.setProductName(productDTO.getProductName());
+		productDao.updateProduct(p);		
 		
 	}
 
 	@Override
 	public void deleteProduct(int id) {
-		// TODO Auto-generated method stub
+		Product product= productDao.getProductbyId(id);
+		if(product!=null) {
+			productDao.deleteProduct(product);
+		}
 		
 	}
 
@@ -86,8 +100,25 @@ public class ProductServiceimpl implements ProductService {
 
 	@Override
 	public ProductDTO getProductbyId(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		ProductDTO productDTO =new ProductDTO();
+		Product product= productDao.getProductbyId(id);
+		productDTO.setId(product.getId());
+		productDTO.setImage(product.getImage());
+		productDTO.setProductName(product.getProductName());
+		List<ProductResource> productResources= productResourceDAO.getProductResourceByProductId(id);
+		List<ResourceDTO> resourceDTOs= new ArrayList<>();
+		List<String> strings = new ArrayList<>();
+		for(ProductResource productResource:productResources) {
+			ResourceDTO dto= new ResourceDTO();
+			dto.setId(productResource.getResource().getId());
+			dto.setResourceName(productResource.getResource().getResourceName());
+			resourceDTOs.add(dto);
+			strings.add(productResource.getResource().getResourceName());
+		}
+		productDTO.setResource(resourceDTOs);
+		productDTO.setResources(strings);
+		productDTO.setProductDescription(product.getProductDescription());
+		return productDTO;
 	}
 
 }

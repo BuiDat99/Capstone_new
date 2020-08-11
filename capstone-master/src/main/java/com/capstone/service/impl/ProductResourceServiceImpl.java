@@ -73,7 +73,7 @@ public class ProductResourceServiceImpl implements ProductResourceService {
 
 	@Override
 	public void deleteProductResource(int id) {
-		ProductResource pr = productResourceDAO.getProductResourceByProductId(id);
+		ProductResource pr = productResourceDAO.getProductResourcebyId(id);
 		
 		if(pr != null) {
 			productResourceDAO.deleteProductResourc(pr);
@@ -119,9 +119,29 @@ public class ProductResourceServiceImpl implements ProductResourceService {
 	}
 
 	@Override
-	public ProductResourceDTO getProductResourceByProductId(int id) {
+	public List<ProductResourceDTO> getProductResourceByProductId(int id) {
 		
-		return null;
+		List<ProductResource> prs = productResourceDAO.getProductResourceByProductId(id);
+		List<ProductResourceDTO> dtos = new ArrayList<ProductResourceDTO>();
+		for(ProductResource pr: prs) {
+			ProductResourceDTO dto = new ProductResourceDTO();
+			dto.setId(pr.getId());
+			
+			ProductDTO pdto = new ProductDTO();
+			pdto.setId(pr.getProduct().getId());
+			pdto.setProductName(pr.getProduct().getProductName());
+			pdto.setImage(pr.getProduct().getImage());
+			dto.setProduct(pdto);
+			
+			ResourceDTO rdto = new ResourceDTO();
+			rdto.setId(pr.getResource().getId());
+			rdto.setResourceName(pr.getResource().getResourceName());		
+			dto.setResource(rdto);
+			
+			
+			dtos.add(dto);
+		}
+		return dtos;
 		
 	}
 

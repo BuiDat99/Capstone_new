@@ -19,5 +19,5 @@ public interface ProductResourceService {
 	
 	public ProductResourceDTO getProductResourcebyId(int id);
 	
-	public ProductResourceDTO getProductResourceByProductId(int id);
+	public List<ProductResourceDTO> getProductResourceByProductId(int id);
 }

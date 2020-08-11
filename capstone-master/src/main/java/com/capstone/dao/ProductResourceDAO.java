@@ -16,5 +16,5 @@ public interface ProductResourceDAO {
 	
 	public ProductResource getProductResourcebyId(int id);
 	
-	public ProductResource getProductResourceByProductId(int id);
+	public List<ProductResource> getProductResourceByProductId(int id);
 }

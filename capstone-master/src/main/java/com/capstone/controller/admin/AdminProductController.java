@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -58,6 +59,10 @@ public class AdminProductController {
 
 	@Autowired
 	private ResourceRepository resourceRepository;
+	
+	@Autowired
+	private ProductResourceService productResourceService;
+	
 
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
@@ -102,20 +107,49 @@ public class AdminProductController {
 		p.setProductDescription(productDescription);
 		p.setImage(imgurUtil.uploadImage(file));
 		p = productRepository.save(p);
-
+		
 		return p.getId();
+	}
+	
+	@GetMapping(value = "/admin/product/edit-product")
+	public String editProduct(HttpServletRequest request, @RequestParam  (name="id") int id,Model model) {
+		ProductDTO productDTO= productService.getProductbyId(id);
+		model.addAttribute("productDTO", productDTO);
+		List<ResourceCategoryDTO> categoryList = categoryService.getAllCategories();
+		request.setAttribute("categoryList", categoryList);
+		return "admin/product/edit-product";
+	}
+
+	@PostMapping(value = "/admin/product/edit-product")
+	public @ResponseBody void editProductPost(HttpServletRequest request,
+			@RequestParam(value = "productName", required = false) String productName,
+			@RequestParam(value = "productDescription", required = false) String productDescription,
+			@RequestParam(value = "image", required = false) MultipartFile file,
+			@RequestParam(value="id") int id) {
+		
+		ProductDTO p = new ProductDTO();
+		p.setProductName(productName);
+		p.setProductDescription(productDescription);
+		p.setImage(imgurUtil.uploadImage(file));
+		productService.updateProduct(p);
+		List<ProductResourceDTO> productResourceDTOs= productResourceService.getProductResourceByProductId(id);
+		for(ProductResourceDTO productResourceDTO:productResourceDTOs) {
+			productResourceService.deleteProductResource(productResourceDTO.getId());
+		}
+		
+		
 	}
 
 	@PostMapping(value = "/admin/product/add-resources-to-product", consumes = MediaType.APPLICATION_JSON_VALUE, produces = "text/plain;charset=UTF-8")
 	public String addResourceToProduct(HttpServletRequest request,
-			@RequestBody ProductResource2Dto productResourceDto) {
+			@RequestBody ProductResource2Dto ProductResource2Dto) {
 		List<ProductDTO> listProduct = productService.getAllProducts();
 		request.setAttribute("listProduct", listProduct);
 		List<ProductResourceDTO> listPr = prService.getAllProductResource();
 		request.setAttribute("listPr", listPr);
 
-		Product p = productRepository.findById(productResourceDto.getProductId()).get();
-		for (Resource2Dto r : productResourceDto.getResources()) {
+		Product p = productRepository.findById(ProductResource2Dto.getProductId()).get();
+		for (Resource2Dto r : ProductResource2Dto.getResources()) {
 			Resource res = resourceRepository.findById(r.getId()).get();
 			ProductResource prodResource = new ProductResource();
 			prodResource.setResource(res);
@@ -123,8 +157,26 @@ public class AdminProductController {
 			prodResource.setKcal1g(r.getGram());
 			productResourceRepository.save(prodResource);
 		}
+		
+		
 
 		return "admin/product/manage-product";
+	}
+	@PostMapping(value = "/admin/product/edit-resources-to-product")
+	public void editResourceToProduct(HttpServletRequest request,
+			@RequestBody ProductResource2Dto productResourceDto) {
+		List<ProductResourceDTO> productResourceDTOs= productResourceService.getProductResourceByProductId(productResourceDto.getProductId());
+		ProductDTO productDTO= productService.getProductbyId(productResourceDto.getProductId());
+		Product product= new Product();
+		product.setId(productDTO.getId());
+		for (Resource2Dto r : productResourceDto.getResources()) {
+			Resource res = resourceRepository.findById(r.getId()).get();
+			ProductResource prodResource = new ProductResource();
+			prodResource.setResource(res);
+			prodResource.setProduct(product);
+			prodResource.setKcal1g(r.getGram());
+			productResourceRepository.save(prodResource);
+		}
 	}
 	
 	@GetMapping(value = "/admin/product/delete")

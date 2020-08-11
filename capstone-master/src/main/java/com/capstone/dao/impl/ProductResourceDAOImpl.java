@@ -51,11 +51,9 @@ public class ProductResourceDAOImpl implements ProductResourceDAO {
 	}
 
 	@Override
-	public ProductResource getProductResourceByProductId(int id) {
-		String jql = "select pr from ProductResource pr where pr.product_Id =: pId ";
-		Query query = entityManager.createQuery(jql,ProductResource.class);
-		query.setParameter("pId",id);
-		return entityManager.find(ProductResource.class, id);
+	public List<ProductResource> getProductResourceByProductId(int id) {
+		String jql = "select pr from ProductResource pr join pr.product p where p.id =: pId";
+		return entityManager.createQuery(jql,ProductResource.class).setParameter("pId", id).getResultList();
 	}
 
 }
