@@ -15,7 +15,8 @@
 <!-- CUSTOM STYLES-->
 <link th:href="@{/css/custom.css}" rel="stylesheet" />
 <!-- GOOGLE FONTS-->
-
+	<link th:href="@{/css/jquery-ui.min.css}" rel="stylesheet" type="text/css">
+	<link th:href="@{/css/multi-select.css}" rel="stylesheet" type="text/css">
 <link th:href="@{/js/dataTables/dataTables.bootstrap.css}"
 	rel="stylesheet" />
 </head>
@@ -45,34 +46,35 @@
 									<div class="col-md-6">
 										<h3>Thông tin nguyên liệu</h3>
 
-										<form role="form" th:action="@{/admin/resource/update}"
-											method="post" th:object="${resource}"
-											enctype="multipart/form-data">
+										<form role="form" id ="form" th:action="@{/admin/menu/edit-menu}"
+											method="post" th:object="${menuDTO}"
+											>
 
 											<input class="form-control" type="hidden" th:field="*{id}" />
 											<div class="form-group">
-												<label>Tên nguyên liệu:</label> <input class="form-control"
-													placeholder="Tên nguyên liệu" th:field="*{resourceName}" />
+												<label>Tên menu:</label> <input class="form-control"
+													placeholder="Tên menu" th:field="*{menuName}" id="menuName" />
 											</div>
 
 											<div class="form-group">
-												<label>Mô tả</label> <input class="form-control"
-													placeholder="Mô tả" th:field="*{resourceDescription}" />
+												<label>Mo ta:</label> <input class="form-control"
+													placeholder="mo ta" name="menuDescription" th:field="*{menuDescription}"  id="menuDescription"/>
 											</div>
 											<div class="form-group">
-												<label>Hình ảnh</label> <input class="form-control"
-													placeholder="gram" th:field="*{image}" />
+												<label>hashtag</label> <input class="form-control"
+													placeholder="Tên menu" name="hashtag" th:field="*{hashtag}"   id="hashtag"/>
 											</div>
 											<div class="form-group">
-												<label>Lượng calo trên 1g</label> <input
-													class="form-control" placeholder="gram"
-													th:field="*{kcal1g}" />
+												<label>user</label> <input class="form-control"
+													placeholder="user" name="userId" th:field="*{userId}" id="userId" />
 											</div>
 											<div class="form-group">
-												<label>CategoryId</label> <select th:field="*{category.id}">
-													<option class="form-control" th:each="cat: ${categoryList}"
-														th:value="${cat.id}" th:text="${cat.categoryName}"></option>
-												</select>
+												<label>mon an</label>
+												<div>
+													<select id='productId' multiple='multiple' >
+														<option th:each="p: ${listMP} " th:value="${p.product.id}" th:text="${p.product.productName}" selected></option>
+													</select>
+												</div>
 											</div>
 
 
@@ -110,10 +112,64 @@
 	<!-- DATA TABLE SCRIPTS -->
 	<script th:src="@{/js/dataTables/jquery.dataTables.js}"></script>
 	<script th:src="@{/js/dataTables/dataTables.bootstrap.js}"></script>
+	<script th:src="@{/js/jquery-ui.min.js}"></script>
+	<script th:src="@{/js/jquery.multi-select.js}"></script>
 	<script>
-            $(document).ready(function () {
-                $('#dataTables-example').dataTable();
-            });
+	$(document)
+	.ready(
+		function () {
+
+			//load data dropdown user group
+			$.ajax({
+				url: document.location.origin
+					+ "/admin/product",
+				type: 'GET',
+				dataType: "json",
+				success: function (resp) {
+					resp.forEach(function (v) {
+						console.log(v.id)
+						$('#productId').append(
+							"<option value='" + v.id + "'>"
+							+ v.productName
+							+ "</option>");
+					})
+					$('#productId')
+						.multiSelect();
+				}
+			});
+
+			$("#btn-reset").click(function () {
+				resourceList = [];
+				drawBottomTable();
+			});
+		})
+		$("#form").submit(function (e) {
+		    e.preventDefault();
+		    var data = {};
+			$("#form").serializeArray().map(function (x) {
+				data[x.name] = x.value;
+			});
+			var listproductId = [];
+			$("#productId option[selected]").map(function (i, el) {
+				listproductId.push($(el).val())
+			});
+			data.listproductId = listproductId;
+			console.log(data)
+			$.ajax({
+				url: document.location.origin + "/admin/menu/edit-menu",
+				dataType: "json",
+				type: 'POST',
+				contentType: "application/json",
+				data: JSON.stringify(data),
+				success: function () {
+					alert("ok");
+				},
+				error: function () {
+					alert("Loi xay ra");
+				}
+			});
+			return false;
+		});
         </script>
 	<!-- CUSTOM SCRIPTS -->
 	<!--        <script th:src="../static/js/custom.js"></script>-->

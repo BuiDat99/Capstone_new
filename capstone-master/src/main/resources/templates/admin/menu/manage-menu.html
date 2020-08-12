@@ -31,7 +31,7 @@ a.underline {
 </style> -->
 </head>
 <body>
-<!-- alert confrim delete -->
+	<!-- alert confrim delete -->
 	<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog"
 		aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
@@ -51,7 +51,7 @@ a.underline {
 		</div>
 	</div>
 	<!--and alert confrim delete -->
-<!-- <input type="hidden" name="page" id="page" /> -->
+	<!-- <input type="hidden" name="page" id="page" /> -->
 	<!-- <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
 		<form id='frmSearch' th:action="@{/admin/resource/search}"
 			method="GET">
@@ -90,39 +90,39 @@ a.underline {
 										border="1">
 										<thead>
 											<div class="row btn">
-												<form th:action="@{/admin/resource/insert}">
+												<form th:action="@{/admin/menu/add-menu}">
 													<button type="submit">Thêm nguyên liệu mới</button>
 
 												</form>
 											</div>
 											<tr>
 												<th>STT</th>
-												<th>Tên Thực Đơn</th>												
+												<th>Tên Thực Đơn</th>
 												<th>Hashtag</th>
-												<th>Món ăn</th>	 											
+												<th>Món ăn</th>
 												<th>Tuỳ chỉnh</th>
 											</tr>
 										</thead>
 										<tbody>
-											<tr class="odd gradeX" th:each="menu : ${listMenu}"   >
+											<tr class="odd gradeX" th:each="menu : ${listMenu}">
 												<td th:text="${menu.id}"></td>
 												<td th:text="${menu.menuName}"></td>
-												<td th:text="${menu.hashtag}"></td>																																				
-											    <td>
-											    <select>
-													<option class="form-control" th:each="mp : ${listMp}"
-														th:value="${mp.menu.id}" th:text="${mp.product.productName}"></option>
-												</select>
-											    </td> 												
-												<td><a
-													th:href="@{'/admin/resource/update?id='+${menu.id}}">Sửa</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-													<a data-target="#confirm-delete" data-toggle="modal" th:data-href="@{'/admin/resource/delete?id='+${menu.id}}" th:href="@{#}">Xoá</a>
+												<td th:text="${menu.hashtag}"></td>
+												<td>
+													<div th:each="mp: ${menu.menuProductDTOs}">
+														<p th:text="${mp.product.productName}"></p>
+													</div>
 												</td>
+												<td><a
+													th:href="@{'/admin/menu/edit-menu?id='+${menu.id}}">Sửa</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+													<a data-target="#confirm-delete" data-toggle="modal"
+													th:data-href="@{'/admin/resource/delete?id='+${menu.id}}"
+													th:href="@{#}">Xoá</a></td>
 											</tr>
 										</tbody>
 
 									</table>
-									<!-- <img alt="" src="/imgData/resource/1.png">	 -->								
+									<!-- <img alt="" src="/imgData/resource/1.png">	 -->
 									<!-- <div class="page">
 										<span th:each="pageIndex : ${listCount}"> <a
 											class="underline" style="cursor: pointer;"
@@ -162,17 +162,23 @@ a.underline {
 	<script th:src="@{/js/dataTables/jquery.dataTables.js}"></script>
 	<script th:src="@{/js/dataTables/dataTables.bootstrap.js}"></script>
 	<script>
-            $(document).ready(function () {
-                $('#dataTables-example').dataTable();
-            });
-        </script>
-         <script>
-        $('#confirm-delete').on('show.bs.modal', function(e) {
-            $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
-            
-            $('.debug-url').html('Delete URL: <strong>' + $(this).find('.btn-ok').attr('href') + '</strong>');
-        });
-    </script>
+		$(document).ready(function() {
+			$('#dataTables-example').dataTable();
+		});
+	</script>
+	<script>
+		$('#confirm-delete').on(
+				'show.bs.modal',
+				function(e) {
+					$(this).find('.btn-ok').attr('href',
+							$(e.relatedTarget).data('href'));
+
+					$('.debug-url').html(
+							'Delete URL: <strong>'
+									+ $(this).find('.btn-ok').attr('href')
+									+ '</strong>');
+				});
+	</script>
 
 
 </body>

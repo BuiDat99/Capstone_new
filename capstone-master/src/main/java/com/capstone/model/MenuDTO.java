@@ -1,12 +1,20 @@
 package com.capstone.model;
 
+import java.util.List;
+
+import lombok.Data;
+
+@Data
 public class MenuDTO {
 
 	private int id;
 	private String hashtag;
 	private String menuName;
 	private AppRoleDTO role;
-	
+	private String menuDescription;
+	private int userId;
+	private List<MenuProductDTO> menuProductDTOs;
+	private List<String> listproductId;
 	public MenuDTO() {
 		// TODO Auto-generated constructor stub
 	}
