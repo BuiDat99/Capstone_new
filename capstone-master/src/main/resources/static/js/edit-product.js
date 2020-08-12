@@ -96,6 +96,7 @@ $("#category").change(function () {
 });
 
 function notify(title, message) {
+	console.log(title)
     $("#notifyModal .modal-title").html(title);
     $("#notifyModal .modal-body").html(message);
     $("#notifyModal").modal({ backdrop: "static" });
@@ -113,7 +114,7 @@ $("#editProduct").submit(function (e) {
     form_data.append('productDescription', productDescription);
     form_data.append('image', image);
     form_data.append('id', id)
-   
+   console.log("123")
     $.ajax({
         url: document.location.origin + "/admin/product/edit-product",
         type: 'POST',
@@ -125,6 +126,7 @@ $("#editProduct").submit(function (e) {
             notify("Lỗi", "Không thể xử lí dữ liệu");
         }
     }).done(function (result) {
+    	console.log("12388080")
         var ProductResource2Dto = {
             resources: resourceList,
             productId:id
@@ -132,17 +134,19 @@ $("#editProduct").submit(function (e) {
         $.ajax({
             url: document.location.origin + "/admin/product/edit-resources-to-product",
             type: 'POST',
-            cache: false,
-            processData: false,
+	        dataType: "text",
             contentType: 'application/json',
             data: JSON.stringify(ProductResource2Dto),
-            error: function () {
-                notify("Lỗi", "Không thể xử lí dữ liệu");
-            }
-        }).done(function (result) {
-            notify("Thông báo", "Thêm món ăn thành công");
+            success: function(data){
+            	
+                notify("Thông báo", "Thêm món ăn thành công");
+		    },
+	        error: function(error){
+	        	console.log(error)
+	        	notify("Lỗi", "Không thể xử lí dữ liệu");
+	        }
+           
         });
-        notify("Thông báo", "Thêm món ăn thành công");
     });
 });
 

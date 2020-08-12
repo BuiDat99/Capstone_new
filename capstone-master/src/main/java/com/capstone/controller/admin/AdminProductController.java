@@ -161,6 +161,7 @@ public class AdminProductController {
 		return "admin/product/manage-product";
 	}
 	@PostMapping(value = "/admin/product/edit-resources-to-product")
+	@ResponseBody
 	public void editResourceToProduct(HttpServletRequest request,
 			@RequestBody ProductResource2Dto ProductResource2Dto) {
 //		List<ProductResourceDTO> productResourceDTOs= productResourceService.getProductResourceByProductId(productResourceDto.getProductId());
