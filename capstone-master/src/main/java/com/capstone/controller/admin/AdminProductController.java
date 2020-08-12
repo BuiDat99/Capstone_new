@@ -125,9 +125,10 @@ public class AdminProductController {
 			@RequestParam(value = "productName", required = false) String productName,
 			@RequestParam(value = "productDescription", required = false) String productDescription,
 			@RequestParam(value = "image", required = false) MultipartFile file,
-			@RequestParam(value="id") int id) {
+			@RequestParam(value="id") int id
+			) {
 		
-		ProductDTO p = new ProductDTO();
+		ProductDTO p = productService.getProductbyId(id);
 		p.setProductName(productName);
 		p.setProductDescription(productDescription);
 		p.setImage(imgurUtil.uploadImage(file));
@@ -157,19 +158,16 @@ public class AdminProductController {
 			prodResource.setKcal1g(r.getGram());
 			productResourceRepository.save(prodResource);
 		}
-		
-		
-
 		return "admin/product/manage-product";
 	}
 	@PostMapping(value = "/admin/product/edit-resources-to-product")
 	public void editResourceToProduct(HttpServletRequest request,
-			@RequestBody ProductResource2Dto productResourceDto) {
-		List<ProductResourceDTO> productResourceDTOs= productResourceService.getProductResourceByProductId(productResourceDto.getProductId());
-		ProductDTO productDTO= productService.getProductbyId(productResourceDto.getProductId());
+			@RequestBody ProductResource2Dto ProductResource2Dto) {
+//		List<ProductResourceDTO> productResourceDTOs= productResourceService.getProductResourceByProductId(productResourceDto.getProductId());
+		ProductDTO productDTO= productService.getProductbyId(ProductResource2Dto.getProductId());
 		Product product= new Product();
 		product.setId(productDTO.getId());
-		for (Resource2Dto r : productResourceDto.getResources()) {
+		for (Resource2Dto r : ProductResource2Dto.getResources()) {
 			Resource res = resourceRepository.findById(r.getId()).get();
 			ProductResource prodResource = new ProductResource();
 			prodResource.setResource(res);

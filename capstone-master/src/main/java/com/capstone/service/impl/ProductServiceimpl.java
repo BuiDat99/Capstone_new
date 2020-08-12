@@ -54,11 +54,9 @@ public class ProductServiceimpl implements ProductService {
 
 	@Override
 	public void updateProduct(ProductDTO productDTO) {
-		Product p =new Product();
-		if(productDTO.getImage()!=null) {
-			p.setImage(productDTO.getImage());
-		}
-		p.setId(productDTO.getId());
+		Product p =productDao.getProductbyId(productDTO.getId());
+		
+		p.setImage(productDTO.getImage());
 		p.setProductDescription(productDTO.getProductDescription());
 		p.setProductName(productDTO.getProductName());
 		productDao.updateProduct(p);		

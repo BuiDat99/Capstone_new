@@ -107,11 +107,13 @@ $("#editProduct").submit(function (e) {
     var productDescription = CKEDITOR.instances.productDescription.getData();
     var image = $('#image')[0].files[0];
     var id =$("#id").val();
+   
     var form_data = new FormData();
     form_data.append('productName', productName);
     form_data.append('productDescription', productDescription);
     form_data.append('image', image);
     form_data.append('id', id)
+   
     $.ajax({
         url: document.location.origin + "/admin/product/edit-product",
         type: 'POST',
@@ -130,6 +132,8 @@ $("#editProduct").submit(function (e) {
         $.ajax({
             url: document.location.origin + "/admin/product/edit-resources-to-product",
             type: 'POST',
+            cache: false,
+            processData: false,
             contentType: 'application/json',
             data: JSON.stringify(ProductResource2Dto),
             error: function () {
