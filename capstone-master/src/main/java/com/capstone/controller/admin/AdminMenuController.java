@@ -16,6 +16,7 @@ import com.capstone.service.MenuService;
 @Controller
 public class AdminMenuController {
  
+	
 	@Autowired
 	private MenuService menuService;
 	
