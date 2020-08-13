@@ -47,7 +47,7 @@
 										<h3>Thông tin nguyên liệu</h3>
 
 										<form role="form" id ="form" th:action="@{/admin/menu/edit-menu}"
-											method="post" th:object="${menuDTO}"
+											method="post" th:object="${menuDTO}" 
 											>
 
 											<input class="form-control" type="hidden" th:field="*{id}" />
@@ -72,7 +72,6 @@
 												<label>mon an</label>
 												<div>
 													<select id='productId' multiple='multiple' >
-														<option th:each="p: ${listMP} " th:value="${p.product.id}" th:text="${p.product.productName}" selected></option>
 													</select>
 												</div>
 											</div>
@@ -114,7 +113,7 @@
 	<script th:src="@{/js/dataTables/dataTables.bootstrap.js}"></script>
 	<script th:src="@{/js/jquery-ui.min.js}"></script>
 	<script th:src="@{/js/jquery.multi-select.js}"></script>
-	<script>
+	<script th:inline="javascript">
 	$(document)
 	.ready(
 		function () {
@@ -135,8 +134,18 @@
 					})
 					$('#productId')
 						.multiSelect();
+					
+					var menuProductDTOs = [[${menuDTO.menuProductDTOs}]];
+					
+					var listproductId = menuProductDTOs.map(item =>{
+						return item.product.id;
+					})
+					$('#productId').val(listproductId)
+		        	$('#productId').multiSelect("refresh");
 				}
+			
 			});
+			
 
 			$("#btn-reset").click(function () {
 				resourceList = [];

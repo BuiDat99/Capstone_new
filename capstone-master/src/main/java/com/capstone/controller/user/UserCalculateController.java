@@ -44,8 +44,8 @@ public class UserCalculateController {
 			return "/user/result_bmi_caculate";
 		}
 		
-		height = height / 100;
-		double bmi = weight / (height * height);
+		double heights = height / 100;
+		double bmi = weight / (heights * heights);
 		String tinhtrangBMI = null;
 		
 		

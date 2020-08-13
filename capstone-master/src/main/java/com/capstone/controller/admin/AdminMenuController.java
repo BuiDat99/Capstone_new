@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.capstone.dao.ProductDAO;
+import com.capstone.entity.NewCategory;
 import com.capstone.model.MenuDTO;
 import com.capstone.model.MenuProductDTO;
 import com.capstone.model.ProductDTO;
@@ -32,7 +34,7 @@ public class AdminMenuController {
 	
 	@Autowired
 	private MenuProductService mpService;
-	
+
 	@Autowired
 	private ProductService productService;
 	
@@ -80,9 +82,6 @@ public class AdminMenuController {
 	public String updateMenuGet(HttpServletRequest request,@RequestParam (name="id") int id ,Model model) {
 		MenuDTO menuDTO=menuService.getMenubyId(id);
 		model.addAttribute("menuDTO", menuDTO);
-		
-		List<MenuProductDTO> dtos=menuDTO.getMenuProductDTOs();
-		request.setAttribute("listMP",dtos );
 		return "admin/menu/edit-menu";
 	}
 	
@@ -90,13 +89,29 @@ public class AdminMenuController {
 	@ResponseBody
 	public MenuDTO updateMenuPost(HttpServletRequest request ,
 			@RequestBody MenuDTO menuDTO) {
-		System.out.println(menuDTO);
-		//menuService.updateMenu(menuDTO);
+		MenuDTO menuDTO2= menuService.getMenubyId(menuDTO.getId());
+		menuService.updateMenu(menuDTO);
+		for(MenuProductDTO menuProductDTO:menuDTO2.getMenuProductDTOs()) {
+			System.out.println(menuProductDTO.getId());
+			mpService.deleteMenuProduct(menuProductDTO.getId());
+		}
+		for(String string: menuDTO.getListproductId()) {
+			ProductDTO productDTO= productService.getProductbyId(Integer.parseInt(string));
+			MenuProductDTO menuProductDTO = new MenuProductDTO();
+			menuProductDTO.setProduct(productDTO);
+			menuProductDTO.setMenu(menuDTO);
+			mpService.addMenuProduct(menuProductDTO);
+		}
 		return menuDTO;
 		
 	}
 	@GetMapping(value = "/admin/product")
 	public @ResponseBody List<ProductDTO> getAllProduct() {
 		return productService.getAllProducts();
+	}
+	@GetMapping(value = "/admin/menu/delete-menu")
+	public String deleteMenuGet(HttpServletRequest request,@RequestParam(name="id")  int id) {
+		menuService.deleteMenu(id);
+		return "redirect:/admin/menu/search";	
 	}
 }

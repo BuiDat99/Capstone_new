@@ -3,6 +3,7 @@ package com.capstone.entity;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -40,6 +41,6 @@ public class Menu implements Serializable {
 	@JoinColumn(name="user_Id")
 	private AppUser user;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "menu")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "menu",cascade = CascadeType.ALL)
 	private List<MenuProduct> menuProducts;
 }
