@@ -14,15 +14,15 @@ public interface ResourceDAO {
 	
 	public void deleteResource(Resource resource);
 	
-	public List<Resource> getAllResources();
+	public List<Resource> getAllResources(String a);
 	
-	public List<Resource> getResourceByCategory(String catName);
+	public List<Resource> getResourceByCategory(String a,String catName);
 	
 	public Resource getResourcebyId(int id);
 	
-	public List<Resource> search(String findName, int start, int length);
+	public List<Resource> search(String a,String findName, int start, int length);
 	
-	public int countResourceWhensearch(String name);
+	public int countResourceWhensearch(String a,String name);
 
 	public List<Resource> getResourceFromWithResouceCatId(int id);
 }

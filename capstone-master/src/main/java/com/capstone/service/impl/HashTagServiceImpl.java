@@ -24,6 +24,7 @@ public class HashTagServiceImpl implements HashTagService {
 		HashtagStandard h = new HashtagStandard();
 		h.setTagCode(tag.getTagCode());
 		h.setTagContent(tag.getTagContent());
+		h.setEnable("1");
 		hashtagDao.addTag(h);
 		
 	}
@@ -35,7 +36,7 @@ public class HashTagServiceImpl implements HashTagService {
 		dto.setTagId(tag.getTagId());
 		dto.setTagCode(tag.getTagCode());
 		dto.setTagContent(tag.getTagContent());
-		
+		dto.setEnable(tag.getEnable());
 		return dto;
 	}
 	
@@ -44,7 +45,8 @@ public class HashTagServiceImpl implements HashTagService {
 		HashtagStandard tag = hashtagDao.getTagbyId(tagDTO.getTagId());
 		if(tag != null) {
 			tag.setTagCode(tagDTO.getTagCode());
-			tag.setTagContent(tagDTO.getTagContent());			
+			tag.setTagContent(tagDTO.getTagContent());	
+			tag.setEnable(tagDTO.getEnable());
 			hashtagDao.updateTag(tag);
 		}		
 		
@@ -60,15 +62,15 @@ public class HashTagServiceImpl implements HashTagService {
 	}
 
 	@Override
-	public List<HashTagDTO> getAllTags() {
-		List<HashtagStandard> tags = hashtagDao.getAllTags();
+	public List<HashTagDTO> getAllTags(String enable) {
+		List<HashtagStandard> tags = hashtagDao.getAllTags(enable);
 		List<HashTagDTO> dtos = new ArrayList<HashTagDTO>();
 		for(HashtagStandard h: tags) {
 			HashTagDTO dto = new HashTagDTO();
 			dto.setTagId(h.getTagId());
 			dto.setTagCode(h.getTagCode());
 			dto.setTagContent(h.getTagContent());
-			
+			dto.setEnable(h.getEnable());
 			dtos.add(dto);
 		}
 		return dtos;
@@ -76,23 +78,23 @@ public class HashTagServiceImpl implements HashTagService {
 		
 
 	@Override
-	public List<HashTagDTO> search(String name, int start, int length) {
-		List<HashtagStandard> tags = hashtagDao.search(name, start, length);
+	public List<HashTagDTO> search(String enable,String name, int start, int length) {
+		List<HashtagStandard> tags = hashtagDao.search(enable,name, start, length);
 		List<HashTagDTO> dtos = new ArrayList<HashTagDTO>();
 		for(HashtagStandard h: tags) {
 			HashTagDTO dto = new HashTagDTO();
 			dto.setTagId(h.getTagId());
 			dto.setTagCode(h.getTagCode());
 			dto.setTagContent(h.getTagContent());
-			
+			dto.setEnable(h.getEnable());
 			dtos.add(dto);
 		}
 		return dtos;
 	}
 
 	@Override
-	public int countTagWhensearch(String name) {		
-		return hashtagDao.countTagWhensearch(name);
+	public int countTagWhensearch(String enable,String name) {		
+		return hashtagDao.countTagWhensearch(enable,name);
 	}
 
 	

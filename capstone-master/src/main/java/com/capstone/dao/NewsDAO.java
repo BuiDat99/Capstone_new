@@ -12,20 +12,20 @@ public interface NewsDAO {
 	
 	public void deleteNews(News news);
 	
-	public List<News> getAllNews();
+	public List<News> getAllNews(String enable);
 	
-	public List<News> getTop6News();
+	public List<News> getTop6News(String enable);
 	
-	public List<News> getTop4NewsByDate();
+	public List<News> getTop4NewsByDate(String enable);
 	
-	public List<News> getAllNewsOfCat(int catId, int start, int length);
+	public List<News> getAllNewsOfCat(String enable,int catId, int start, int length);
 	
-	public int countNewsOfCategory(int id);
+	public int countNewsOfCategory(String enable,int id);
 	
 	public News getNewsbyId(int id);
 	
-	public List<News> search(String findName, int start, int length);
+	public List<News> search(String enable, String findName, int start, int length);
 	
-	public int countNewsWhensearch(String name);
+	public int countNewsWhensearch(String enable,String name);
 
 }

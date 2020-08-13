@@ -71,8 +71,7 @@ public class AppUserServiceImpl implements AppUserService {
 
 	@Override
 	public void insertWithLoginGoogle(AppUserDTO userDTO) {
-		AppUser user = new AppUser();	
-						
+		AppUser user = new AppUser();				
 		user.setUserName(userDTO.getUsername());
 		user.setEncrytedPassword(userDTO.getPassword());
 		user.setEmail(userDTO.getEmail());

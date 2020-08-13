@@ -41,7 +41,7 @@ public class AdminResourceController {
 		// int pageCount = (totalPage % PAGE_SIZE == 0) ? totalPage / PAGE_SIZE :
 		// totalPage / PAGE_SIZE + 1;
 		// mac dinh 10 ban ghi 1 trang
-		List<ResourceDTO> resourceList = resourceService.getAllResources();
+		List<ResourceDTO> resourceList = resourceService.getAllResources("");
 		// List<Integer> listCount = new ArrayList<Integer>();
 		// for(int i=1;i<=pageCount;i++) {
 		// listCount.add(i);
@@ -56,7 +56,7 @@ public class AdminResourceController {
 	@GetMapping(value = "/admin/resource/insert")
 	public String ResourceInsert(HttpServletRequest request, Model model) {
 		model.addAttribute("resource", new ResourceDTO());
-		List<ResourceCategoryDTO> list = categoryService.search("", 0, 100);
+		List<ResourceCategoryDTO> list = categoryService.search("1","", 0, 100);
 		request.setAttribute("categoryList", list);
 		return "admin/resource/add-resources";
 	}
@@ -67,11 +67,32 @@ public class AdminResourceController {
 		return "redirect:/admin/resource/search";
 
 	}
+	
+	@GetMapping(value = "/admin/resource/khoa")
+	public String AdminkhoaResourcePost(@RequestParam (name = "id") int id) {
+		ResourceDTO resource = resourceService.getResourcebyId(id);
+		
+		resource.setEnable("0");
+		resource.setCategory(resource.getCategory());
+		resourceService.updateResource(resource);
+		return "redirect:/admin/resource/search";
 
+	}
+	@GetMapping(value = "/admin/resource/mokhoa")
+	public String AdminmokhoaResourcePost(@RequestParam (name = "id") int id) {
+		ResourceDTO resource = resourceService.getResourcebyId(id);
+		
+		resource.setEnable("1");
+		resource.setCategory(resource.getCategory());
+		resourceService.updateResource(resource);
+		return "redirect:/admin/resource/search";
+
+	}
+	
 	@GetMapping(value = "/admin/resource/update")
 	public String AdminUpdateResourceGet(HttpServletRequest request, Model model, @RequestParam(name = "id") int id) {
 		ResourceDTO resource = resourceService.getResourcebyId(id);
-		List<ResourceCategoryDTO> list = categoryService.search("", 0, 100);
+		List<ResourceCategoryDTO> list = categoryService.search("1","", 0, 100);
 
 		model.addAttribute("resource", resource);
 		request.setAttribute("categoryList", list);

@@ -89,7 +89,12 @@
 												<td th:text="${tag.tagContent}"></td>
 												<td><a
 													th:href="@{'/admin/tag/update?id='+${tag.tagId}}">Sửa</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-													<a data-target="#confirm-delete" data-toggle="modal" th:data-href="@{'/admin/tag/delete?id='+${tag.tagId}}" th:href="@{#}">Xoá</a></td>
+													<a data-target="#confirm-delete" data-toggle="modal" th:data-href="@{'/admin/tag/delete?id='+${tag.tagId}}" th:href="@{#}">Xoá</a>
+													<div>
+														<a th:if="${tag.enable == '1'}" th:href="@{'/admin/tag/khoa?id='+${tag.tagId}}">khoa</a>
+														<a th:if="${tag.enable == '0'}" th:href="@{'/admin/tag/mokhoa?id='+${tag.tagId}}"> mo khoa</a>
+													</div>
+													</td>
 											</tr>
 										</tbody>
 

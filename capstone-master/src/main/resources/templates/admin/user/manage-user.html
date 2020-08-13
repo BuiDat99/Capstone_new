@@ -31,7 +31,7 @@ a.underline {
 </style> -->
 </head>
 <body>
-<!-- alert confrim delete -->
+	<!-- alert confrim delete -->
 	<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog"
 		aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
@@ -51,7 +51,7 @@ a.underline {
 		</div>
 	</div>
 	<!--and alert confrim delete -->
-<!-- <input type="hidden" name="page" id="page" /> -->
+	<!-- <input type="hidden" name="page" id="page" /> -->
 	<!-- <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
 		<form id='frmSearch' th:action="@{/admin/resource/search}"
 			method="GET">
@@ -89,13 +89,13 @@ a.underline {
 										id="dataTables-example" th:if="${userList.size() != 0}"
 										border="1">
 										<thead>
-											
+
 											<tr>
 												<th>STT</th>
 												<th>Tài khoản</th>
 												<th>Email</th>
 												<th>Role</th>
-												<th>Enable</th>									
+												<th>Enable</th>
 												<th>Tuỳ chỉnh</th>
 											</tr>
 										</thead>
@@ -103,24 +103,27 @@ a.underline {
 											<tr class="odd gradeX" th:each="u : ${userList}">
 												<td th:text="${u.userId}"></td>
 												<td th:text="${u.username}"></td>
-												<td th:text="${u.email}"></td>																																			
+												<td th:text="${u.email}"></td>
+												<td><i style="font-style: normal;"
+													th:each="role : ${u.roles}" th:text="|${role}, |"></i></td>
 												<td>
-													<i style="font-style: normal;" th:each="role : ${u.roles}" th:text="|${role}, |"></i>
-											    </td>												
-												<td>
-												<div >
-												<p th:if="${u.enable == '1'}">Yes</p>
-  												<p th:if="${u.enable == '0'}">No</p> 
-												</div>
+													<div>
+														<p th:if="${u.enable == '1'}">Yes</p>
+														<p th:if="${u.enable == '0'}">No</p>
+													</div>
 												</td>
 												<td><a
-													th:href="@{'/admin/user/update?id='+${u.userId}}">Sửa</a>											
+													th:href="@{'/admin/user/update?id='+${u.userId}}">Sửa</a> 
+													<div>
+														<a th:if="${u.enable == '1'}" th:href="@{'/admin/user/khoa?id='+${u.userId}}">khoa</a>
+														<a th:if="${u.enable == '0'}" th:href="@{'/admin/user/mokhoa?id='+${u.userId}}"> mo khoa</a>
+													</div>
 												</td>
 											</tr>
 										</tbody>
 
 									</table>
-									<!-- <img alt="" src="/imgData/resource/1.png">	 -->								
+									<!-- <img alt="" src="/imgData/resource/1.png">	 -->
 									<!-- <div class="page">
 										<span th:each="pageIndex : ${listCount}"> <a
 											class="underline" style="cursor: pointer;"
@@ -160,17 +163,23 @@ a.underline {
 	<script th:src="@{/js/dataTables/jquery.dataTables.js}"></script>
 	<script th:src="@{/js/dataTables/dataTables.bootstrap.js}"></script>
 	<script>
-            $(document).ready(function () {
-                $('#dataTables-example').dataTable();
-            });
-        </script>
-         <script>
-        $('#confirm-delete').on('show.bs.modal', function(e) {
-            $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
-            
-            $('.debug-url').html('Delete URL: <strong>' + $(this).find('.btn-ok').attr('href') + '</strong>');
-        });
-    </script>
+		$(document).ready(function() {
+			$('#dataTables-example').dataTable();
+		});
+	</script>
+	<script>
+		$('#confirm-delete').on(
+				'show.bs.modal',
+				function(e) {
+					$(this).find('.btn-ok').attr('href',
+							$(e.relatedTarget).data('href'));
+
+					$('.debug-url').html(
+							'Delete URL: <strong>'
+									+ $(this).find('.btn-ok').attr('href')
+									+ '</strong>');
+				});
+	</script>
 
 
 </body>

@@ -37,7 +37,7 @@ public class CommentServiceImpl implements CommentService{
 		m.setComment_Date(comment.getCommentDate());
 		m.setReact(comment.getReact());
 		m.setVote(comment.getVote());
-		
+		m.setEnable("1");
 		AppUser u = userDao.findAppUserbyUserName(username);
 		m.setAppUser(u);
 		
@@ -56,6 +56,7 @@ public class CommentServiceImpl implements CommentService{
 			m.setComment_Date(comment.getCommentDate());
 			m.setReact(comment.getReact());
 			m.setVote(comment.getVote());
+			m.setEnable(comment.getEnable());
 			commentDAO.updateComment(m);
 		}
 		
@@ -82,7 +83,7 @@ public class CommentServiceImpl implements CommentService{
 			dto.setCommentDate(m.getComment_Date());
 			dto.setReact(m.getReact());
 			dto.setVote(m.getVote());
-			
+			dto.setEnable(m.getEnable());
 			AppUserDTO u = new AppUserDTO();
 			u.setUsername(m.getAppUser().getUserName());
 			dto.setUser(u);
@@ -106,14 +107,15 @@ public class CommentServiceImpl implements CommentService{
 		dto.setCommentDate(m.getComment_Date());
 		dto.setReact(m.getReact());
 		dto.setVote(m.getVote());
+		dto.setEnable(m.getEnable());
 		
 		return dto;
 		
 	}
 
 	@Override
-	public List<CommentDTO> getComentbyPostId(int postId, int start, int length) {
-		List<Comment> ms = commentDAO.getComentbyPostId(postId, start, length);
+	public List<CommentDTO> getComentbyPostId(String enable,int postId, int start, int length) {
+		List<Comment> ms = commentDAO.getComentbyPostId(enable,postId, start, length);
 		List<CommentDTO> dtos = new ArrayList<CommentDTO>();
 		for(Comment m: ms) {
 			CommentDTO dto = new CommentDTO();
@@ -122,7 +124,7 @@ public class CommentServiceImpl implements CommentService{
 			dto.setCommentDate(m.getComment_Date());
 			dto.setReact(m.getReact());
 			dto.setVote(m.getVote());
-			
+			dto.setEnable(m.getEnable());
 			AppUserDTO u = new AppUserDTO();
 			u.setUsername(m.getAppUser().getUserName());
 			dto.setUser(u);

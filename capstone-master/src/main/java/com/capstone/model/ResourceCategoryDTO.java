@@ -1,10 +1,13 @@
 package com.capstone.model;
 
+import lombok.Data;
+
+@Data
 public class ResourceCategoryDTO {
 
 	private int id;
 	private String categoryName;
-	
+	private String enable;
 	public ResourceCategoryDTO() {
 		// TODO Auto-generated constructor stub
 	}

@@ -12,7 +12,7 @@ public interface MenuService {
 	
 	public void deleteMenu(int id);
 	
-	public List<MenuDTO> getAllMenu();
+	public List<MenuDTO> getAllMenu(String enable);
 	
 	public MenuDTO getMenubyId(int id);
 }

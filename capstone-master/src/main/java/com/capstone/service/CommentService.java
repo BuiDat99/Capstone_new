@@ -16,7 +16,7 @@ public interface CommentService {
 	
 	public CommentDTO getCommentbyId(int id);
 	
-	public List<CommentDTO> getComentbyPostId(int postId, int start, int length);
+	public List<CommentDTO> getComentbyPostId(String enable,int postId, int start, int length);
 	
 	public int countCommentOfPost(int id);
 }

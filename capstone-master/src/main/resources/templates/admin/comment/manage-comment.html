@@ -97,7 +97,13 @@
 												<td th:text="${com.react}"></td>
 												<td><a
 													th:href="@{'/admin/comment/update?id='+${com.id}}">Sửa</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-													<a data-target="#confirm-delete" data-toggle="modal" th:data-href="@{'/admin/comment/delete?id='+${com.id}}" th:href="@{#}">Xoá</a></td>
+													<a data-target="#confirm-delete" data-toggle="modal" th:data-href="@{'/admin/comment/delete?id='+${com.id}}" th:href="@{#}">Xoá</a>
+													<div>
+														<a th:if="${com.enable == '1'}" th:href="@{'/admin/comment/khoa?id='+${com.id}}">khoa</a>
+														<a th:if="${com.enable == '0'}" th:href="@{'/admin/comment/mokhoa?id='+${com.id}}"> mo khoa</a>
+													</div>
+													
+													</td>
 											</tr>
 										</tbody>
 

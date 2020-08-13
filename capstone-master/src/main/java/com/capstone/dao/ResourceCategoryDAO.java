@@ -12,11 +12,11 @@ public interface ResourceCategoryDAO {
 	
 	public void deleteCategory(ResourceCategory category);
 	
-	public List<ResourceCategory> getAllCategories();
+	public List<ResourceCategory> getAllCategories(String b);
 	
 	public ResourceCategory getCategorybyId(int id);
 	
-	public List<ResourceCategory> search(String findName, int start, int length);
+	public List<ResourceCategory> search(String b,String findName, int start, int length);
 	
-	public int countCategoryWhensearch(String name);
+	public int countCategoryWhensearch(String b,String name);
 }

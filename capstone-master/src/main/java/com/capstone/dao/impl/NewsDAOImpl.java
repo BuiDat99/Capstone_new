@@ -38,21 +38,21 @@ public class NewsDAOImpl implements NewsDAO {
 	}
 
 	@Override
-	public List<News> getAllNews() {
-		String jql = "select n from News n";
-		return entityManager.createQuery(jql,News.class).getResultList();
+	public List<News> getAllNews(String enable) {
+		String jql = "select n from News n where status like :status";
+		return entityManager.createQuery(jql,News.class).setParameter("status","%"+ enable+"%").getResultList();
 	}
 	
 	@Override
-	public List<News> getTop6News() {
-		String jql = "select n from News n";
-		return entityManager.createQuery(jql,News.class).setMaxResults(6).getResultList();
+	public List<News> getTop6News(String enable) {
+		String jql = "select n from News n status like :status";
+		return entityManager.createQuery(jql,News.class).setParameter("status", "%"+ enable+"%").setMaxResults(6).getResultList();
 	}
 	
 	@Override
-	public List<News> getTop4NewsByDate() {
-		String jql = "select n from News n order by creationDate desc";
-		return entityManager.createQuery(jql,News.class).setMaxResults(4).getResultList();
+	public List<News> getTop4NewsByDate(String enable) {
+		String jql = "select n from News n where status like :status order by creationDate desc ";
+		return entityManager.createQuery(jql,News.class).setParameter("status","%"+ enable+"%").setMaxResults(4).getResultList();
 	}
 
 	@Override
@@ -61,35 +61,35 @@ public class NewsDAOImpl implements NewsDAO {
 	}
 
 	@Override
-	public List<News> search(String findName, int start, int length) {
-		String jql = "select n from News n where title like :title";
+	public List<News> search(String enable,String findName, int start, int length) {
+		String jql = "select n from News n where title like :title and status like :status";
 		Query query = entityManager.createQuery(jql,News.class);
-		query.setParameter("title", "%" + findName + "%");
+		query.setParameter("title", "%" + findName + "%").setParameter("status","%"+ enable+"%");
 		query.setFirstResult(start).setMaxResults(length);
 		return query.getResultList();
 	}
 
 	@Override
-	public int countNewsWhensearch(String name) {
-		String jql="select n from News n where title like :title";
+	public int countNewsWhensearch(String enable,String name) {
+		String jql="select n from News n where title like :title and status like :status ";
 		Query query = entityManager.createQuery(jql,News.class);
-		query.setParameter("title", "%" + name + "%");
+		query.setParameter("title", "%" + name + "%").setParameter("status", "%"+ enable+"%");
 		return (int) query.getResultList().size();
 	}
 
 	@Override
-	public int countNewsOfCategory(int id) {
-		String jql="select n from News n inner join NewCategory c on c.id=n.category.id where n.category.id=:id";
+	public int countNewsOfCategory(String enable,int id) {
+		String jql="select n from News n inner join NewCategory c on c.id=n.category.id where n.category.id=:id and n.status like :status";
 		Query query = entityManager.createQuery(jql,News.class);
-		query.setParameter("id",id);
+		query.setParameter("id",id).setParameter("status", "%"+ enable+"%");
 		return (int) query.getResultList().size();
 	}
 
 	@Override
-	public List<News> getAllNewsOfCat(int catId, int start, int length) {
-		String jql="select n from News n where n.category.id=:catId";
+	public List<News> getAllNewsOfCat(String enable,int catId, int start, int length) {
+		String jql="select n from News n where n.category.id=:catId and status like :status";
 		Query query = entityManager.createQuery(jql,News.class);
-		query.setParameter("catId",catId);
+		query.setParameter("catId",catId).setParameter("status", "%"+ enable+"%");
 		query.setFirstResult(start).setMaxResults(length);
 		return query.getResultList();
 	}

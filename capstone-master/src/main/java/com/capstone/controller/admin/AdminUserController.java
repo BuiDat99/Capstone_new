@@ -59,6 +59,20 @@ public class AdminUserController {
 	public String AdminAddUserGet() {
 		return "admin/user/userAdd";
 	}
+	@GetMapping(value = "/admin/user/mokhoa")
+	public String AdminmokhoaUserGet(@RequestParam (name="id") int id) {
+		AppUserDTO appUserDTO= userService.get(id);
+		appUserDTO.setEnable("1");
+		userService.update(appUserDTO);
+		return "redirect:/admin/user/search";
+	}
+	@GetMapping(value = "/admin/user/khoa")
+	public String AdminkhoaUserGet(@RequestParam (name="id") int id) {
+		AppUserDTO appUserDTO= userService.get(id);
+		appUserDTO.setEnable("0");
+		userService.update(appUserDTO);
+		return "redirect:/admin/user/search";
+	}
 
 	@PostMapping(value = "/admin/user/insert")
 	public String AdminAddUserPost(@ModelAttribute(name = "adduser") AppUserDTO user) {

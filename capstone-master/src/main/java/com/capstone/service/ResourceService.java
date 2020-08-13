@@ -14,15 +14,15 @@ public interface ResourceService {
 	
 	public void deleteResource(int id);
 	
-	public List<ResourceDTO> getAllResources();
+	public List<ResourceDTO> getAllResources(String a);
 	
-	public List<ResourceDTO> getResourceByCategory(String catName);
+	public List<ResourceDTO> getResourceByCategory(String a,String catName);
 	
 	public ResourceDTO getResourcebyId(int id);
 	
-	public List<ResourceDTO> search(String findName, int start, int length);
+	public List<ResourceDTO> search(String a,String findName, int start, int length);
 	
-	public int countResourceWhensearch(String name);
+	public int countResourceWhensearch(String a,String name);
 
 	public List<ResourceDTO> getResourceFromWithResouceCatId(int id);
 }

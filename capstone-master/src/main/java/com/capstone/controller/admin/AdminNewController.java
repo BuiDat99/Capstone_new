@@ -37,7 +37,7 @@ public class AdminNewController {
 //		int totalPage = newsService.countNewsWhensearch(keyword);
 //		int pageCount = (totalPage % PAGE_SIZE == 0) ? totalPage / PAGE_SIZE : totalPage / PAGE_SIZE + 1;
 //		// mac dinh 10 ban ghi 1 trang
-		List<NewsDTO> newsList = newsService.getAllNews();
+		List<NewsDTO> newsList = newsService.getAllNews("");
 		List<Integer> listCount = new ArrayList<Integer>();
 //		for(int i=1;i<=pageCount;i++) {
 //			listCount.add(i);
@@ -52,7 +52,7 @@ public class AdminNewController {
 	@GetMapping(value = "/admin/news/insert")
     public String NewsInsert(HttpServletRequest request, Model model) {
 		model.addAttribute("news", new NewsDTO());
-		List<NewCategoryDTO> list = categoryService.search("", 0, 100);
+		List<NewCategoryDTO> list = categoryService.search("1","", 0, 100);
 		request.setAttribute("categoryList", list);
         return "admin/news/add-news";
     }
@@ -67,7 +67,7 @@ public class AdminNewController {
 	@GetMapping(value = "/admin/news/update")
 	public String AdminUpdateNewGet(HttpServletRequest request,Model model, @RequestParam(name = "id") int id) {
 		NewsDTO news = newsService.getNewsbyId(id);
-		List<NewCategoryDTO> list = categoryService.search("", 0, 100);
+		List<NewCategoryDTO> list = categoryService.search("1","", 0, 100);
 		
 		model.addAttribute("news", news);
 		request.setAttribute("categoryList", list);
@@ -76,6 +76,20 @@ public class AdminNewController {
 
 	@PostMapping(value = "/admin/news/update")
 	public String AdminUpdateNewsPost(@ModelAttribute(name = "category") NewsDTO news) {
+		newsService.updateNews(news);
+		return "redirect:/admin/news/search";
+	}
+	@GetMapping(value = "/admin/news/mokhoa")
+	public String AdminUpdatemoNewsPost(@RequestParam(name = "id") int id) {
+		NewsDTO news = newsService.getNewsbyId(id);
+		news.setStatus("1");
+		newsService.updateNews(news);
+		return "redirect:/admin/news/search";
+	}
+	@GetMapping(value = "/admin/news/khoa")
+	public String AdminUpdatekhoaNewsPost(@RequestParam(name = "id") int id) {
+		NewsDTO news = newsService.getNewsbyId(id);
+		news.setStatus("0");
 		newsService.updateNews(news);
 		return "redirect:/admin/news/search";
 	}

@@ -24,4 +24,7 @@ public class ResourceCategory implements Serializable {
 	
 	@Column(name = "category_Name", length = 255, nullable = false)
 	private String categoryName;
+	
+	@Column(name = "enable")
+    private String enable;
 }

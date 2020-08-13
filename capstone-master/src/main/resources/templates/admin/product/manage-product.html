@@ -115,6 +115,10 @@ a.underline {
 												<td><a
 													th:href="@{'/admin/product/edit-product?id='+${pro.id}}">Sửa</a>&nbsp;&nbsp;|&nbsp;&nbsp;
 													<a data-target="#confirm-delete" data-toggle="modal" th:data-href="@{'/admin/product/delete?id='+${pro.id}}" th:href="@{#}">Xoá</a>
+													<div>
+														<a th:if="${pro.enable == '1'}" th:href="@{'/admin/product/khoa?id='+${pro.id}}">khoa</a>
+														<a th:if="${pro.enable == '0'}" th:href="@{'/admin/product/mokhoa?id='+${pro.id}}"> mo khoa</a>
+													</div>
 												</td>
 											</tr>
 										</tbody>

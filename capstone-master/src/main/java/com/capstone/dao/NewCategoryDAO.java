@@ -12,11 +12,11 @@ public interface NewCategoryDAO {
 	
 	public void deleteCategory(NewCategory category);
 	
-	public List<NewCategory> getAllCategories();
+	public List<NewCategory> getAllCategories(String e);
 	
 	public NewCategory getCategorybyId(int id);
 	
-	public List<NewCategory> search(String findName, int start, int length);
+	public List<NewCategory> search(String e,String findName, int start, int length);
 	
-	public int countCategoryWhensearch(String name);
+	public int countCategoryWhensearch(String e,String name);
 }

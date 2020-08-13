@@ -66,4 +66,5 @@ public class News implements Serializable{
 	@ManyToOne
 	@JoinColumn(name="user_Id")
 	private AppUser appUser;
+	
 }

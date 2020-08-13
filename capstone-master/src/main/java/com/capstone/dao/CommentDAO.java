@@ -14,7 +14,7 @@ public interface CommentDAO {
 	
 	public List<Comment> getAllComment();
 	
-	public List<Comment> getComentbyPostId(int postId, int start, int length);
+	public List<Comment> getComentbyPostId(String enable,int postId, int start, int length);
 	
 	public int countCommentOfPost(int id);
 	

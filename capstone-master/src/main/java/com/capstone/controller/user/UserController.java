@@ -38,7 +38,7 @@ public class UserController {
 	private CommentService commentService;
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String home(HttpServletRequest request) {
-		List<NewsDTO> listNews = newsService.getTop6News();
+		List<NewsDTO> listNews = newsService.getTop6News("1");
 		request.setAttribute("NewList", listNews);
 		return "/user/home";
 	}
@@ -52,9 +52,9 @@ public class UserController {
 			final int PAGE_SIZE = 1;
 			page = page == null ? 1 : page;
 			keyword = keyword == null ? "" : keyword;
-			int totalPage = newsService.countNewsWhensearch(keyword);
+			int totalPage = newsService.countNewsWhensearch("1",keyword);
 			int pageCount = (totalPage % PAGE_SIZE == 0) ? totalPage / PAGE_SIZE : totalPage / PAGE_SIZE + 1;
-		List<NewsDTO> listNews = newsService.search(keyword, (page-1) * PAGE_SIZE, PAGE_SIZE);
+		List<NewsDTO> listNews = newsService.search("1",keyword, (page-1) * PAGE_SIZE, PAGE_SIZE);
 		List<Integer> listCount = new ArrayList<Integer>();
 		for(int i=1;i<=pageCount;i++) {
 		listCount.add(i);
@@ -67,9 +67,9 @@ public class UserController {
 			final int PAGE_SIZE = 1;
 			page = page == null ? 1 : page;
 			keyword = keyword == null ? "" : keyword;
-			int totalPage = newsService.countNewsOfCategory(catId.get());
+			int totalPage = newsService.countNewsOfCategory("1",catId.get());
 			int pageCount = (totalPage % PAGE_SIZE == 0) ? totalPage / PAGE_SIZE : totalPage / PAGE_SIZE + 1;
-			List<NewsDTO> listNews = newsService.getAllNewsOfCat(catId.get(),(page-1) * PAGE_SIZE, PAGE_SIZE);
+			List<NewsDTO> listNews = newsService.getAllNewsOfCat("1",catId.get(),(page-1) * PAGE_SIZE, PAGE_SIZE);
 			List<Integer> listCount = new ArrayList<Integer>();
 			for(int i=1;i<=pageCount;i++) {
 				listCount.add(i);
@@ -79,12 +79,12 @@ public class UserController {
 			request.setAttribute("keyword", keyword);
 			request.setAttribute("listCount", listCount);
 		}	
-		List<NewCategoryDTO> listNewsCat = newCatService.getAllCategories();
-		List<NewsDTO> listNews4Date = newsService.getTop4NewsByDate();
-		List<HashTagDTO> listTag = hashtagService.getAllTags();
+		List<NewCategoryDTO> listNewsCat = newCatService.getAllCategories("1");
+		List<NewsDTO> listNews4Date = newsService.getTop4NewsByDate("1");
+		List<HashTagDTO> listTag = hashtagService.getAllTags("1");
 		for (NewCategoryDTO newCate : listNewsCat) {
 			int countCat =0;			
-			countCat = newsService.countNewsOfCategory(newCate.getId());
+			countCat = newsService.countNewsOfCategory("1",newCate.getId());
 			String count = "("+countCat+")";
 			newCate.setCount(count);
 		}
@@ -128,14 +128,14 @@ public class UserController {
 		NewsDTO news = newsService.getNewsbyId(id);
 		NewCategoryDTO newCat =newCatService.getCategorybyId(id);
 		int countCom = commentService.countCommentOfPost(id);
-		List<CommentDTO> comment = commentService.getComentbyPostId(id, 0, 100);
+		List<CommentDTO> comment = commentService.getComentbyPostId("1",id, 0, 100);
 		String catName = newCat.getCategoryName();
-		List<NewCategoryDTO> listNewsCat = newCatService.getAllCategories();
-		List<NewsDTO> listNews4Date = newsService.getTop4NewsByDate();
-		List<HashTagDTO> listTag = hashtagService.getAllTags();
+		List<NewCategoryDTO> listNewsCat = newCatService.getAllCategories("1");
+		List<NewsDTO> listNews4Date = newsService.getTop4NewsByDate("1");
+		List<HashTagDTO> listTag = hashtagService.getAllTags("1");
 		for (NewCategoryDTO newCate : listNewsCat) {
 			int countCat =0;			
-			countCat = newsService.countNewsOfCategory(newCate.getId());
+			countCat = newsService.countNewsOfCategory("1",newCate.getId());
 			String count = "("+countCat+")";
 			newCate.setCount(count);
 		}

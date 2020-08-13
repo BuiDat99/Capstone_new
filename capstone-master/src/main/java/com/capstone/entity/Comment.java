@@ -41,5 +41,8 @@ public class Comment {
     
     @Column(name = "react", length = 50, nullable = true)
     private String react;
+    
+    @Column(name = "enable", length = 50)
+    private String enable;
 	
 }

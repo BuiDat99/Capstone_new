@@ -33,7 +33,7 @@ public class AdminNewCategoryController {
 //		int totalPage = categoryService.countCategoryWhensearch(keyword);
 //		int pageCount = (totalPage % PAGE_SIZE == 0) ? totalPage / PAGE_SIZE : totalPage / PAGE_SIZE + 1;
 //		// mac dinh 10 ban ghi 1 trang
-		List<NewCategoryDTO> categoryList = categoryService.getAllCategories();
+		List<NewCategoryDTO> categoryList = categoryService.getAllCategories("");
 //		List<Integer> listCount = new ArrayList<Integer>();
 //		for(int i=1;i<=pageCount;i++) {
 //			listCount.add(i);
@@ -67,6 +67,20 @@ public class AdminNewCategoryController {
 	@PostMapping(value = "/admin/newCat/update")
 	public String AdminUpdateCategoryPost(@ModelAttribute(name = "category") NewCategoryDTO category) {
 		categoryService.updateCategory(category);
+		return "redirect:/admin/newCat/search";
+	}
+	@GetMapping(value = "/admin/newCat/khoa")
+	public String AdminUpdatekhoaCategoryPost(@RequestParam(name = "id") int id) {
+		NewCategoryDTO categoryDTO=categoryService.getCategorybyId(id);
+		categoryDTO.setEnable("0");
+		categoryService.updateCategory(categoryDTO);
+		return "redirect:/admin/newCat/search";
+	}
+	@GetMapping(value = "/admin/newCat/mokhoa")
+	public String AdminUpdatemokhoaCategoryPost(@RequestParam(name = "id") int id) {
+		NewCategoryDTO categoryDTO=categoryService.getCategorybyId(id);
+		categoryDTO.setEnable("1");
+		categoryService.updateCategory(categoryDTO);
 		return "redirect:/admin/newCat/search";
 	}
 			

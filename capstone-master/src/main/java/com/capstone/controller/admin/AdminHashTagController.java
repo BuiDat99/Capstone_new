@@ -34,7 +34,7 @@ public class AdminHashTagController {
 //		int totalPage = tagService.countTagWhensearch(keyword);
 //		int pageCount = (totalPage % PAGE_SIZE == 0) ? totalPage / PAGE_SIZE : totalPage / PAGE_SIZE + 1;
 //		// mac dinh 10 ban ghi 1 trang
-		List<HashTagDTO> tagList = tagService.getAllTags();
+		List<HashTagDTO> tagList = tagService.getAllTags("");
 //		List<Integer> listCount = new ArrayList<Integer>();
 //		for(int i=1;i<=pageCount;i++) {
 //			listCount.add(i);
@@ -75,6 +75,21 @@ public class AdminHashTagController {
 	@GetMapping(value = "/admin/tag/delete")
 	public String deleteTag(int id) {
 		tagService.deleteTag(id);;
+		return "redirect:/admin/tag/search";
+	}
+	
+	@GetMapping(value = "/admin/tag/mokhoa")
+	public String mokhoaTag(@RequestParam(name="id") int id) {
+		HashTagDTO tag = tagService.getTagbyId(id);
+		tag.setEnable("1");
+		tagService.updateTag(tag);
+		return "redirect:/admin/tag/search";
+	}
+	@GetMapping(value = "/admin/tag/khoa")
+	public String khoaTag(@RequestParam(name="id") int id) {
+		HashTagDTO tag = tagService.getTagbyId(id);
+		tag.setEnable("0");
+		tagService.updateTag(tag);
 		return "redirect:/admin/tag/search";
 	}
 	

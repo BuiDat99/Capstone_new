@@ -24,7 +24,7 @@ public class ProductDAOImpl implements ProductDAO {
 	@Override
 	public List<String> getProductNameContainResource(int resourceId) {
 		String sql = "Select pr.product.productName from" +ProductResource.class.getName()+ "pr"
-				+"where pr.resource.id = :resourceId";
+				+"where pr.resource.id = :resourceId and ";
 		
 		Query query = this.entityManager.createQuery(sql,String.class);
 		query.setParameter("resourceId", resourceId);
@@ -46,9 +46,9 @@ public class ProductDAOImpl implements ProductDAO {
 		
 	}
 	@Override
-	public List<Product> getAllProduct() {
-		String jql = "select p from Product p";
-		return entityManager.createQuery(jql,Product.class).getResultList();
+	public List<Product> getAllProduct(String enable) {
+		String jql = "select p from Product p where enable like :enable";
+		return entityManager.createQuery(jql,Product.class).setParameter("enable", "%"+enable+"%").getResultList();
 	}
 	@Override
 	public Product getProductbyId(int id) {

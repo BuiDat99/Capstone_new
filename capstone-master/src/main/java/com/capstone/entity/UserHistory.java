@@ -43,4 +43,5 @@ public class UserHistory {
 	
 	@Column(name = "creation_Date", nullable = false)
 	private String creation_Date;
+	
 }

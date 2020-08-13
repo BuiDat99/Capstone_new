@@ -12,19 +12,19 @@ public interface NewsService {
 	
 	public void deleteNews(int id);
 	
-	public List<NewsDTO> getAllNews();
+	public List<NewsDTO> getAllNews(String enable);
 	
-	public List<NewsDTO> getTop6News();
+	public List<NewsDTO> getTop6News(String enable);
 	
-	public List<NewsDTO> getTop4NewsByDate();
+	public List<NewsDTO> getTop4NewsByDate(String enable);
 	
-	public List<NewsDTO> getAllNewsOfCat(int catId, int start, int length);
+	public List<NewsDTO> getAllNewsOfCat(String enable,int catId, int start, int length);
 	
-	public int countNewsOfCategory(int id);
+	public int countNewsOfCategory(String enable,int id);
 	
 	public NewsDTO getNewsbyId(int id);
 	
-	public List<NewsDTO> search(String findName, int start, int length);
+	public List<NewsDTO> search(String enable,String findName, int start, int length);
 	
-	public int countNewsWhensearch(String name);
+	public int countNewsWhensearch(String enable,String name);
 }

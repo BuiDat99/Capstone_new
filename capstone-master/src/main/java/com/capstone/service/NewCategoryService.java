@@ -12,11 +12,11 @@ public interface NewCategoryService {
 	
 	public void deleteCategory(int id);
 	
-	public List<NewCategoryDTO> getAllCategories();
+	public List<NewCategoryDTO> getAllCategories(String e);
 	
 	public NewCategoryDTO getCategorybyId(int id);
 	
-	public List<NewCategoryDTO> search(String findName, int start, int length);
+	public List<NewCategoryDTO> search(String e,String findName, int start, int length);
 	
-	public int countCategoryWhensearch(String name);
+	public int countCategoryWhensearch(String a,String name);
 }

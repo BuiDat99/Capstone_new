@@ -50,9 +50,9 @@ public class ResourceDAOImpl implements ResourceDAO {
 	}
 
 	@Override
-	public List<Resource> getAllResources() {
-		String jql = "select r from Resource r";
-		return entityManager.createQuery(jql,Resource.class).getResultList();
+	public List<Resource> getAllResources(String a) {
+		String jql = "select r from Resource r where enable like :e";
+		return entityManager.createQuery(jql,Resource.class).setParameter("e", "%"+a+"%").getResultList();
 	}
 
 	@Override
@@ -61,25 +61,25 @@ public class ResourceDAOImpl implements ResourceDAO {
 	}
 
 	@Override
-	public List<Resource> search(String findName, int start, int length) {
-		String jql = "select r from Resource r where resourceName like :resourceName";
+	public List<Resource> search(String a,String findName, int start, int length) {
+		String jql = "select r from Resource r where resourceName like :resourceName and enable like :c";
 		Query query = entityManager.createQuery(jql,Resource.class);
-		query.setParameter("resourceName", "%" + findName + "%");
+		query.setParameter("resourceName", "%" + findName + "%").setParameter("c", "%"+a+"%");
 		query.setFirstResult(start).setMaxResults(length);
 		return query.getResultList();
 	}
 
 	@Override
-	public int countResourceWhensearch(String name) {
-		String jql="select r from Resource r where resourceName like :resourceName";
+	public int countResourceWhensearch(String a,String name) {
+		String jql="select r from Resource r where resourceName like :resourceName and enable like :c";
 		Query query = entityManager.createQuery(jql,Resource.class);
-		query.setParameter("resourceName", "%" + name + "%");
+		query.setParameter("resourceName", "%" + name + "%").setParameter("c", "%"+a+"%");
 		return (int) query.getResultList().size();
 	}
 
 	@Override
-	public List<Resource> getResourceByCategory(String catName) {
-		String jql="select r from Resource r inner join ResourceCategory c on c.id=r.category.id where c.categoryName=:catName";
+	public List<Resource> getResourceByCategory(String a,String catName) {
+		String jql="select r from Resource r inner join ResourceCategory c on c.id=r.category.id where c.categoryName=:catName and r.enable like :c";
 		Query query = entityManager.createQuery(jql,Resource.class);
 		query.setParameter("catName",catName);
 		return query.getResultList();

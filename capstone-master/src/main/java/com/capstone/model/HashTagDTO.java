@@ -1,10 +1,14 @@
 package com.capstone.model;
 
+import lombok.Data;
+
+@Data
 public class HashTagDTO {
 
 	private int tagId;
 	private String tagCode;
 	private String tagContent;
+	private String enable;
 	public HashTagDTO() {
 		// TODO Auto-generated constructor stub
 	}

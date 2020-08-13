@@ -40,4 +40,7 @@ public class Resource implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="category_Id")
 	private ResourceCategory category;
+	
+	@Column(name = "enable", length = 50)
+    private String enable;
 }

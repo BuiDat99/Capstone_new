@@ -117,6 +117,10 @@ a.underline {
 												<td><a
 													th:href="@{'/admin/resource/update?id='+${resource.id}}">Sửa</a>&nbsp;&nbsp;|&nbsp;&nbsp;
 													<a data-target="#confirm-delete" data-toggle="modal" th:data-href="@{'/admin/resource/delete?id='+${resource.id}}" th:href="@{#}">Xoá</a>
+													<div>
+														<a th:if="${resource.enable == '1'}" th:href="@{'/admin/resource/khoa?id='+${resource.id}}">khoa</a>
+														<a th:if="${resource.enable == '0'}" th:href="@{'/admin/resource/mokhoa?id='+${resource.id}}"> mo khoa</a>
+													</div>
 												</td>
 											</tr>
 										</tbody>

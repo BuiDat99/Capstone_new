@@ -15,6 +15,7 @@ public class MenuDTO {
 	private int userId;
 	private List<MenuProductDTO> menuProductDTOs;
 	private List<String> listproductId;
+	private String enable;
 	public MenuDTO() {
 		// TODO Auto-generated constructor stub
 	}

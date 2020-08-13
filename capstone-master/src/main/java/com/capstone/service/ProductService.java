@@ -12,7 +12,7 @@ public interface ProductService {
 	
 	public void deleteProduct(int id);
 	
-	public List<ProductDTO> getAllProducts();
+	public List<ProductDTO> getAllProducts(String enable);
 	
 	public ProductDTO getProductbyId(int id);
 }

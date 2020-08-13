@@ -28,7 +28,7 @@ public class ResourceServiceImpl implements ResourceService {
 		r.setImage(resource.getImage());
 		r.setKcal1g(resource.getKcal1g());
 		r.setResourceDescrption(resource.getResourceDescription());
-		
+		r.setEnable("1");
 		ResourceCategory category = new ResourceCategory();
 		category.setId(resource.getCategory().getId());
 		category.setCategoryName(resource.getCategory().getCategoryName());
@@ -46,7 +46,7 @@ public class ResourceServiceImpl implements ResourceService {
 			r.setImage(resourceDTO.getImage());
 			r.setKcal1g(resourceDTO.getKcal1g());
 			r.setResourceDescrption(resourceDTO.getResourceDescription());
-			
+			r.setEnable(resourceDTO.getEnable());
 			ResourceCategory category = new ResourceCategory();
 			category.setId(resourceDTO.getCategory().getId());
 			category.setCategoryName(resourceDTO.getCategory().getCategoryName());
@@ -67,8 +67,8 @@ public class ResourceServiceImpl implements ResourceService {
 	}
 
 	@Override
-	public List<ResourceDTO> getAllResources() {
-		List<Resource> rs = resourceDao.getAllResources();
+	public List<ResourceDTO> getAllResources(String a) {
+		List<Resource> rs = resourceDao.getAllResources(a);
 		List<ResourceDTO> dtos = new ArrayList<ResourceDTO>();
 		for(Resource r: rs) {
 			ResourceDTO dto = new ResourceDTO();
@@ -77,7 +77,7 @@ public class ResourceServiceImpl implements ResourceService {
 			dto.setImage(r.getImage());
 			dto.setKcal1g(r.getKcal1g());
 			dto.setResourceDescription(r.getResourceDescrption());
-			
+			dto.setEnable(r.getEnable());
 			ResourceCategoryDTO categoryDTO = new ResourceCategoryDTO();
 			categoryDTO.setId(r.getCategory().getId());
 			categoryDTO.setCategoryName(r.getCategory().getCategoryName());
@@ -97,18 +97,18 @@ public class ResourceServiceImpl implements ResourceService {
 		dto.setImage(r.getImage());
 		dto.setKcal1g(r.getKcal1g());
 		dto.setResourceDescription(r.getResourceDescrption());
-		
-		ResourceCategory category = new ResourceCategory();
+		dto.setEnable(r.getEnable());
+		ResourceCategoryDTO category = new ResourceCategoryDTO();
 		category.setId(r.getCategory().getId());
 		category.setCategoryName(r.getCategory().getCategoryName());
-		r.setCategory(category);
-		
+//		r.setCategory(category);
+		dto.setCategory(category);
 		return dto;
 	}
 
 	@Override
-	public List<ResourceDTO> search(String findName, int start, int length) {
-		List<Resource> rs = resourceDao.search(findName, start, length);
+	public List<ResourceDTO> search(String a,String findName, int start, int length) {
+		List<Resource> rs = resourceDao.search(a,findName, start, length);
 		List<ResourceDTO> dtos = new ArrayList<ResourceDTO>();
 		for(Resource r: rs) {
 			ResourceDTO dto = new ResourceDTO();
@@ -117,7 +117,7 @@ public class ResourceServiceImpl implements ResourceService {
 			dto.setImage(r.getImage());
 			dto.setKcal1g(r.getKcal1g());
 			dto.setResourceDescription(r.getResourceDescrption());
-			
+			dto.setEnable(r.getEnable());
 			ResourceCategoryDTO categoryDTO = new ResourceCategoryDTO();
 			categoryDTO.setId(r.getCategory().getId());
 			categoryDTO.setCategoryName(r.getCategory().getCategoryName());
@@ -129,13 +129,13 @@ public class ResourceServiceImpl implements ResourceService {
 	}
 
 	@Override
-	public int countResourceWhensearch(String name) {		
-		return resourceDao.countResourceWhensearch(name);
+	public int countResourceWhensearch(String a,String name) {		
+		return resourceDao.countResourceWhensearch(a,name);
 	}
 
 	@Override
-	public List<ResourceDTO> getResourceByCategory(String catName) {
-		List<Resource> rs = resourceDao.getResourceByCategory(catName);
+	public List<ResourceDTO> getResourceByCategory(String a,String catName) {
+		List<Resource> rs = resourceDao.getResourceByCategory(a,catName);
 		List<ResourceDTO> dtos = new ArrayList<ResourceDTO>();
 		for(Resource r: rs) {
 			ResourceDTO dto = new ResourceDTO();
@@ -144,7 +144,7 @@ public class ResourceServiceImpl implements ResourceService {
 			dto.setImage(r.getImage());
 			dto.setKcal1g(r.getKcal1g());
 			dto.setResourceDescription(r.getResourceDescrption());
-			
+			dto.setEnable(r.getEnable());
 			ResourceCategoryDTO categoryDTO = new ResourceCategoryDTO();
 			categoryDTO.setId(r.getCategory().getId());
 			categoryDTO.setCategoryName(r.getCategory().getCategoryName());
@@ -166,7 +166,7 @@ public class ResourceServiceImpl implements ResourceService {
 			dto.setImage(r.getImage());
 			dto.setKcal1g(r.getKcal1g());
 			dto.setResourceDescription(r.getResourceDescrption());
-			
+			dto.setEnable(r.getEnable());
 			/*
 			 * ResourceCategoryDTO categoryDTO = new ResourceCategoryDTO();
 			 * categoryDTO.setId(r.getCategory().getId());
@@ -190,7 +190,7 @@ public class ResourceServiceImpl implements ResourceService {
 			dto.setImage(r.getImage());
 			dto.setKcal1g(r.getKcal1g());
 			dto.setResourceDescription(r.getResourceDescrption());
-			
+			dto.setEnable(r.getEnable());
 			ResourceCategoryDTO categoryDTO = new ResourceCategoryDTO();
 			categoryDTO.setId(r.getCategory().getId());
 			categoryDTO.setCategoryName(r.getCategory().getCategoryName());

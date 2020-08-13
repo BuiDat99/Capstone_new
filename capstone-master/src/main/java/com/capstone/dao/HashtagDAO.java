@@ -12,11 +12,11 @@ public interface HashtagDAO {
 	
 	public void deleteTag(HashtagStandard tag);
 	
-	public List<HashtagStandard> getAllTags();
+	public List<HashtagStandard> getAllTags(String enable);
 	
 	public HashtagStandard getTagbyId(int id);
 	
-	public List<HashtagStandard> search(String findName, int start, int length);
+	public List<HashtagStandard> search(String enable,String findName, int start, int length);
 	
-	public int countTagWhensearch(String name);
+	public int countTagWhensearch(String enable,String name);
 }

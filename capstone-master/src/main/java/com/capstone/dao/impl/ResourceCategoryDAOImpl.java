@@ -38,9 +38,9 @@ public class ResourceCategoryDAOImpl implements ResourceCategoryDAO {
 	}
 
 	@Override
-	public List<ResourceCategory> getAllCategories() {
-		String jql = "select rc from ResourceCategory rc";
-		return entityManager.createQuery(jql,ResourceCategory.class).getResultList();
+	public List<ResourceCategory> getAllCategories(String c) {
+		String jql = "select rc from ResourceCategory rc where enable like :c";
+		return entityManager.createQuery(jql,ResourceCategory.class).setParameter("c", "%"+c+"%").getResultList();
 	}
 
 	@Override
@@ -49,19 +49,19 @@ public class ResourceCategoryDAOImpl implements ResourceCategoryDAO {
 	}
 
 	@Override
-	public List<ResourceCategory> search(String findName, int start, int length) {
-		String jql = "select rc from ResourceCategory rc where categoryName like :categoryName";
+	public List<ResourceCategory> search(String c,String findName, int start, int length) {
+		String jql = "select rc from ResourceCategory rc where categoryName like :categoryName and enable like :c";
 		Query query = entityManager.createQuery(jql,ResourceCategory.class);
-		query.setParameter("categoryName", "%" + findName + "%");
+		query.setParameter("categoryName", "%" + findName + "%").setParameter("c", "%"+c+"%");
 		query.setFirstResult(start).setMaxResults(length);
 		return query.getResultList();
 	}
 
 	@Override
-	public int countCategoryWhensearch(String name) {
-		String jql="select rc from ResourceCategory rc where categoryName like :categoryName";
+	public int countCategoryWhensearch(String c,String name) {
+		String jql="select rc from ResourceCategory rc where categoryName like :categoryName and enable like :c";
 		Query query = entityManager.createQuery(jql,ResourceCategory.class);
-		query.setParameter("categoryName", "%" + name + "%");
+		query.setParameter("categoryName", "%" + name + "%").setParameter("c", "%"+c+"%");
 		return (int) query.getResultList().size();
 	}
 

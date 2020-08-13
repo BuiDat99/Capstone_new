@@ -23,6 +23,7 @@ public class ResourceCategoryServiceImpl implements ResourceCategoryService {
 	public void addCategory(ResourceCategoryDTO category) {
 		ResourceCategory rc = new ResourceCategory();
 		rc.setCategoryName(category.getCategoryName());
+		rc.setEnable("1");
 		categoryDao.addCategory(rc);
 		
 	}
@@ -32,6 +33,7 @@ public class ResourceCategoryServiceImpl implements ResourceCategoryService {
 		ResourceCategory rc = categoryDao.getCategorybyId(categoryDTO.getId());
 		if(rc != null) {
 			rc.setCategoryName(categoryDTO.getCategoryName());
+			rc.setEnable(categoryDTO.getEnable());
 			categoryDao.updateCategory(rc);
 		}
 		
@@ -47,14 +49,14 @@ public class ResourceCategoryServiceImpl implements ResourceCategoryService {
 	}
 
 	@Override
-	public List<ResourceCategoryDTO> getAllCategories() {
-		List<ResourceCategory> rcs = categoryDao.getAllCategories();
+	public List<ResourceCategoryDTO> getAllCategories(String a) {
+		List<ResourceCategory> rcs = categoryDao.getAllCategories(a);
 		List<ResourceCategoryDTO> dtos = new ArrayList<ResourceCategoryDTO>();
 		for(ResourceCategory rc: rcs) {
 			ResourceCategoryDTO dto = new ResourceCategoryDTO();
 			dto.setId(rc.getId());
 			dto.setCategoryName(rc.getCategoryName());
-			
+			dto.setEnable(rc.getEnable());
 			dtos.add(dto);
 		}
 		return dtos;
@@ -66,26 +68,27 @@ public class ResourceCategoryServiceImpl implements ResourceCategoryService {
 		ResourceCategoryDTO dto = new ResourceCategoryDTO();
 		dto.setId(rc.getId());
 		dto.setCategoryName(rc.getCategoryName());
+		dto.setEnable(rc.getEnable());
 		return dto;
 	}
 
 	@Override
-	public List<ResourceCategoryDTO> search(String findName, int start, int length) {
-		List<ResourceCategory> rcs = categoryDao.search(findName, start, length);
+	public List<ResourceCategoryDTO> search(String a,String findName, int start, int length) {
+		List<ResourceCategory> rcs = categoryDao.search(a,findName, start, length);
 		List<ResourceCategoryDTO> dtos = new ArrayList<ResourceCategoryDTO>();
 		for(ResourceCategory rc: rcs) {
 			ResourceCategoryDTO dto = new ResourceCategoryDTO();
 			dto.setId(rc.getId());
 			dto.setCategoryName(rc.getCategoryName());
-			
+			dto.setEnable(rc.getEnable());
 			dtos.add(dto);
 		}
 		return dtos;
 	}
 
 	@Override
-	public int countCategoryWhensearch(String name) {
-		return categoryDao.countCategoryWhensearch(name);
+	public int countCategoryWhensearch(String a ,String name) {
+		return categoryDao.countCategoryWhensearch(a, name);
 	}
 
 }

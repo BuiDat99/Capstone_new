@@ -1,11 +1,14 @@
 package com.capstone.model;
 
+import lombok.Data;
+
+@Data
 public class NewCategoryDTO {
 
 	private int id;
 	private String categoryName;
 	private String count;
-	
+	private String enable;
 	public NewCategoryDTO() {
 		// TODO Auto-generated constructor stub
 	}

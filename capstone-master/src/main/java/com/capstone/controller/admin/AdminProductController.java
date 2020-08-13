@@ -73,7 +73,7 @@ public class AdminProductController {
 	@GetMapping(value = "/admin/product/search")
 	public String searchProduct(HttpServletRequest request) {
 
-		List<ProductDTO> listProduct = productService.getAllProducts();
+		List<ProductDTO> listProduct = productService.getAllProducts("");
 		for (ProductDTO pdto : listProduct) {
 			Product p = productRepository.findById(pdto.getId()).get();
 			System.out.println(p.getId());
@@ -92,7 +92,7 @@ public class AdminProductController {
 
 	@GetMapping(value = "/admin/product/add-product")
 	public String addProduct(HttpServletRequest request) {
-		List<ResourceCategoryDTO> categoryList = categoryService.getAllCategories();
+		List<ResourceCategoryDTO> categoryList = categoryService.getAllCategories("1");
 		request.setAttribute("categoryList", categoryList);
 		return "admin/product/add-product";
 	}
@@ -115,9 +115,23 @@ public class AdminProductController {
 	public String editProduct(HttpServletRequest request, @RequestParam  (name="id") int id,Model model) {
 		ProductDTO productDTO= productService.getProductbyId(id);
 		model.addAttribute("productDTO", productDTO);
-		List<ResourceCategoryDTO> categoryList = categoryService.getAllCategories();
+		List<ResourceCategoryDTO> categoryList = categoryService.getAllCategories("1");
 		request.setAttribute("categoryList", categoryList);
 		return "admin/product/edit-product";
+	}
+	@GetMapping(value = "/admin/product/mokhoa")
+	public String editmokhoaProduct( @RequestParam  (name="id") int id) {
+		ProductDTO productDTO= productService.getProductbyId(id);
+		productDTO.setEnable("1");
+		productService.updateProduct(productDTO);
+		return "redirect:/admin/product/search";
+	}
+	@GetMapping(value = "/admin/product/khoa")
+	public String editkhoaProduct( @RequestParam  (name="id") int id) {
+		ProductDTO productDTO= productService.getProductbyId(id);
+		productDTO.setEnable("0");
+		productService.updateProduct(productDTO);
+		return "redirect:/admin/product/search";
 	}
 
 	@PostMapping(value = "/admin/product/edit-product")
@@ -144,7 +158,7 @@ public class AdminProductController {
 	@PostMapping(value = "/admin/product/add-resources-to-product", consumes = MediaType.APPLICATION_JSON_VALUE, produces = "text/plain;charset=UTF-8")
 	public String addResourceToProduct(HttpServletRequest request,
 			@RequestBody ProductResource2Dto ProductResource2Dto) {
-		List<ProductDTO> listProduct = productService.getAllProducts();
+		List<ProductDTO> listProduct = productService.getAllProducts("");
 		request.setAttribute("listProduct", listProduct);
 		List<ProductResourceDTO> listPr = prService.getAllProductResource();
 		request.setAttribute("listPr", listPr);

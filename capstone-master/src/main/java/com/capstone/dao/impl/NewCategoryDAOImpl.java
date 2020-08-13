@@ -38,9 +38,9 @@ public class NewCategoryDAOImpl implements NewCategoryDAO {
 	}
 
 	@Override
-	public List<NewCategory> getAllCategories() {
-		String jql = "select nc from NewCategory nc";
-		return entityManager.createQuery(jql,NewCategory.class).getResultList();
+	public List<NewCategory> getAllCategories(String e) {
+		String jql = "select nc from NewCategory nc where enable like :e";
+		return entityManager.createQuery(jql,NewCategory.class).setParameter("e","%"+ e+"%").getResultList();
 	}
 
 	@Override
@@ -49,19 +49,19 @@ public class NewCategoryDAOImpl implements NewCategoryDAO {
 	}
 
 	@Override
-	public List<NewCategory> search(String findName, int start, int length) {
-		String jql = "select nc from NewCategory nc where categoryName like :categoryName";
+	public List<NewCategory> search(String e,String findName, int start, int length) {
+		String jql = "select nc from NewCategory nc where categoryName like :categoryName and enable like :e ";
 		Query query = entityManager.createQuery(jql,NewCategory.class);
-		query.setParameter("categoryName", "%" + findName + "%");
+		query.setParameter("categoryName", "%" + findName + "%").setParameter("e", "%"+e+"%");
 		query.setFirstResult(start).setMaxResults(length);
 		return query.getResultList();
 	}
 
 	@Override
-	public int countCategoryWhensearch(String name) {
-		String jql="select nc from NewCategory nc where categoryName like :categoryName";
+	public int countCategoryWhensearch(String e,String name) {
+		String jql="select nc from NewCategory nc where categoryName like :categoryName and enable like :e";
 		Query query = entityManager.createQuery(jql,NewCategory.class);
-		query.setParameter("categoryName", "%" + name + "%");
+		query.setParameter("categoryName", "%" + name + "%").setParameter("e", "%"+e+"%");
 		return (int) query.getResultList().size();
 	}
 

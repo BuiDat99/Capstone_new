@@ -14,8 +14,6 @@ import com.capstone.entity.Product;
 import com.capstone.entity.ProductResource;
 import com.capstone.entity.Resource;
 import com.capstone.model.ProductDTO;
-import com.capstone.model.ProductResourceDTO;
-import com.capstone.model.ResourceCategoryDTO;
 import com.capstone.model.ResourceDTO;
 import com.capstone.service.ProductService;
 
@@ -34,6 +32,7 @@ public class ProductServiceimpl implements ProductService {
 		Product p = new Product();
 		p.setImage(productDTO.getImage());
 		p.setProductName(productDTO.getProductName());
+		p.setEnable("1");
 		productDao.addProduct(p);		
 		//tao moi 1 product
 		productDTO.setId(p.getId());
@@ -59,6 +58,7 @@ public class ProductServiceimpl implements ProductService {
 		p.setImage(productDTO.getImage());
 		p.setProductDescription(productDTO.getProductDescription());
 		p.setProductName(productDTO.getProductName());
+		p.setEnable(productDTO.getEnable());
 		productDao.updateProduct(p);		
 		
 	}
@@ -73,15 +73,15 @@ public class ProductServiceimpl implements ProductService {
 	}
 
 	@Override
-	public List<ProductDTO> getAllProducts() {
-		List<Product> ps = productDao.getAllProduct();
+	public List<ProductDTO> getAllProducts(String enable) {
+		List<Product> ps = productDao.getAllProduct(enable);
 		List<ProductDTO> dtos = new ArrayList<ProductDTO>();
 		for(Product p:ps) {
 			ProductDTO dto = new ProductDTO();
 			dto.setId(p.getId());
 			dto.setImage(p.getImage());
 			dto.setProductName(p.getProductName());
-			
+			dto.setEnable(p.getEnable());
 //			ProductResourceDTO prDTO = new ProductResourceDTO();
 //			prDTO.setId(p.getId());
 			
@@ -113,6 +113,7 @@ public class ProductServiceimpl implements ProductService {
 			resourceDTOs.add(dto);
 			strings.add(productResource.getResource().getResourceName());
 		}
+		productDTO.setEnable(product.getEnable());
 		productDTO.setResource(resourceDTOs);
 		productDTO.setResources(strings);
 		productDTO.setProductDescription(product.getProductDescription());

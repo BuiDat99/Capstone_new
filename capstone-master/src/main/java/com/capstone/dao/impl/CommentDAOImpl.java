@@ -48,10 +48,10 @@ public class CommentDAOImpl implements CommentDAO{
 	}
 
 	@Override
-	public List<Comment> getComentbyPostId(int postId, int start, int length) {
-		String jql="select m from Comment m where m.news.id=:postId";
+	public List<Comment> getComentbyPostId(String enable,int postId, int start, int length) {
+		String jql="select m from Comment m where m.news.id=:postId and enable like :enable";
 		Query query = entityManager.createQuery(jql,Comment.class);
-		query.setParameter("postId",postId);
+		query.setParameter("postId",postId).setParameter("enable", "%"+enable+"%");
 		query.setFirstResult(start).setMaxResults(length);
 		return query.getResultList();
 	}

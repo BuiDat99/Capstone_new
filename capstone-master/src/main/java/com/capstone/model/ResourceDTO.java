@@ -1,5 +1,8 @@
 package com.capstone.model;
 
+import lombok.Data;
+
+@Data
 public class ResourceDTO {
 
 	private int id;
@@ -8,7 +11,7 @@ public class ResourceDTO {
 	private String resourceDescription;
 	private float kcal1g;
 	private ResourceCategoryDTO category;
-	
+	private String enable;
 	public ResourceDTO() {
 		// TODO Auto-generated constructor stub
 	}

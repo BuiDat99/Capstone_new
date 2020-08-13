@@ -38,9 +38,9 @@ public class HashtagDAOImpl implements HashtagDAO {
 	}
 
 	@Override
-	public List<HashtagStandard> getAllTags() {
-		String jql = "select h from HashtagStandard h";
-		return entityManager.createQuery(jql,HashtagStandard.class).getResultList();
+	public List<HashtagStandard> getAllTags(String enable) {
+		String jql = "select h from HashtagStandard h where enable like :enable";
+		return entityManager.createQuery(jql,HashtagStandard.class).setParameter("enable", "%"+enable+"%").getResultList();
 	}
 	
 	@Override
@@ -50,19 +50,19 @@ public class HashtagDAOImpl implements HashtagDAO {
 	}
 
 	@Override
-	public List<HashtagStandard> search(String findName, int start, int length) {
-		String jql = "select h from HashtagStandard h where tagCode like :tagCode";
+	public List<HashtagStandard> search(String enable,String findName, int start, int length) {
+		String jql = "select h from HashtagStandard h where tagCode like :tagCode and enable like :enable";
 		Query query = entityManager.createQuery(jql,HashtagStandard.class);
-		query.setParameter("tagCode", "%" + findName + "%");
+		query.setParameter("tagCode", "%" + findName + "%").setParameter("enable", "%"+enable+"%");
 		query.setFirstResult(start).setMaxResults(length);
 		return query.getResultList();			
 	}
 
 	@Override
-	public int countTagWhensearch(String name) {
-		String jql="select h from HashtagStandard h where tagCode like :tagCode";
+	public int countTagWhensearch(String enable,String name) {
+		String jql="select h from HashtagStandard h where tagCode like :tagCode and enable like :enable";
 		Query query = entityManager.createQuery(jql,HashtagStandard.class);
-		query.setParameter("tagCode", "%" + name + "%");
+		query.setParameter("tagCode", "%" + name + "%").setParameter("enable", "%"+enable+"%");
 		return (int) query.getResultList().size();
 	}
 

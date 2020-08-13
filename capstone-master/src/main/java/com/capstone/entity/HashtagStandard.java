@@ -27,4 +27,7 @@ public class HashtagStandard implements Serializable {
 	
 	@Column(name = "hashtag_Content", length = 255, nullable = false)
 	private String tagContent;
+	
+	@Column(name = "enable", length = 50)
+    private String enable;
 }

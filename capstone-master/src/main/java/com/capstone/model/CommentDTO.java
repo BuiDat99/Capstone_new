@@ -1,5 +1,8 @@
 package com.capstone.model;
 
+import lombok.Data;
+
+@Data
 public class CommentDTO {
 
 	private int id;
@@ -9,7 +12,7 @@ public class CommentDTO {
 	private String react;
 	private AppUserDTO user;
 	private NewsDTO news;
-	
+	private String enable;
 	public CommentDTO() {
 		// TODO Auto-generated constructor stub
 	}

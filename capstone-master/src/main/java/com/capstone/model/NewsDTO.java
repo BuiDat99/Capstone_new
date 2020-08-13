@@ -1,5 +1,8 @@
 package com.capstone.model;
 
+import lombok.Data;
+
+@Data
 public class NewsDTO {
 
 	private int id;	
@@ -16,6 +19,7 @@ public class NewsDTO {
 	private String modifiedDate;
 	private String creationDate;
 	private NewCategoryDTO category;
+	
 	
 	public NewsDTO() {
 		// TODO Auto-generated constructor stub

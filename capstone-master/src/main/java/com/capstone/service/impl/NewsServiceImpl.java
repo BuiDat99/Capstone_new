@@ -80,8 +80,8 @@ public class NewsServiceImpl implements NewsService {
 	}
 
 	@Override
-	public List<NewsDTO> getAllNews() {
-		List<News> ns = newsDao.getAllNews();
+	public List<NewsDTO> getAllNews(String enable) {
+		List<News> ns = newsDao.getAllNews(enable);
 		List<NewsDTO> dtos = new ArrayList<NewsDTO>();
 		for(News n: ns) {
 			NewsDTO dto = new NewsDTO();
@@ -110,8 +110,8 @@ public class NewsServiceImpl implements NewsService {
 	}
 	
 	@Override
-	public List<NewsDTO> getTop6News() {
-		List<News> ns = newsDao.getTop6News();
+	public List<NewsDTO> getTop6News(String enable) {
+		List<News> ns = newsDao.getTop6News(enable);
 		List<NewsDTO> dtos = new ArrayList<NewsDTO>();
 		for(News n: ns) {
 			NewsDTO dto = new NewsDTO();
@@ -156,17 +156,17 @@ public class NewsServiceImpl implements NewsService {
 		dto.setCreationDate(n.getCreationDate());
 		dto.setModifiedDate(n.getModifiedDate());
 		
-		NewCategory category = new NewCategory();
+		NewCategoryDTO category = new NewCategoryDTO();
 		category.setId(n.getCategory().getId());
 		category.setCategoryName(n.getCategory().getCategoryName());
-		n.setCategory(category);
-		
+		//n.setCategory(category);
+		dto.setCategory(category);
 		return dto;
 	}
 
 	@Override
-	public List<NewsDTO> search(String findName, int start, int length) {
-		List<News> ns = newsDao.search(findName, start, length);
+	public List<NewsDTO> search(String enable,String findName, int start, int length) {
+		List<News> ns = newsDao.search(enable,findName, start, length);
 		List<NewsDTO> dtos = new ArrayList<NewsDTO>();
 		for(News n: ns) {
 			NewsDTO dto = new NewsDTO();
@@ -195,18 +195,18 @@ public class NewsServiceImpl implements NewsService {
 	}
 
 	@Override
-	public int countNewsWhensearch(String name) {		
-		return newsDao.countNewsWhensearch(name);
+	public int countNewsWhensearch(String enable,String name) {		
+		return newsDao.countNewsWhensearch(enable,name);
 	}
 
 	@Override
-	public int countNewsOfCategory(int id) {
-		return newsDao.countNewsOfCategory(id);
+	public int countNewsOfCategory(String enable,int id) {
+		return newsDao.countNewsOfCategory(enable,id);
 	}
 
 	@Override
-	public List<NewsDTO> getTop4NewsByDate() {
-		List<News> ns = newsDao.getTop4NewsByDate();
+	public List<NewsDTO> getTop4NewsByDate(String enable) {
+		List<News> ns = newsDao.getTop4NewsByDate(enable);
 		List<NewsDTO> dtos = new ArrayList<NewsDTO>();
 		for(News n: ns) {
 			NewsDTO dto = new NewsDTO();
@@ -235,8 +235,8 @@ public class NewsServiceImpl implements NewsService {
 	}
 
 	@Override
-	public List<NewsDTO> getAllNewsOfCat(int catId, int start, int length) {
-		List<News> ns = newsDao.getAllNewsOfCat(catId, start, length);
+	public List<NewsDTO> getAllNewsOfCat(String enable,int catId, int start, int length) {
+		List<News> ns = newsDao.getAllNewsOfCat(enable,catId, start, length);
 		List<NewsDTO> dtos = new ArrayList<NewsDTO>();
 		for(News n: ns) {
 			NewsDTO dto = new NewsDTO();

@@ -12,11 +12,11 @@ public interface HashTagService {
 	
 	public void deleteTag(int id);
 	
-	public List<HashTagDTO> getAllTags();
+	public List<HashTagDTO> getAllTags(String enable);
 	
 	public  HashTagDTO getTagbyId(int id);
 	
-	public List<HashTagDTO> search(String name, int start, int length);
+	public List<HashTagDTO> search(String enable,String name, int start, int length);
 	
-	public int countTagWhensearch(String name);
+	public int countTagWhensearch(String enable,String name);
 }

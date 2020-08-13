@@ -33,7 +33,7 @@ public class AdminResourceCategoryController {
 //		int totalPage = categoryService.countCategoryWhensearch(keyword);
 //		int pageCount = (totalPage % PAGE_SIZE == 0) ? totalPage / PAGE_SIZE : totalPage / PAGE_SIZE + 1;
 //		// mac dinh 10 ban ghi 1 trang
-		List<ResourceCategoryDTO> categoryList = categoryService.getAllCategories();
+		List<ResourceCategoryDTO> categoryList = categoryService.getAllCategories("");
 //		List<Integer> listCount = new ArrayList<Integer>();
 //		for(int i=1;i<=pageCount;i++) {
 //			listCount.add(i);
@@ -48,6 +48,20 @@ public class AdminResourceCategoryController {
 	@GetMapping(value = "/admin/resourceCat/insert")
     public String CategoryInsert() {       
         return "admin/resourceCategory/add-resources-category";
+    }
+	@GetMapping(value = "/admin/resourceCat/khoa")
+    public String Categorykhoa(@RequestParam(name="id") int id) {   
+		ResourceCategoryDTO category = categoryService.getCategorybyId(id);
+		category.setEnable("0");
+		categoryService.updateCategory(category);
+		return "redirect:/admin/resourceCat/search";
+    }
+	@GetMapping(value = "/admin/resourceCat/mokhoa")
+    public String Categorymokhoa(@RequestParam(name="id") int id) {   
+		ResourceCategoryDTO category = categoryService.getCategorybyId(id);
+		category.setEnable("1");
+		categoryService.updateCategory(category);
+		return "redirect:/admin/resourceCat/search";
     }
 	
 	@PostMapping(value = "/admin/resourceCat/insert")

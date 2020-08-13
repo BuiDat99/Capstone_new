@@ -117,7 +117,12 @@ a.underline {
 													th:href="@{'/admin/menu/edit-menu?id='+${menu.id}}">Sửa</a>&nbsp;&nbsp;|&nbsp;&nbsp;
 													<a data-target="#confirm-delete" data-toggle="modal"
 													th:data-href="@{'/admin/menu/delete-menu?id='+${menu.id}}"
-													th:href="@{#}">Xoá</a></td>
+													th:href="@{#}">Xoá</a>
+													<div>
+														<a th:if="${menu.enable == '1'}" th:href="@{'/admin/menu/khoa?id='+${menu.id}}">khoa</a>
+														<a th:if="${menu.enable == '0'}" th:href="@{'/admin/menu/mokhoa?id='+${menu.id}}"> mo khoa</a>
+													</div>
+													</td>
 											</tr>
 										</tbody>
 

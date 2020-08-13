@@ -40,4 +40,6 @@ public class Product implements Serializable {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "product",fetch = FetchType.LAZY)
 	List<ProductResource> productResources= new ArrayList<ProductResource>();
 	
+	@Column(name = "enable", length = 50)
+    private String enable;
 }

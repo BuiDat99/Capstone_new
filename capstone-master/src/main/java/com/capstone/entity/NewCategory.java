@@ -24,5 +24,7 @@ public class NewCategory implements Serializable {
 	
 	@Column(name = "category_Name", length = 255, nullable = false)
 	private String categoryName;
-
+	
+	@Column(name = "enable", length = 50)
+    private String enable;
 }

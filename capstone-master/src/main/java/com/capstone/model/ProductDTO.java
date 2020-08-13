@@ -2,6 +2,8 @@ package com.capstone.model;
 
 import java.util.List;
 
+import lombok.Data;
+@Data
 public class ProductDTO {
 
 	private int id;
@@ -11,7 +13,7 @@ public class ProductDTO {
 	private List<ResourceDTO> resource;
 	private List<ProductResourceDTO> productResourceDTOs;
 	private String productDescription;
-
+	private String enable;
 	public List<ProductResourceDTO> getProductResourceDTOs() {
 		return productResourceDTOs;
 	}

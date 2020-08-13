@@ -101,6 +101,10 @@ a.underline {
 													th:href="@{'/admin/newCat/update?id='+${category.id}}">Sửa</a>&nbsp;&nbsp;|&nbsp;&nbsp;
 													<a data-target="#confirm-delete" data-toggle="modal"
 													th:data-href="@{'/admin/newCat/delete?id='+${category.id}}" th:href="@{#}">Xoá</a>
+													<div>
+														<a th:if="${category.enable == '1'}" th:href="@{'/admin/newCat/khoa?id='+${category.id}}">khoa</a>
+														<a th:if="${category.enable == '0'}" th:href="@{'/admin/newCat/mokhoa?id='+${category.id}}"> mo khoa</a>
+													</div>
 												</td>
 											</tr>
 										</tbody>

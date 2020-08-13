@@ -24,6 +24,7 @@ public class NewCategoryServiceImpl implements NewCategoryService {
 	public void addCategory(NewCategoryDTO category) {
 		NewCategory nc = new NewCategory();
 		nc.setCategoryName(category.getCategoryName());
+		nc.setEnable("1");
 		categoryDao.addCategory(nc);
 		
 	}
@@ -33,6 +34,7 @@ public class NewCategoryServiceImpl implements NewCategoryService {
 		NewCategory nc = categoryDao.getCategorybyId(categoryDTO.getId());
 		if(nc != null) {
 			nc.setCategoryName(categoryDTO.getCategoryName());
+			nc.setEnable(categoryDTO.getEnable());
 			categoryDao.updateCategory(nc);
 		}
 		
@@ -48,14 +50,14 @@ public class NewCategoryServiceImpl implements NewCategoryService {
 	}
 
 	@Override
-	public List<NewCategoryDTO> getAllCategories() {
-		List<NewCategory> ncs = categoryDao.getAllCategories();
+	public List<NewCategoryDTO> getAllCategories(String a) {
+		List<NewCategory> ncs = categoryDao.getAllCategories(a);
 		List<NewCategoryDTO> dtos = new ArrayList<NewCategoryDTO>();
 		for(NewCategory nc: ncs) {
 			NewCategoryDTO dto = new NewCategoryDTO();
 			dto.setId(nc.getId());
 			dto.setCategoryName(nc.getCategoryName());
-			
+			dto.setEnable(nc.getEnable());
 			dtos.add(dto);
 		}
 		return dtos;
@@ -67,26 +69,27 @@ public class NewCategoryServiceImpl implements NewCategoryService {
 		NewCategoryDTO dto = new NewCategoryDTO();
 		dto.setId(nc.getId());
 		dto.setCategoryName(nc.getCategoryName());
+		dto.setEnable(nc.getEnable());
 		return dto;
 	}
 
 	@Override
-	public List<NewCategoryDTO> search(String findName, int start, int length) {
-		List<NewCategory> ncs = categoryDao.search(findName, start, length);
+	public List<NewCategoryDTO> search(String a,String findName, int start, int length) {
+		List<NewCategory> ncs = categoryDao.search(a,findName, start, length);
 		List<NewCategoryDTO> dtos = new ArrayList<NewCategoryDTO>();
 		for(NewCategory nc: ncs) {
 			NewCategoryDTO dto = new NewCategoryDTO();
 			dto.setId(nc.getId());
 			dto.setCategoryName(nc.getCategoryName());
-			
+			dto.setEnable(nc.getEnable());
 			dtos.add(dto);
 		}
 		return dtos;
 	}
 
 	@Override
-	public int countCategoryWhensearch(String name) {
-		return categoryDao.countCategoryWhensearch(name);
+	public int countCategoryWhensearch(String a,String name) {
+		return categoryDao.countCategoryWhensearch(a,name);
 	}
 
 }

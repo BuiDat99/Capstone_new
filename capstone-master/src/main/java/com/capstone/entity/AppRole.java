@@ -24,4 +24,7 @@ public class AppRole {
  
     @Column(name = "role_Name", length = 50, nullable = false)
     private String roleName;
+    
+    @Column(name = "enable", length = 50)
+    private String enable;
 }
