@@ -26,9 +26,9 @@
 <body>
 	<div th:replace="/user/header.html :: head"></div>
 	<div>
-		<div th:each="s : ${productDTOs}">
+		<div th:each="s : ${menuDTOs}">
 			<p th:text="${s.id}"></p>
-			<p th:text="${s.productName}"></p>
+			<p th:text="${s.menuName}"></p>
 		</div>
 	</div>
 

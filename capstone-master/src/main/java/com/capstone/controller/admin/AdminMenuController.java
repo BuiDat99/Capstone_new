@@ -1,10 +1,13 @@
 package com.capstone.controller.admin;
 
+import java.security.Principal;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +16,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.capstone.dao.AppUserDAO;
+import com.capstone.dao.MenuProductDAO;
+import com.capstone.entity.AppUser;
+import com.capstone.entity.Menu;
+import com.capstone.entity.MenuProduct;
 import com.capstone.model.MenuDTO;
 import com.capstone.model.MenuProductDTO;
 import com.capstone.model.ProductDTO;
@@ -22,7 +30,12 @@ import com.capstone.service.ProductService;
 
 @Controller
 public class AdminMenuController {
+	@Autowired
+	MenuProductDAO dao;
 
+	@Autowired
+	private AppUserDAO appUserService;
+	
 	@Autowired
 	private MenuService menuService;
 
@@ -59,11 +72,13 @@ public class AdminMenuController {
 
 	@PostMapping(value = "/admin/menu/add-menu")
 	@ResponseBody
-	public MenuDTO addMenuPost(HttpServletRequest request, @RequestBody MenuDTO menuDTO) {
+	public MenuDTO addMenuPost(HttpServletRequest request, @RequestBody MenuDTO menuDTO, Principal principal) {
+		User loginedUser = (User) ((Authentication) principal).getPrincipal();
+		AppUser user = appUserService.findAppUserbyUserName(loginedUser.getUsername());
 		MenuDTO dto = menuDTO;
+		dto.setUserId(user.getUserId());
 		menuService.addMenu(dto);
 		for (String string : menuDTO.getListproductId()) {
-			System.out.println(string);
 			MenuProductDTO menuProductDTO = new MenuProductDTO();
 			ProductDTO productDTO = productService.getProductbyId(Integer.parseInt(string));
 			menuProductDTO.setMenu(dto);
@@ -84,18 +99,22 @@ public class AdminMenuController {
 	@ResponseBody
 	public MenuDTO updateMenuPost(HttpServletRequest request, @RequestBody MenuDTO menuDTO) {
 		MenuDTO menuDTO2 = menuService.getMenubyId(menuDTO.getId());
+		menuDTO.setEnable("1");
 		menuService.updateMenu(menuDTO);
 		for (MenuProductDTO menuProductDTO : menuDTO2.getMenuProductDTOs()) {
-			System.out.println(menuProductDTO.getId());
-			mpService.deleteMenuProduct(menuProductDTO.getId());
+			MenuProductDTO menu= mpService.getMenuProductbyId(menuProductDTO.getId());
+			mpService.deleteMenuProduct(menu.getId());
 		}
 		for (String string : menuDTO.getListproductId()) {
+			
 			ProductDTO productDTO = productService.getProductbyId(Integer.parseInt(string));
 			MenuProductDTO menuProductDTO = new MenuProductDTO();
 			menuProductDTO.setProduct(productDTO);
 			menuProductDTO.setMenu(menuDTO);
 			mpService.addMenuProduct(menuProductDTO);
 		}
+		
+		
 		return menuDTO;
 
 	}

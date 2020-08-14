@@ -84,8 +84,15 @@
 												<li><a th:href="@{elements.html}">cate 3</a></li>
 											</ul></li> -->
 
-										<li><a th:href="@{/tintuc}">Món ăn</a></li>
-										<li><a th:href="@{/user/estimate}">Tạo Món ăn</a></li>
+										<li><a th:href="@{/mon_an}">Món ăn</a>
+											<ul class="submenu">
+												<li><a th:href="@{/user/estimate}">Tạo Món ăn</a></li>
+											</ul></li>
+										<!--  <li><a th:href="@{/user/estimate}">Tạo Món ăn</a></li>-->
+										<li><a th:href="@{/menu}">Menu</a><ul class="submenu">
+												<li><a th:href="@{/user/menu/add-menu}">Tạo Menu</a></li>
+											</ul></li>
+										<!--  <li><a th:href="@{/user/menu/add-menu}">Tạo Menu</a></li>-->
 										<li><a th:href="@{#}">Tính chỉ số</a>
 											<ul class="submenu">
 												<li><a th:href="@{/bmi}">BMI</a></li>

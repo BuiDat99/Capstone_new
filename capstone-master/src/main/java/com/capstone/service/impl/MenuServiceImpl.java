@@ -118,10 +118,12 @@ public class MenuServiceImpl implements MenuService {
 			Menu menu1= menuDao.getMenubyId(menuProduct.getMenu().getId());
 			MenuDTO menuDTO1= new MenuDTO();
 			menuDTO1.setId(menu1.getId());
+			menuDTO1.setEnable(menu1.getEnable());
 			Product product = productDAO.getProductbyId(menuProduct.getProduct().getId());
 			ProductDTO productDTO= new ProductDTO();
 			productDTO.setId(product.getId());
 			productDTO.setProductName(product.getProductName());
+			productDTO.setEnable(product.getEnable());
 			menuProductDTO.setMenu(menuDTO1);
 			menuProductDTO.setProduct(productDTO);
 			menuProductDTOs.add(menuProductDTO);

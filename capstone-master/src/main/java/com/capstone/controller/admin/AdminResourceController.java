@@ -101,6 +101,7 @@ public class AdminResourceController {
 
 	@PostMapping(value = "/admin/resource/update")
 	public String AdminUpdateResourcePost(@ModelAttribute(name = "category") ResourceDTO resource) {
+		resource.setEnable("1");;
 		resourceService.updateResource(resource);
 		return "redirect:/admin/resource/search";
 	}

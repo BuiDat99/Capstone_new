@@ -80,6 +80,7 @@ public class AdminResourceCategoryController {
 
 	@PostMapping(value = "/admin/resourceCat/update")
 	public String AdminUpdateCategoryPost(@ModelAttribute(name = "category") ResourceCategoryDTO category) {
+		category.setEnable("1");
 		categoryService.updateCategory(category);
 		return "redirect:/admin/resourceCat/search";
 	}

@@ -67,6 +67,7 @@ public class AdminHashTagController {
 
 	@PostMapping(value = "/admin/tag/update")
 	public String AdminUpdateTagPost(@ModelAttribute(name = "tag") HashTagDTO tag) {
+		tag.setEnable("1");
 		tagService.updateTag(tag);
 		return "redirect:/admin/tag/search";
 	}

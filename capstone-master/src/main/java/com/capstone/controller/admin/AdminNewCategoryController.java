@@ -66,6 +66,7 @@ public class AdminNewCategoryController {
 
 	@PostMapping(value = "/admin/newCat/update")
 	public String AdminUpdateCategoryPost(@ModelAttribute(name = "category") NewCategoryDTO category) {
+		category.setEnable("1");
 		categoryService.updateCategory(category);
 		return "redirect:/admin/newCat/search";
 	}

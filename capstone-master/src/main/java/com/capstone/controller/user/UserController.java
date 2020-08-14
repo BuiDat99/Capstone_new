@@ -18,12 +18,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.capstone.model.CommentDTO;
 import com.capstone.model.HashTagDTO;
+import com.capstone.model.MenuDTO;
 import com.capstone.model.NewCategoryDTO;
 import com.capstone.model.NewsDTO;
+import com.capstone.model.ProductDTO;
 import com.capstone.service.CommentService;
 import com.capstone.service.HashTagService;
+import com.capstone.service.MenuService;
 import com.capstone.service.NewCategoryService;
 import com.capstone.service.NewsService;
+import com.capstone.service.ProductService;
 
 @Controller
 public class UserController {
@@ -31,11 +35,17 @@ public class UserController {
 	@Autowired
 	private NewsService newsService;
 	@Autowired
+	private MenuService menuService;
+	@Autowired
 	private NewCategoryService newCatService;
 	@Autowired		
 	private HashTagService hashtagService;
 	@Autowired
 	private CommentService commentService;
+	
+	@Autowired
+	private ProductService productService;
+	
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String home(HttpServletRequest request) {
 		List<NewsDTO> listNews = newsService.getTop6News("1");
@@ -150,5 +160,32 @@ public class UserController {
 		
 	}
 	
+	@RequestMapping(value = "/mon_an", method = RequestMethod.GET)
+	public String Monan(HttpServletRequest request,
+			@RequestParam(value = "keyword", required = false) String keyword,
+			@RequestParam(value = "page", required = false) Integer page) {
+//		
+		
+		List<ProductDTO> productDTOs= productService.getAllProducts("1");
+		for(ProductDTO dto:productDTOs) {
+			System.out.println(dto.getId());
+		}
+		request.setAttribute("productDTOs", productDTOs);
+		
+		return "/user/all_foods";
+	}
+	
+	@RequestMapping(value = "/menu", method = RequestMethod.GET)
+	public String Menu(HttpServletRequest request,
+			@RequestParam(value = "keyword", required = false) String keyword,
+			@RequestParam(value = "page", required = false) Integer page) {
+//		
+		
+		List<MenuDTO> menuDTOs= menuService.getAllMenu("1");
+		
+		request.setAttribute("menuDTOs", menuDTOs);
+		
+		return "/user/all-menu";
+	}
 	
 }

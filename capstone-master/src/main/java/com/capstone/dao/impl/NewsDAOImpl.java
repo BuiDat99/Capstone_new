@@ -45,7 +45,7 @@ public class NewsDAOImpl implements NewsDAO {
 	
 	@Override
 	public List<News> getTop6News(String enable) {
-		String jql = "select n from News n status like :status";
+		String jql = "select n from News n where status like :status";
 		return entityManager.createQuery(jql,News.class).setParameter("status", "%"+ enable+"%").setMaxResults(6).getResultList();
 	}
 	
