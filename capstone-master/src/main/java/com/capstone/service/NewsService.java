@@ -20,11 +20,11 @@ public interface NewsService {
 	
 	public List<NewsDTO> getAllNewsOfCat(String enable,int catId, int start, int length);
 	
-	public int countNewsOfCategory(String enable,int id);
+	public int countNewsOfCategory(String h,String enable,int id);
 	
 	public NewsDTO getNewsbyId(int id);
 	
-	public List<NewsDTO> search(String enable,String findName, int start, int length);
+	public List<NewsDTO> search(String hashtag,String enable,String findName, int start, int length);
 	
-	public int countNewsWhensearch(String enable,String name);
+	public int countNewsWhensearch(String h,String enable,String name);
 }

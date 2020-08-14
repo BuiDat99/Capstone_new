@@ -20,12 +20,12 @@ public interface NewsDAO {
 	
 	public List<News> getAllNewsOfCat(String enable,int catId, int start, int length);
 	
-	public int countNewsOfCategory(String enable,int id);
+	public int countNewsOfCategory(String h,String enable,int id);
 	
 	public News getNewsbyId(int id);
 	
-	public List<News> search(String enable, String findName, int start, int length);
+	public List<News> search(String hash,String enable, String findName, int start, int length);
 	
-	public int countNewsWhensearch(String enable,String name);
+	public int countNewsWhensearch(String h,String enable,String name);
 
 }

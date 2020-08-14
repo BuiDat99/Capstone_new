@@ -65,8 +65,8 @@ public class MenuServiceImpl implements MenuService {
 	}
 
 	@Override
-	public List<MenuDTO> getAllMenu(String a) {
-		List<Menu> ms = menuDao.getAllMenu(a);
+	public List<MenuDTO> getAllMenu(String h,String a) {
+		List<Menu> ms = menuDao.getAllMenu(h,a);
 		List<MenuDTO> dtos = new ArrayList<MenuDTO>();
 		for(Menu m:ms) {
 			MenuDTO dto = new MenuDTO();

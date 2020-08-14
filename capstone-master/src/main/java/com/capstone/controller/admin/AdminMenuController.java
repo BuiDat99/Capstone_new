@@ -48,7 +48,7 @@ public class AdminMenuController {
 	@GetMapping(value = "/admin/menu/search")
 	public String searchMenu(HttpServletRequest request) {
 
-		List<MenuDTO> listMenu = menuService.getAllMenu("");
+		List<MenuDTO> listMenu = menuService.getAllMenu("","");
 		request.setAttribute("listMenu", listMenu);
 		for (MenuDTO menuDTO : listMenu) {
 			List<MenuProductDTO> dtos = (menuDTO.getMenuProductDTOs());
@@ -102,8 +102,7 @@ public class AdminMenuController {
 		menuDTO.setEnable("1");
 		menuService.updateMenu(menuDTO);
 		for (MenuProductDTO menuProductDTO : menuDTO2.getMenuProductDTOs()) {
-			MenuProductDTO menu= mpService.getMenuProductbyId(menuProductDTO.getId());
-			mpService.deleteMenuProduct(menu.getId());
+			mpService.deleteMenuProduct(menuProductDTO.getId());
 		}
 		for (String string : menuDTO.getListproductId()) {
 			
@@ -145,4 +144,5 @@ public class AdminMenuController {
 		menuService.updateMenu(menuDTO);
 		return "redirect:/admin/menu/search";
 	}
+	
 }

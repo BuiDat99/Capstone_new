@@ -36,9 +36,9 @@ public class MenuDAOImpl implements MenuDAO {
 	}
 
 	@Override
-	public List<Menu> getAllMenu(String enable) {
-		String jql = "select m from Menu m where enable like :enable";
-		return entityManager.createQuery(jql,Menu.class).setParameter("enable", "%"+enable+"%").getResultList();
+	public List<Menu> getAllMenu(String hashtag,String enable ) {
+		String jql = "select m from Menu m where enable like :enable and hashtag like :h";
+		return entityManager.createQuery(jql,Menu.class).setParameter("enable", "%"+enable+"%").setParameter("h", "%"+hashtag+"%").getResultList();
 	}
 
 	@Override
