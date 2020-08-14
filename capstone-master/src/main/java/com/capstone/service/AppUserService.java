@@ -11,7 +11,7 @@ public interface AppUserService {
 	
 	boolean checkIfValidOldPassword(AppUser user, String password);
 
-	void changeUserPassword(AppUser user, String password);
+	void changeUserPassword(AppUserDTO userDTO);
 
 	void insert(AppUserDTO userDTO);
 	
@@ -30,6 +30,9 @@ public interface AppUserService {
 	boolean checkExistUser(String name);
 
 	boolean checkExistUserEmail(String name);
+	
+	void resetUserPassword( AppUserDTO userDTO);
+
 	
 
 }

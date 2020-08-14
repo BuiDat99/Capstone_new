@@ -33,8 +33,8 @@ public class AdminController {
         return "/admin/manager_contact";
     }
 	
-	@RequestMapping(value = "/resetPass", method = RequestMethod.GET)
-    public String ResetPass(Model model) {       
-        return "user/resetPassword";
-    }
+//	@RequestMapping(value = "/resetPass", method = RequestMethod.GET)
+//    public String ResetPass(Model model) {       
+//        return "user/resetPassword";
+//    }
 }

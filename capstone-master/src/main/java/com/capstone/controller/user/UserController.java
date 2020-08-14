@@ -107,29 +107,29 @@ public class UserController {
 	}
 	
 	
-	@RequestMapping(value = "/user/changePassword", method = RequestMethod.GET)
-	public String ChangePassGet(HttpServletRequest request, Principal principal) {	
-		
-		return "/user/changedPassword";
-	}
-	@RequestMapping(value = "/user/changePassword", method = RequestMethod.POST)
-	@PreAuthorize("hasRole('ROLE_USER')")
-	public String changeUserPassword(HttpServletRequest request,final Locale locale,
-			@RequestParam(value = "oldPassword", required = false) String oldPassword,
-			@RequestParam(value = "newPassword", required = false) String newPass) {	
-		
-		System.out.print(oldPassword);
-		System.out.print(newPass);
-		
-//		AppUser user = userService.findUserByEmail(
-//			      SecurityContextHolder.getContext().getAuthentication().getName());
-//	    
-//	    if (!userService.checkIfValidOldPassword(user, oldPassword)) {
-//	        throw new InvalidOldPasswordException();
-//	    }
-//	    userService.changeUserPassword(user, newPass);
-	    return null;
-	}
+//	@RequestMapping(value = "/user/changePassword", method = RequestMethod.GET)
+//	public String ChangePassGet(HttpServletRequest request, Principal principal) {	
+//		
+//		return "/user/changedPassword";
+//	}
+//	@RequestMapping(value = "/user/changePassword", method = RequestMethod.POST)
+//	@PreAuthorize("hasRole('ROLE_USER')")
+//	public String changeUserPassword(HttpServletRequest request,final Locale locale,
+//			@RequestParam(value = "oldPassword", required = false) String oldPassword,
+//			@RequestParam(value = "newPassword", required = false) String newPass) {	
+//		
+//		System.out.print(oldPassword);
+//		System.out.print(newPass);
+//		
+////		AppUser user = userService.findUserByEmail(
+////			      SecurityContextHolder.getContext().getAuthentication().getName());
+////	    
+////	    if (!userService.checkIfValidOldPassword(user, oldPassword)) {
+////	        throw new InvalidOldPasswordException();
+////	    }
+////	    userService.changeUserPassword(user, newPass);
+//	    return null;
+//	}
 
 	
 	@RequestMapping(value = "/detailNews", method = RequestMethod.GET)

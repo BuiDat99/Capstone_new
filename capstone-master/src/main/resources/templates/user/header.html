@@ -52,6 +52,8 @@
 												th:utext="${#request.userPrincipal.name}"></span></a></li>
 										<li sec:authorize="isAuthenticated()"><a
 											th:href="@{/logout}"><i class="ti-lock"></i>Đăng xuất</a></li>
+										<li sec:authorize="isAuthenticated()"><a
+											th:href="@{/user/changePassword}"><i class="ti-lock"></i>Doi mat khau</a></li>
 
 									</ul>
 								</div>
@@ -89,7 +91,8 @@
 												<li><a th:href="@{/user/estimate}">Tạo Món ăn</a></li>
 											</ul></li>
 										<!--  <li><a th:href="@{/user/estimate}">Tạo Món ăn</a></li>-->
-										<li><a th:href="@{/menu}">Menu</a><ul class="submenu">
+										<li><a th:href="@{/menu}">Menu</a>
+										<ul class="submenu">
 												<li><a th:href="@{/user/menu/add-menu}">Tạo Menu</a></li>
 											</ul></li>
 										<!--  <li><a th:href="@{/user/menu/add-menu}">Tạo Menu</a></li>-->

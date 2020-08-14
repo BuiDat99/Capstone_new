@@ -20,6 +20,7 @@ import com.capstone.google.GoogleUtils;
 import com.capstone.model.AppUserDTO;
 import com.capstone.repository.AppUserRepository;
 import com.capstone.service.AppUserService;
+import com.capstone.utils.PasswordGenerator;
 
 @Transactional
 @Service
@@ -44,9 +45,11 @@ public class AppUserServiceImpl implements AppUserService {
 	        return passwordEncoder.matches(oldPassword, user.getEncrytedPassword());
 	    }
 	 @Override
-	    public void changeUserPassword(final AppUser user, final String password) {
-	        user.setEncrytedPassword(passwordEncoder.encode(password));
-	        userRepository.save(user);
+	    public void changeUserPassword(AppUserDTO userDTO) {
+		 	AppUser appUser= userDao.get(userDTO.getUserId());
+		 	appUser.setEncrytedPassword(PasswordGenerator.getHashString(userDTO.getPassword()));
+		 	appUser.setEnabled(userDTO.getEnable());
+	        userDao.update(appUser);
 	    }
 	@Override
 	public void insert(AppUserDTO userDTO) {
@@ -174,6 +177,13 @@ public class AppUserServiceImpl implements AppUserService {
 			dtos.add(dto);
 		}
 		return dtos;
+	}
+	@Override
+	public void resetUserPassword(AppUserDTO userDTO) {
+		AppUser appUser= userDao.get(userDTO.getUserId());
+	 	appUser.setEncrytedPassword(passwordEncoder.encode(userDTO.getPassword()));
+        userDao.update(appUser);
+		
 	}
 	
 
