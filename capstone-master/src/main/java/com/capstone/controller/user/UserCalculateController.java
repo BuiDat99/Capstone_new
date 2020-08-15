@@ -50,6 +50,10 @@ public class UserCalculateController {
 	public String calculateBMI(Model model) {
 		return "/user/result_bmi_caculate";
 	}
+	@RequestMapping(value = "/user/bmi", method = RequestMethod.GET) // ham Dat viet
+	public String calculateBMIuser(Model model) {
+		return "/user/result_bmi_caculate";
+	}
 
 	@PostMapping(value = "/bmi")
 	public String CalBMI(HttpServletRequest request, @RequestParam(name = "weight", required = true) float weight,
@@ -69,9 +73,6 @@ public class UserCalculateController {
 		float bmi = weight / (heights * heights);
 		String tinhtrangBMI = null;
 
-		User loginedUser = (User) ((Authentication) principal).getPrincipal();
-		AppUser user= appUserDao.findAppUserbyUserName(loginedUser.getUsername());
-		AppUserDTO appUserDTO= appUserService.get(user.getUserId());
 		
 		List<String> hashtags= new ArrayList<String>();
 		
@@ -123,7 +124,85 @@ public class UserCalculateController {
 		model.addAttribute("tinhtrang", tinhtrangBMI);
 		model.addAttribute("hashtags", hashtags);
 		
+
+		return "/user/result_bmi_caculate";
+
+	}
+	
+	@PostMapping(value = "/user/bmi")
+	public String userCalBMI(HttpServletRequest request, @RequestParam(name = "weight", required = true) float weight,
+			@RequestParam(name = "height", required = true) float height,
+			@RequestParam(name = "inlineRadioOptions", required = true) String gender, Model model,
+			Principal principal) {
+
+		if (weight < 1 || weight > 300) {
+			request.setAttribute("messErr", "Vui lòng nhập cân nặng từ 1 cân đến 300 cân");
+			return "/user/result_bmi_caculate";
+		} else if (height < 1 || height > 300) {
+			request.setAttribute("messErr", "Vui lòng nhập chiều cao từ 1cm đến 300cm");
+			return "/user/result_bmi_caculate";
+		}
+
+		float heights = height / 100;
+		float bmi = weight / (heights * heights);
+		String tinhtrangBMI = null;
+
+		
+		List<String> hashtags= new ArrayList<String>();
+		
+		if (bmi < 16) {
+			tinhtrangBMI = "Gầy độ 3";
+			hashtags.add("tag1");
+			hashtags.add("tag2");
+			hashtags.add("tag3");
+		} else if (bmi >= 16 && bmi < 17) {
+			tinhtrangBMI = "Gầy độ 2";
+			hashtags.add("tag4");
+			hashtags.add("tag5");
+			hashtags.add("tag6");
+		} else if (bmi >= 17 && bmi < 18.5) {
+			tinhtrangBMI = " Gầy độ 1";
+			hashtags.add("tag7");
+			hashtags.add("tag8");
+			hashtags.add("tag9");
+		} else if (bmi >= 18.5 && bmi < 25) {
+			tinhtrangBMI = " Bình thường";
+			hashtags.add("tag10");
+			hashtags.add("tag11");
+			hashtags.add("tag12");
+		} else if (bmi >= 25 && bmi < 30) {
+			tinhtrangBMI = " Thừa cân";
+			hashtags.add("tag13");
+			hashtags.add("tag14");
+			hashtags.add("tag15");
+		} else if (bmi >= 30 && bmi < 35) {
+			tinhtrangBMI = " Béo phì cấp độ 1";
+			hashtags.add("tag16");
+			hashtags.add("tag17");
+			hashtags.add("tag18");
+		} else if (bmi >= 35 && bmi < 40) {
+			tinhtrangBMI = " Béo phì cấp độ 2";
+			hashtags.add("tag19");
+			hashtags.add("tag20");
+			hashtags.add("tag21");
+		} else if (bmi > 40) {
+			tinhtrangBMI = " Béo phì cấp độ 3";
+			hashtags.add("tag22");
+			hashtags.add("tag23");
+			hashtags.add("tag24");
+		}
+
+		bmi = Float.parseFloat(new DecimalFormat("##.###").format(bmi));
+		Date date= new Date();
+		model.addAttribute("bmi", bmi);
+		model.addAttribute("tinhtrang", tinhtrangBMI);
+		model.addAttribute("hashtags", hashtags);
+		
+		User loginedUser = (User) ((Authentication) principal).getPrincipal();
+		
 		if (loginedUser != null) {
+			AppUser user= appUserDao.findAppUserbyUserName(loginedUser.getUsername());
+			AppUserDTO appUserDTO= appUserService.get(user.getUserId());
 			UserHistoryDTO  userHistoryDTO  = new  UserHistoryDTO();
 			userHistoryDTO.setHeight(height);
 			userHistoryDTO.setWeight(weight);

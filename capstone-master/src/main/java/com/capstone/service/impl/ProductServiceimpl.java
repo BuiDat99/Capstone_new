@@ -10,12 +10,15 @@ import org.springframework.stereotype.Service;
 
 import com.capstone.dao.ProductDAO;
 import com.capstone.dao.ProductResourceDAO;
+import com.capstone.dao.ResourceDAO;
 import com.capstone.entity.Product;
 import com.capstone.entity.ProductResource;
 import com.capstone.entity.Resource;
 import com.capstone.model.ProductDTO;
+import com.capstone.model.ProductResourceDTO;
 import com.capstone.model.ResourceDTO;
 import com.capstone.service.ProductService;
+import com.capstone.service.ResourceService;
 
 @Service
 @Transactional
@@ -23,6 +26,9 @@ public class ProductServiceimpl implements ProductService {
 
 	@Autowired
 	private ProductDAO productDao;
+	
+	@Autowired
+	private ResourceService resourceDao;
 	
 	@Autowired
 	private ProductResourceDAO productResourceDAO;
@@ -82,9 +88,18 @@ public class ProductServiceimpl implements ProductService {
 			dto.setImage(p.getImage());
 			dto.setProductName(p.getProductName());
 			dto.setEnable(p.getEnable());
+			List<ProductResource> resources=p.getProductResources();
+			List<ProductResourceDTO> resourceDTOs= new ArrayList<ProductResourceDTO>();
+			for(ProductResource resource:resources) {
+				ProductResourceDTO resourceDTO = new ProductResourceDTO();
+				resourceDTO.setGram(resource.getKcal1g());
+				ResourceDTO resourceDTO2= resourceDao.getResourcebyId(resource.getResource().getId());
+				resourceDTO.setResource(resourceDTO2);
+				resourceDTOs.add(resourceDTO);
+			}
 //			ProductResourceDTO prDTO = new ProductResourceDTO();
 //			prDTO.setId(p.getId());
-			
+			dto.setProductResourceDTOs(resourceDTOs);
 			// goi ra resource
 //			ResourceDTO resourceDTO = new ResourceDTO();
 //			resourceDTO.setId(p.getCategory().getId());

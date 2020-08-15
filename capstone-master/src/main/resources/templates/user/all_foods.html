@@ -26,9 +26,16 @@
 <body>
 	<div th:replace="/user/header.html :: head"></div>
 	<div>
-		<div th:each="s : ${productDTOs}">
+		<div th:each="s : ${productDTOs}"  style="border:1px solid red;">
 			<p th:text="${s.id}"></p>
 			<p th:text="${s.productName}"></p>
+			<p th:text="${s.productDescription}"></p>
+			<img style="width: 200px;" th:src="${s.image}">
+			<div th:each="r:${s.productResourceDTOs}">
+				<p th:text="${r.resource.resourceName}"></p>
+				<p th:text="${r.gram}"></p> gram
+				
+			</div>
 		</div>
 	</div>
 

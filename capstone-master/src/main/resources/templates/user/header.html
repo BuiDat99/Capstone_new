@@ -98,11 +98,18 @@
 											</ul></li>
 										<!--  <li><a th:href="@{/user/menu/add-menu}">Tạo Menu</a></li>-->
 										<li><a th:href="@{#}">Tính chỉ số</a>
-											<ul class="submenu">
+											<ul class="submenu" sec:authorize="!isAuthenticated()">
 												<li><a th:href="@{/bmi}">BMI</a></li>
 												<li><a th:href="@{/bfp}">BFP</a></li>
-												<li><a th:href="@{elements.html}">BMI</a></li>
-											</ul></li>
+												
+											</ul>
+											<ul class="submenu" sec:authorize="isAuthenticated()">
+												<li><a th:href="@{/user/bmi}">BMI</a></li>
+												<li><a th:href="@{/bfp}">BFP</a></li>
+												
+											</ul>
+											
+										</li>
 										<li><a th:href="@{contact.html}">Liên hệ</a></li>
 									</ul>
 								</nav>

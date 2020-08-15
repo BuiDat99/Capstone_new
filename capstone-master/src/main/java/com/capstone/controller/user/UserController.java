@@ -19,11 +19,13 @@ import com.capstone.model.MenuDTO;
 import com.capstone.model.NewCategoryDTO;
 import com.capstone.model.NewsDTO;
 import com.capstone.model.ProductDTO;
+import com.capstone.model.ProductResourceDTO;
 import com.capstone.service.CommentService;
 import com.capstone.service.HashTagService;
 import com.capstone.service.MenuService;
 import com.capstone.service.NewCategoryService;
 import com.capstone.service.NewsService;
+import com.capstone.service.ProductResourceService;
 import com.capstone.service.ProductService;
 
 @Controller
@@ -42,6 +44,9 @@ public class UserController {
 
 	@Autowired
 	private ProductService productService;
+	
+	@Autowired
+	private ProductResourceService productResourceService;
 
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String home(HttpServletRequest request) {
@@ -138,11 +143,9 @@ public class UserController {
 			@RequestParam(value = "page", required = false) Integer page) {
 		
 		List<ProductDTO> productDTOs = productService.getAllProducts("1");
-		for (ProductDTO dto : productDTOs) {
-			System.out.println(dto.getId());
-		}
+		
 		request.setAttribute("productDTOs", productDTOs);
-
+		
 		return "/user/all_foods";
 	}
 
