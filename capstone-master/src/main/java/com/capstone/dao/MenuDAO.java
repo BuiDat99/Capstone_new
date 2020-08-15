@@ -15,4 +15,7 @@ public interface MenuDAO {
 	public List<Menu> getAllMenu(String enable, String hashtag);
 	
 	public Menu getMenubyId(int id);
+	
+	public List<Menu> getAllMenubyUserId(String enable, String hashtag,int userId);
+
 }

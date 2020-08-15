@@ -15,4 +15,7 @@ public interface MenuService {
 	public List<MenuDTO> getAllMenu(String has,String enable);
 	
 	public MenuDTO getMenubyId(int id);
+	
+	public List<MenuDTO> getAllMenubyuser(String has,String enable,int uId);
+
 }

@@ -17,33 +17,42 @@ public class MenuDAOImpl implements MenuDAO {
 
 	@PersistenceContext
 	EntityManager entityManager;
+
 	@Override
 	public void addMenu(Menu menu) {
 		entityManager.persist(menu);
-		
+
 	}
 
 	@Override
 	public void updateMenu(Menu menu) {
 		entityManager.merge(menu);
-		
+
 	}
 
 	@Override
 	public void deleteMenu(Menu menu) {
 		entityManager.remove(menu);
-		
+
 	}
 
 	@Override
-	public List<Menu> getAllMenu(String hashtag,String enable ) {
+	public List<Menu> getAllMenu(String hashtag, String enable) {
 		String jql = "select m from Menu m where enable like :enable and hashtag like :h";
-		return entityManager.createQuery(jql,Menu.class).setParameter("enable", "%"+enable+"%").setParameter("h", "%"+hashtag+"%").getResultList();
+		return entityManager.createQuery(jql, Menu.class).setParameter("enable", "%" + enable + "%")
+				.setParameter("h", "%" + hashtag + "%").getResultList();
 	}
 
 	@Override
 	public Menu getMenubyId(int id) {
 		return entityManager.find(Menu.class, id);
+	}
+
+	@Override
+	public List<Menu> getAllMenubyUserId(String enable, String hashtag, int userId) {
+		String jql = "select m from Menu m join m.user u where m.enable like :enable and m.hashtag like :h and u.userId =:uId ";
+		return entityManager.createQuery(jql, Menu.class).setParameter("enable", "%" + enable + "%")
+				.setParameter("h", "%" + hashtag + "%").setParameter("uId", userId).getResultList();
 	}
 
 }

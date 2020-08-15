@@ -136,8 +136,7 @@ public class UserController {
 	@RequestMapping(value = "/mon_an", method = RequestMethod.GET)
 	public String Monan(HttpServletRequest request, @RequestParam(value = "keyword", required = false) String keyword,
 			@RequestParam(value = "page", required = false) Integer page) {
-//		
-
+		
 		List<ProductDTO> productDTOs = productService.getAllProducts("1");
 		for (ProductDTO dto : productDTOs) {
 			System.out.println(dto.getId());

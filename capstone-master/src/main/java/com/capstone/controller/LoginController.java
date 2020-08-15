@@ -41,7 +41,7 @@ public class LoginController {
 
 	@Autowired
 	private AppUserDAO userDao;
-	
+
 	@Autowired
 	private AppUserService userService;
 
@@ -49,13 +49,13 @@ public class LoginController {
 	private AppUserRepository userRepository;
 	@Autowired
 	private UserRoleDAO userRoleDao;
-	
+
 	@Autowired
 	private GoogleUtils googleUtils;
-	
 
 	@RequestMapping("/login-google")
-	public String loginGoogle(HttpServletRequest request,AppUserDTO userDTO) throws ClientProtocolException, IOException {
+	public String loginGoogle(HttpServletRequest request, AppUserDTO userDTO)
+			throws ClientProtocolException, IOException {
 		String code = request.getParameter("code");
 
 		if (code == null || code.isEmpty()) {
@@ -69,27 +69,30 @@ public class LoginController {
 				userDetail.getAuthorities());
 		authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 		SecurityContextHolder.getContext().setAuthentication(authentication);
-		
-		//add to database
-		AppUser user = new AppUser();	
+
+		// add to database
+		AppUser user = new AppUser();
 		Boolean b = userRepository.existsByEmail(googlePojo.getEmail());
-		if(b != true) {
-		user.setUserName(googlePojo.getName());
-		user.setEncrytedPassword("null");
-		user.setEmail(googlePojo.getEmail());
-		user.setEnabled("1");
-		userDao.insert(user);
-		
-		AppRole r = new AppRole();
-		r.setRoleId(2);		
-		
-		UserRole ur = new UserRole();
-		ur.setAppUser(user);
-		ur.setAppRole(r);
-		
-		
-		userRoleDao.addUserRole(ur);
-		}		
+		if (b != true) {
+//			user.setUsername(googlePojo.getName());
+//			user.setPassword("null");
+//			user.setEmail(googlePojo.getEmail());
+//			user.setEnable("1");
+			user.setUserName(googlePojo.getName());
+			user.setEncrytedPassword("null");
+			user.setEmail(googlePojo.getEmail());
+			user.setEnabled("1");
+			userDao.insert(user);
+
+			AppRole r = new AppRole();
+			r.setRoleId(2);
+
+			UserRole ur = new UserRole();
+			ur.setAppUser(user);
+			ur.setAppRole(r);
+
+			userRoleDao.addUserRole(ur);
+		}
 		return "user/userInfoPage";
 	}
 
@@ -156,22 +159,24 @@ public class LoginController {
 	public String registerPage(Model model) {
 		return "/user/register";
 	}
+	@GetMapping(value = "/")
+	public String HomePage() {
+		return "/user/home";
+	}
 
-	@PostMapping(value = "/register")  //Fix check exist User by Thang Pan
+	@PostMapping(value = "/register") // Fix check exist User by Thang Pan
 	public String addUser(HttpServletRequest request, @ModelAttribute AppUserDTO user) {
-		
+
 		user.setEnable("1");
 		user.setPassword(EncrytedPasswordUtils.encrytePassword(user.getPassword()));
-		
-		
-		if(userService.checkExistUser(user.getUsername())) {
+
+		if (userService.checkExistUser(user.getUsername())) {
 			System.out.print("------------------EXIST------------");
-			request.setAttribute("messErr", "User "+user.getUsername()+" existed!" );
+			request.setAttribute("messErr", "User " + user.getUsername() + " existed!");
 			return "/user/register";
-		}
-		else if(userService.checkExistUserEmail(user.getEmail())) {
+		} else if (userService.checkExistUserEmail(user.getEmail())) {
 			System.out.print("------------------EXIST------------");
-			request.setAttribute("messErr", "Email "+user.getEmail()+" existed!" );
+			request.setAttribute("messErr", "Email " + user.getEmail() + " existed!");
 			return "/user/register";
 		}
 		System.out.print("------------------NOT EXIST------------");
