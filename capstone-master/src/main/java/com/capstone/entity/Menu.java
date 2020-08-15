@@ -41,7 +41,7 @@ public class Menu implements Serializable {
 	@JoinColumn(name="user_Id")
 	private AppUser user;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "menu",cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "menu",cascade = CascadeType.REMOVE)
 	private List<MenuProduct> menuProducts;
 	
 	@Column(name = "enable", length = 50)

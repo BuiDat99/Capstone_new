@@ -82,23 +82,23 @@ public class UserMenuController {
 	@ResponseBody
 	public MenuDTO updateMenuPost(HttpServletRequest request, @RequestBody MenuDTO menuDTO) {
 		MenuDTO menuDTO2 = menuService.getMenubyId(menuDTO.getId());
+
 		menuDTO.setEnable("1");
 		menuService.updateMenu(menuDTO);
-		for (MenuProductDTO menuProductDTO : menuDTO2.getMenuProductDTOs()) {
-			mpService.deleteMenuProduct(menuProductDTO.getId());
-		}
+
 		for (String string : menuDTO.getListproductId()) {
-			
+
 			ProductDTO productDTO = productService.getProductbyId(Integer.parseInt(string));
 			MenuProductDTO menuProductDTO = new MenuProductDTO();
 			menuProductDTO.setProduct(productDTO);
 			menuProductDTO.setMenu(menuDTO);
 			mpService.addMenuProduct(menuProductDTO);
+			System.out.println("them " + menuProductDTO.getId());
 		}
-		
-		
+		for (MenuProductDTO menuProductDTO : menuDTO2.getMenuProductDTOs()) {
+			mpService.deleteMenuProduct(menuProductDTO.getId());
+		}
 		return menuDTO;
-
 	}
 
 	
