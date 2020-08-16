@@ -92,6 +92,7 @@ public class UserController {
 			request.setAttribute("page", page);
 			request.setAttribute("keyword", keyword);
 			request.setAttribute("listCount", listCount);
+			request.setAttribute("hashtag", has);
 		} else {
 			final int PAGE_SIZE = 1;
 			page = page == null ? 1 : page;
@@ -107,6 +108,7 @@ public class UserController {
 			request.setAttribute("page", page);
 			request.setAttribute("keyword", keyword);
 			request.setAttribute("listCount", listCount);
+			request.setAttribute("hashtag", has);
 		}
 		List<NewCategoryDTO> listNewsCat = newCatService.getAllCategories("1");
 		List<NewsDTO> listNews4Date = newsService.getTop4NewsByDate("1");

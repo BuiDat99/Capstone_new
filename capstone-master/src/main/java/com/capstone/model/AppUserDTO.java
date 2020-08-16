@@ -12,6 +12,8 @@ public class AppUserDTO {
 	private String email;	
 	private String enable;
 	private List<String> roles;
+	private String address;
+	private String name;
 	
 	public AppUserDTO() {
 		// TODO Auto-generated constructor stub

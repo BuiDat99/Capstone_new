@@ -59,6 +59,7 @@ public class AppUserServiceImpl implements AppUserService {
 		user.setEncrytedPassword(PasswordGenerator.getHashString(userDTO.getPassword()));
 		user.setEmail(userDTO.getEmail());
 		user.setEnabled(userDTO.getEnable());
+		user.setAddress(userDTO.getAddress());
 		userDao.insert(user);
 		userDTO.setUserId(user.getUserId());
 
@@ -101,7 +102,8 @@ public class AppUserServiceImpl implements AppUserService {
 		dto.setUsername(user.getUserName());
 		dto.setPassword(user.getEncrytedPassword());
 		dto.setEmail(user.getEmail());
-
+		dto.setAddress(user.getAddress());
+		dto.setName(user.getName());
 		return dto;
 	}
 
@@ -113,6 +115,8 @@ public class AppUserServiceImpl implements AppUserService {
 			user.setEncrytedPassword(userDTO.getPassword());
 			user.setEmail(userDTO.getEmail());
 			user.setEnabled(userDTO.getEnable());
+			user.setAddress(userDTO.getAddress());
+			user.setName(userDTO.getName());
 			userDao.update(user);
 
 		}

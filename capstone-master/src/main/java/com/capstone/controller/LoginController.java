@@ -145,7 +145,7 @@ public class LoginController   {
 //        return "redirect:/login";
 //    }
 
-	@RequestMapping(value = "/userInfo", method = RequestMethod.GET)
+	@RequestMapping(value = "/user/userInfo", method = RequestMethod.GET)
 	public String userInfo(Model model, Principal principal, HttpSession session) {
 
 		// Sau khi user login thanh cong se co principal
@@ -154,6 +154,7 @@ public class LoginController   {
 		User loginedUser = (User) ((Authentication) principal).getPrincipal();
 		AppUser user= userDao.findAppUserbyUserName(loginedUser.getUsername());
 		AppUserDTO userDTO= userService.get(user.getUserId());
+		System.out.println(userDTO.getPassword());
 		if(user.getEnabled().equals("0")) {
 			return "redirect:/logout";
 		}
@@ -170,6 +171,14 @@ public class LoginController   {
 			
 		}
 		
+	}
+	@RequestMapping(value = "/user/userInfo", method = RequestMethod.POST)
+	public String userupdateInfo(Model model, Principal principal, HttpSession session, @ModelAttribute AppUserDTO appUserDTO) {
+		appUserDTO.setEnable("1");
+		
+		userService.update(appUserDTO);
+		
+		return "redirect:/user/userInfo";
 	}
 
 	@RequestMapping(value = "/403", method = RequestMethod.GET)

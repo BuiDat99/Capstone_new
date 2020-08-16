@@ -21,6 +21,20 @@
 	rel="stylesheet" />
 </head>
 <body>
+	<div class="modal fade" id="notifyModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">...</h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">...</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+				</div>
+			</div>
+		</div>
+	</div>
 	<div id="wrapper">
 		
 		<!-- /. NAV SIDE  -->
@@ -169,14 +183,19 @@
 				contentType: "application/json",
 				data: JSON.stringify(data),
 				success: function () {
-					alert("ok");
+					 notify("Lỗi", "Cập nhập thực đơn thành công");
 				},
 				error: function () {
-					alert("Loi xay ra");
+					 notify("Lỗi", "Không thể xử lí dữ liệu");
 				}
 			});
 			return false;
 		});
+	function notify(title, message) {
+	    $("#notifyModal .modal-title").html(title);
+	    $("#notifyModal .modal-body").html(message);
+	    $("#notifyModal").modal({ backdrop: "static" });
+	}
         </script>
 	<!-- CUSTOM SCRIPTS -->
 	<!--        <script th:src="../static/js/custom.js"></script>-->
