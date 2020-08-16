@@ -13,6 +13,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,17 +22,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
 
-import com.capstone.dao.AppUserDAO;
-import com.capstone.dao.UserRoleDAO;
-import com.capstone.entity.AppRole;
-import com.capstone.entity.AppUser;
-import com.capstone.entity.UserRole;
 import com.capstone.google.GooglePojo;
 import com.capstone.google.GoogleUtils;
 import com.capstone.model.AppUserDTO;
-import com.capstone.repository.AppUserRepository;
 import com.capstone.service.AppUserService;
 import com.capstone.utils.EncrytedPasswordUtils;
 import com.capstone.utils.WebUtils;
@@ -40,22 +34,16 @@ import com.capstone.utils.WebUtils;
 public class LoginController {
 
 	@Autowired
-	private AppUserDAO userDao;
-
-	@Autowired
 	private AppUserService userService;
-
-	@Autowired
-	private AppUserRepository userRepository;
-	@Autowired
-	private UserRoleDAO userRoleDao;
 
 	@Autowired
 	private GoogleUtils googleUtils;
 
+	@Autowired
+	private UserDetailsService userDetailsService;
+
 	@RequestMapping("/login-google")
-	public String loginGoogle(HttpServletRequest request, AppUserDTO userDTO)
-			throws ClientProtocolException, IOException {
+	public String loginGoogle(HttpServletRequest request) throws ClientProtocolException, IOException {
 		String code = request.getParameter("code");
 
 		if (code == null || code.isEmpty()) {
@@ -64,43 +52,33 @@ public class LoginController {
 		String accessToken = googleUtils.getToken(code);
 
 		GooglePojo googlePojo = googleUtils.getUserInfo(accessToken);
-		UserDetails userDetail = googleUtils.buildUser(googlePojo);
+
+		// add to database
+		Boolean check = userService.checkExistUserEmail(googlePojo.getEmail());
+		if (!check) {
+			AppUserDTO userDTO = new AppUserDTO();
+
+			userDTO.setUsername(googlePojo.getEmail());
+			userDTO.setPassword("123456");
+			userDTO.setEmail(googlePojo.getEmail());
+			userDTO.setEnable("1");
+
+			userService.insert(userDTO);
+		}
+
+		UserDetails userDetail = userDetailsService.loadUserByUsername(googlePojo.getEmail());
+
 		UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetail, null,
 				userDetail.getAuthorities());
 		authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 
-		// add to database
-		AppUser user = new AppUser();
-		Boolean b = userRepository.existsByEmail(googlePojo.getEmail());
-		if (b != true) {
-//			user.setUsername(googlePojo.getName());
-//			user.setPassword("null");
-//			user.setEmail(googlePojo.getEmail());
-//			user.setEnable("1");
-			user.setUserName(googlePojo.getName());
-			user.setEncrytedPassword("null");
-			user.setEmail(googlePojo.getEmail());
-			user.setEnabled("1");
-			userDao.insert(user);
-
-			AppRole r = new AppRole();
-			r.setRoleId(2);
-
-			UserRole ur = new UserRole();
-			ur.setAppUser(user);
-			ur.setAppRole(r);
-
-			userRoleDao.addUserRole(ur);
-		}
 		return "user/userInfoPage";
 	}
 
 	@RequestMapping(value = "/admin", method = RequestMethod.GET)
 	public String adminPage(Model model, Principal principal) {
-
 		User loginedUser = (User) ((Authentication) principal).getPrincipal();
-
 		String userInfo = WebUtils.toString(loginedUser);
 		model.addAttribute("userInfo", userInfo);
 
@@ -109,19 +87,11 @@ public class LoginController {
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String loginPage(Model model) {
-
 		return "user/loginP";
 	}
 
-//    @RequestMapping(value = "/logoutSuccessful", method = RequestMethod.GET)
-//    public String logoutSuccessfulPage(Model model) {
-//        model.addAttribute("title", "Logout");
-//        return "redirect:/login";
-//    }
-
 	@RequestMapping(value = "/userInfo", method = RequestMethod.GET)
 	public String userInfo(Model model, Principal principal, HttpSession session) {
-
 		// Sau khi user login thanh cong se co principal
 		String userName = principal.getName();
 		System.out.println("User Name: " + userName);
@@ -159,10 +129,6 @@ public class LoginController {
 	public String registerPage(Model model) {
 		return "/user/register";
 	}
-	@GetMapping(value = "/")
-	public String HomePage() {
-		return "/user/home";
-	}
 
 	@PostMapping(value = "/register") // Fix check exist User by Thang Pan
 	public String addUser(HttpServletRequest request, @ModelAttribute AppUserDTO user) {
@@ -183,9 +149,4 @@ public class LoginController {
 		userService.insert(user);
 		return "redirect:/login";
 	}
-
-//	@RequestMapping(value = "/bmi", method = RequestMethod.GET)
-//	public String calculateBMI(Model model) {
-//		return "/user/result_bmi_caculate";
-//	}
 }

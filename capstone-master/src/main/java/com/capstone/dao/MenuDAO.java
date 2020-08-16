@@ -12,10 +12,7 @@ public interface MenuDAO {
 	
 	public void deleteMenu(Menu menu);
 	
-	public List<Menu> getAllMenu(String enable, String hashtag);
+	public List<Menu> getAllMenu(String enable);
 	
 	public Menu getMenubyId(int id);
-	
-	public List<Menu> getAllMenubyUserId(String enable, String hashtag,int userId);
-
 }

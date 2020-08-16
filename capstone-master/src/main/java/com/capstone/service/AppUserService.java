@@ -15,8 +15,6 @@ public interface AppUserService {
 
 	void insert(AppUserDTO userDTO);
 	
-	void insertWithLoginGoogle(AppUserDTO userDTO);
-
 	void update(AppUserDTO userDTO);
 
 	void delete(int id);

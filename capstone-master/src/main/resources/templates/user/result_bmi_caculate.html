@@ -84,11 +84,16 @@
 								<p type="text" class="">Có thể bạn quan tâm vền những điều
 									sau</p>
 							</div>
-							<div class="row" >
-								<div class="text-center col" th:each="hash:${hashtags}">
-									<a th:href="@{'/tintuc?hashtag='+${hash}}" ><p th:text="${hash}"></p></a>
-									<a th:href="@{'/menu?hashtag='+${hash}}"><p th:text="${hash}"  style="color:red;font-family:cursive"></p></a>
-								</div>								
+							<div class="row">
+								<div class="text-center col">
+									<button class="border-tag">Béo</button>
+								</div>
+								<div class="text-center col">
+									<button class="border-tag">Ăn kiêng</button>
+								</div>
+								<div class="text-center col">
+									<button class="border-tag">Tăng căn</button>
+								</div>
 							</div>
 						</div>
 					</div>

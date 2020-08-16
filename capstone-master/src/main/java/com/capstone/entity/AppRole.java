@@ -9,9 +9,11 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@NoArgsConstructor // tao 1 contructer ko du lieuj
 @Table(name = "Role", //
         uniqueConstraints = { //
                 @UniqueConstraint(name = "APP_ROLE_UK", columnNames = "Role_Name") })
@@ -27,4 +29,10 @@ public class AppRole {
     
     @Column(name = "enable", length = 50)
     private String enable;
+
+	public AppRole(int roleId) {
+		super();
+		this.roleId = roleId;
+	}
+    
 }

@@ -61,27 +61,27 @@ public class NewsDAOImpl implements NewsDAO {
 	}
 
 	@Override
-	public List<News> search(String hash,String enable,String findName, int start, int length) {
-		String jql = "select n from News n where title like :title and status like :status and hashtag like :s";
+	public List<News> search(String enable,String findName, int start, int length) {
+		String jql = "select n from News n where title like :title and status like :status";
 		Query query = entityManager.createQuery(jql,News.class);
-		query.setParameter("title", "%" + findName + "%").setParameter("status","%"+ enable+"%").setParameter("s","%"+ hash+"%");
+		query.setParameter("title", "%" + findName + "%").setParameter("status","%"+ enable+"%");
 		query.setFirstResult(start).setMaxResults(length);
 		return query.getResultList();
 	}
 
 	@Override
-	public int countNewsWhensearch(String h,String enable,String name) {
-		String jql="select n from News n where title like :title and status like :status and hashtag like :s ";
+	public int countNewsWhensearch(String enable,String name) {
+		String jql="select n from News n where title like :title and status like :status ";
 		Query query = entityManager.createQuery(jql,News.class);
-		query.setParameter("title", "%" + name + "%").setParameter("status", "%"+ enable+"%").setParameter("s", "%"+ h+"%");
+		query.setParameter("title", "%" + name + "%").setParameter("status", "%"+ enable+"%");
 		return (int) query.getResultList().size();
 	}
 
 	@Override
-	public int countNewsOfCategory(String h,String enable,int id) {
-		String jql="select n from News n inner join NewCategory c on c.id=n.category.id where n.category.id=:id and n.status like :status and n.hashtag like :s";
+	public int countNewsOfCategory(String enable,int id) {
+		String jql="select n from News n inner join NewCategory c on c.id=n.category.id where n.category.id=:id and n.status like :status";
 		Query query = entityManager.createQuery(jql,News.class);
-		query.setParameter("id",id).setParameter("status", "%"+ enable+"%").setParameter("s", "%"+ h+"%");
+		query.setParameter("id",id).setParameter("status", "%"+ enable+"%");
 		return (int) query.getResultList().size();
 	}
 

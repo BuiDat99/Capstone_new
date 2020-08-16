@@ -165,8 +165,8 @@ public class NewsServiceImpl implements NewsService {
 	}
 
 	@Override
-	public List<NewsDTO> search(String hastag,String enable,String findName, int start, int length) {
-		List<News> ns = newsDao.search(hastag,enable,findName, start, length);
+	public List<NewsDTO> search(String enable,String findName, int start, int length) {
+		List<News> ns = newsDao.search(enable,findName, start, length);
 		List<NewsDTO> dtos = new ArrayList<NewsDTO>();
 		for(News n: ns) {
 			NewsDTO dto = new NewsDTO();
@@ -195,13 +195,13 @@ public class NewsServiceImpl implements NewsService {
 	}
 
 	@Override
-	public int countNewsWhensearch(String h,String enable,String name) {		
-		return newsDao.countNewsWhensearch(h,enable,name);
+	public int countNewsWhensearch(String enable,String name) {		
+		return newsDao.countNewsWhensearch(enable,name);
 	}
 
 	@Override
-	public int countNewsOfCategory(String h,String enable,int id) {
-		return newsDao.countNewsOfCategory(h,enable,id);
+	public int countNewsOfCategory(String enable,int id) {
+		return newsDao.countNewsOfCategory(enable,id);
 	}
 
 	@Override

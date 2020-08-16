@@ -25,14 +25,10 @@
 </head>
 <body>
 	<div th:replace="/user/header.html :: head"></div>
-	<div >
-		<div th:each="s : ${menuDTOs}" style="border:1px solid red;">
+	<div>
+		<div th:each="s : ${menuDTOs}">
 			<p th:text="${s.id}"></p>
 			<p th:text="${s.menuName}"></p>
-			<p th:text="${s.hashtag}"></p>
-			<div th:each="mp: ${s.menuProductDTOs}">
-				<p th:text="${mp.product.productName}"></p>
-			</div>
 		</div>
 	</div>
 

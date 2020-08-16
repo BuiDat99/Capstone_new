@@ -2,7 +2,6 @@ package com.capstone.model;
 
 
 public class UserRoleDTO {
-
 	private int id;
 	private AppUserDTO user;
 	private AppRoleDTO role;

@@ -1,14 +1,10 @@
 package com.capstone.model;
 
-import lombok.Data;
-
-@Data
 public class ProductResourceDTO {
 
 	private int id;
 	private ResourceDTO resource;
 	private ProductDTO product;
-	private float gram;
 	
 	public ProductResourceDTO() {
 		// TODO Auto-generated constructor stub

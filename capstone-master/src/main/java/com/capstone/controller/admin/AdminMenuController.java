@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.capstone.dao.AppUserDAO;
 import com.capstone.dao.MenuProductDAO;
 import com.capstone.entity.AppUser;
+import com.capstone.entity.Menu;
+import com.capstone.entity.MenuProduct;
 import com.capstone.model.MenuDTO;
 import com.capstone.model.MenuProductDTO;
 import com.capstone.model.ProductDTO;
@@ -33,7 +35,7 @@ public class AdminMenuController {
 
 	@Autowired
 	private AppUserDAO appUserService;
-
+	
 	@Autowired
 	private MenuService menuService;
 
@@ -46,7 +48,7 @@ public class AdminMenuController {
 	@GetMapping(value = "/admin/menu/search")
 	public String searchMenu(HttpServletRequest request) {
 
-		List<MenuDTO> listMenu = menuService.getAllMenu("", "");
+		List<MenuDTO> listMenu = menuService.getAllMenu("");
 		request.setAttribute("listMenu", listMenu);
 		for (MenuDTO menuDTO : listMenu) {
 			List<MenuProductDTO> dtos = (menuDTO.getMenuProductDTOs());
@@ -96,24 +98,23 @@ public class AdminMenuController {
 	@PostMapping(value = "/admin/menu/edit-menu")
 	@ResponseBody
 	public MenuDTO updateMenuPost(HttpServletRequest request, @RequestBody MenuDTO menuDTO) {
-
 		MenuDTO menuDTO2 = menuService.getMenubyId(menuDTO.getId());
-
 		menuDTO.setEnable("1");
 		menuService.updateMenu(menuDTO);
-
+		for (MenuProductDTO menuProductDTO : menuDTO2.getMenuProductDTOs()) {
+			MenuProductDTO menu= mpService.getMenuProductbyId(menuProductDTO.getId());
+			mpService.deleteMenuProduct(menu.getId());
+		}
 		for (String string : menuDTO.getListproductId()) {
-
+			
 			ProductDTO productDTO = productService.getProductbyId(Integer.parseInt(string));
 			MenuProductDTO menuProductDTO = new MenuProductDTO();
 			menuProductDTO.setProduct(productDTO);
 			menuProductDTO.setMenu(menuDTO);
 			mpService.addMenuProduct(menuProductDTO);
-			System.out.println("them " + menuProductDTO.getId());
 		}
-		for (MenuProductDTO menuProductDTO : menuDTO2.getMenuProductDTOs()) {
-			mpService.deleteMenuProduct(menuProductDTO.getId());
-		}
+		
+		
 		return menuDTO;
 
 	}
@@ -144,13 +145,4 @@ public class AdminMenuController {
 		menuService.updateMenu(menuDTO);
 		return "redirect:/admin/menu/search";
 	}
-
-	@GetMapping(value = "/admin/menu/t")
-	public String mokhoGet(HttpServletRequest request, @RequestParam(name = "id") int id) {
-
-		mpService.deleteMenuProduct(id);
-
-		return "redirect:/admin/menu/search";
-	}
-
 }
