@@ -114,7 +114,10 @@ a.underline {
 												</td>
 												<td><a
 													th:href="@{'/admin/user/update?id='+${u.userId}}">Sửa</a> 
+													<a
+													th:href="@{'/admin/user/update-role?id='+${u.userId}}">Sửa role</a> 
 													<div>
+													
 														<a th:if="${u.enable == '1'}" th:href="@{'/admin/user/khoa?id='+${u.userId}}">khoa</a>
 														<a th:if="${u.enable == '0'}" th:href="@{'/admin/user/mokhoa?id='+${u.userId}}"> mo khoa</a>
 													</div>
