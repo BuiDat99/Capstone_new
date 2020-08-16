@@ -41,23 +41,24 @@
 									<hr>
 								</div>
 							</div>
+							
 							<div class="row ">
 								<div class="col-md-12">
-									<form>
-										<div class="form-group row">
+									<form th:object="${userInfo}">
+										<!--  <div class="form-group row">
 											<label for="image" class="col-4 col-form-label">Ảnh
 												đại diện</label>
 											<div class="col-8">
 												<input id="image" name="image" placeholder=""
 													class="form-control here" required="required" type="file">
 											</div>
-										</div>
+										</div>-->
 										<div class="form-group row">
 											<label for="username" class="col-4 col-form-label">Tên
 												tài khoản*</label>
 											<div class="col-8">
 												<input id="username" name="username"
-													placeholder="Tên tài khoản" class="form-control here"
+													placeholder="Tên tài khoản" class="form-control here" th:field="*{username}"
 													required="required" type="text">
 											</div>
 										</div>
@@ -71,11 +72,11 @@
 										<div class="form-group row">
 											<label for="email" class="col-4 col-form-label">Email*</label>
 											<div class="col-8">
-												<input id="email" name="email" placeholder="Email"
-													class="form-control here" required="required" type="text">
+												<input id="email" 
+													class="form-control here"  th:field="*{email}" required="required" type="text">
 											</div>
 										</div>
-										<div class="form-group row">
+									<!-- 	<div class="form-group row">
 											<label for="height" class="col-4 col-form-label">Chiều
 												cao</label>
 											<div class="col-8">
@@ -90,7 +91,7 @@
 												<input id="weight" name="weight" placeholder="kg"
 													class="form-control here" required="required" type="text">
 											</div>
-										</div>
+										</div> -->
 										<div class="form-group row">
 											<label for="address" class="col-4 col-form-label">Địa
 												chỉ</label>
@@ -99,21 +100,23 @@
 													class="form-control here" type="text">
 											</div>
 										</div>
-										<div class="form-group row">
+										<!-- <div class="form-group row">
 											<label for="newpass" class="col-4 col-form-label">Mật
 												khẩu mới</label>
 											<div class="col-8">
 												<input id="newpass" name="newpass" placeholder=""
 													class="form-control here" type="text">
 											</div>
-										</div>
+										</div> -->
 										<div class="form-group row">
 											<div class="col  text-center">
 												<button name="submit" type="submit" class="btn btn-primary">Thay
 													đổi thông tin</button>
+													
 											</div>
 										</div>
 									</form>
+									
 								</div>
 							</div>
 

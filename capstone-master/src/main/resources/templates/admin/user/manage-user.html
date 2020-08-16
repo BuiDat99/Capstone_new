@@ -89,7 +89,12 @@ a.underline {
 										id="dataTables-example" th:if="${userList.size() != 0}"
 										border="1">
 										<thead>
+											 <div class="row btn">
+												<form th:action="@{/admin/user/insert}">
+													<button type="submit">Thêm nguyên liệu mới</button>
 
+												</form>
+											</div>
 											<tr>
 												<th>STT</th>
 												<th>Tài khoản</th>
@@ -112,8 +117,11 @@ a.underline {
 														<p th:if="${u.enable == '0'}">No</p>
 													</div>
 												</td>
-												<td><a
-													th:href="@{'/admin/user/update?id='+${u.userId}}">Sửa</a> 
+												<td>
+													<!--  <a
+													th:href="@{'/admin/user/update?id='+${u.userId}}">Sửa</a>--> 
+													<a
+													th:href="@{'/admin/user/update-role?id='+${u.userId}}">Sửa role</a>
 													<div>
 														<a th:if="${u.enable == '1'}" th:href="@{'/admin/user/khoa?id='+${u.userId}}">khoa</a>
 														<a th:if="${u.enable == '0'}" th:href="@{'/admin/user/mokhoa?id='+${u.userId}}"> mo khoa</a>

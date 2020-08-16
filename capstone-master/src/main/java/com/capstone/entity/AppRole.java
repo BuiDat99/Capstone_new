@@ -27,4 +27,14 @@ public class AppRole {
     
     @Column(name = "enable", length = 50)
     private String enable;
+    
+    public AppRole(int roleId) {
+		super();
+		this.roleId = roleId;
+	}
+
+	public AppRole() {
+		super();
+	}
+    
 }

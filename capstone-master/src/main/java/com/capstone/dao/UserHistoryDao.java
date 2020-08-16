@@ -15,7 +15,7 @@ public interface UserHistoryDao {
 	void update(UserHistory userHistory);
 	void delete(UserHistory userHistory);
 	UserHistory getUserHistory(int id);
-	List<UserHistory> searchUserHistory();
+	List<UserHistory> searchUserHistory(int id);
 	
 }
 @Transactional
@@ -44,9 +44,9 @@ class UserHistoryDaoImpl implements UserHistoryDao{
 	}
 
 	@Override
-	public List<UserHistory> searchUserHistory() {
-		String hql="select uh from UserHistory uh";
-		return entityManager.createQuery(hql,UserHistory.class).getResultList();
+	public List<UserHistory> searchUserHistory(int id) {
+		String hql="select uh from UserHistory uh join uh.appUser a  where a.userId =:id";
+		return entityManager.createQuery(hql,UserHistory.class).setParameter("id", id).getResultList();
 	}
 	
 }

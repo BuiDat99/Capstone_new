@@ -8,11 +8,15 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.http.client.ClientProtocolException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +25,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.capstone.dao.AppUserDAO;
@@ -36,8 +41,9 @@ import com.capstone.service.AppUserService;
 import com.capstone.utils.EncrytedPasswordUtils;
 import com.capstone.utils.WebUtils;
 
+
 @Controller
-public class LoginController {
+public class LoginController   {
 
 	@Autowired
 	private AppUserDAO userDao;
@@ -49,12 +55,13 @@ public class LoginController {
 	private AppUserRepository userRepository;
 	@Autowired
 	private UserRoleDAO userRoleDao;
-
+	@Autowired
+	private UserDetailsService userDetailsService;
 	@Autowired
 	private GoogleUtils googleUtils;
 
 	@RequestMapping("/login-google")
-	public String loginGoogle(HttpServletRequest request, AppUserDTO userDTO)
+	public String loginGoogle(HttpServletRequest request)
 			throws ClientProtocolException, IOException {
 		String code = request.getParameter("code");
 
@@ -64,26 +71,17 @@ public class LoginController {
 		String accessToken = googleUtils.getToken(code);
 
 		GooglePojo googlePojo = googleUtils.getUserInfo(accessToken);
-		UserDetails userDetail = googleUtils.buildUser(googlePojo);
-		UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetail, null,
-				userDetail.getAuthorities());
-		authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-		SecurityContextHolder.getContext().setAuthentication(authentication);
+		Boolean check = userService.checkExistUserEmail(googlePojo.getEmail());
+		if (!check) {
+			AppUserDTO userDTO = new AppUserDTO();
 
-		// add to database
-		AppUser user = new AppUser();
-		Boolean b = userRepository.existsByEmail(googlePojo.getEmail());
-		if (b != true) {
-//			user.setUsername(googlePojo.getName());
-//			user.setPassword("null");
-//			user.setEmail(googlePojo.getEmail());
-//			user.setEnable("1");
-			user.setUserName(googlePojo.getName());
-			user.setEncrytedPassword("null");
-			user.setEmail(googlePojo.getEmail());
-			user.setEnabled("1");
-			userDao.insert(user);
-
+			userDTO.setUsername(googlePojo.getEmail());
+			userDTO.setPassword("123456");
+			userDTO.setEmail(googlePojo.getEmail());
+			userDTO.setEnable("1");
+				
+			userService.insert(userDTO);
+			AppUser user= userDao.get(userDTO.getUserId());
 			AppRole r = new AppRole();
 			r.setRoleId(2);
 
@@ -93,6 +91,33 @@ public class LoginController {
 
 			userRoleDao.addUserRole(ur);
 		}
+
+		UserDetails userDetail = userDetailsService.loadUserByUsername(googlePojo.getEmail());
+		//UserDetails userDetail = googleUtils.buildUser(googlePojo);
+		UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetail, null,
+				userDetail.getAuthorities());
+		authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+
+		// add to database
+//		AppUser user = new AppUser();
+//		Boolean b = userRepository.existsByEmail(googlePojo.getEmail());
+//		if (b != true) {
+//			user.setUserName(googlePojo.getName());
+//			user.setEncrytedPassword("null");
+//			user.setEmail(googlePojo.getEmail());
+//			user.setEnabled("1");
+//			userDao.insert(user);
+//
+//			AppRole r = new AppRole();
+//			r.setRoleId(2);
+//
+//			UserRole ur = new UserRole();
+//			ur.setAppUser(user);
+//			ur.setAppRole(r);
+//
+//			userRoleDao.addUserRole(ur);
+//		}
 		return "user/userInfoPage";
 	}
 
@@ -112,6 +137,7 @@ public class LoginController {
 
 		return "user/loginP";
 	}
+	
 
 //    @RequestMapping(value = "/logoutSuccessful", method = RequestMethod.GET)
 //    public String logoutSuccessfulPage(Model model) {
@@ -126,14 +152,24 @@ public class LoginController {
 		String userName = principal.getName();
 		System.out.println("User Name: " + userName);
 		User loginedUser = (User) ((Authentication) principal).getPrincipal();
-
-		String userInfo = WebUtils.toString(loginedUser);
-		model.addAttribute("userInfo", userInfo);
-		if (userInfo.contains("ROLE_ADMIN")) {
-			return "redirect:/admin";
+		AppUser user= userDao.findAppUserbyUserName(loginedUser.getUsername());
+		AppUserDTO userDTO= userService.get(user.getUserId());
+		if(user.getEnabled().equals("0")) {
+			return "redirect:/logout";
 		}
+		else {
+			
+			
+			String userInfo = WebUtils.toString(loginedUser);
+			model.addAttribute("userInfo", userDTO);
+			if (userInfo.contains("ROLE_ADMIN")) {
+				return "redirect:/admin";
+			}
 
-		return "user/userInfoPage";
+			return "user/userInfoPage";
+			
+		}
+		
 	}
 
 	@RequestMapping(value = "/403", method = RequestMethod.GET)

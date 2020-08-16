@@ -111,6 +111,7 @@
 											
 										</li>
 										<li><a th:href="@{contact.html}">Liên hệ</a></li>
+										<li  sec:authorize="isAuthenticated()"><a th:href="@{/user/history}">Lich su</a></li>
 									</ul>
 								</nav>
 							</div>

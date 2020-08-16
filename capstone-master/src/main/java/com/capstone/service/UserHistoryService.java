@@ -23,7 +23,7 @@ public interface UserHistoryService {
 
 	UserHistoryDTO getUserHistory(int id);
 
-	List<UserHistoryDTO> searchUserHistory();
+	List<UserHistoryDTO> searchUserHistory(int id);
 }
 
 @Transactional
@@ -90,9 +90,9 @@ class UserHistoryServiceImpl implements UserHistoryService {
 	}
 
 	@Override
-	public List<UserHistoryDTO> searchUserHistory() {
+	public List<UserHistoryDTO> searchUserHistory(int id) {
 		List<UserHistoryDTO> historyDTOs= new  ArrayList<UserHistoryDTO>();
-		List<UserHistory> histories= userHistoryDao.searchUserHistory();
+		List<UserHistory> histories= userHistoryDao.searchUserHistory(id);
 		for(UserHistory history: histories) {
 			UserHistoryDTO userHistoryDTO= new UserHistoryDTO();
 			userHistoryDTO.setHeight(history.getHeight());

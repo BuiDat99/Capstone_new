@@ -1,5 +1,6 @@
 package com.capstone.controller.user;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -7,12 +8,17 @@ import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.capstone.dao.AppUserDAO;
+import com.capstone.entity.AppUser;
+import com.capstone.model.AppUserDTO;
 import com.capstone.model.CommentDTO;
 import com.capstone.model.HashTagDTO;
 import com.capstone.model.MenuDTO;
@@ -20,6 +26,8 @@ import com.capstone.model.NewCategoryDTO;
 import com.capstone.model.NewsDTO;
 import com.capstone.model.ProductDTO;
 import com.capstone.model.ProductResourceDTO;
+import com.capstone.model.UserHistoryDTO;
+import com.capstone.service.AppUserService;
 import com.capstone.service.CommentService;
 import com.capstone.service.HashTagService;
 import com.capstone.service.MenuService;
@@ -27,6 +35,7 @@ import com.capstone.service.NewCategoryService;
 import com.capstone.service.NewsService;
 import com.capstone.service.ProductResourceService;
 import com.capstone.service.ProductService;
+import com.capstone.service.UserHistoryService;
 
 @Controller
 public class UserController {
@@ -41,12 +50,19 @@ public class UserController {
 	private HashTagService hashtagService;
 	@Autowired
 	private CommentService commentService;
+	@Autowired
+	private UserHistoryService historyService;
 
 	@Autowired
 	private ProductService productService;
 	
 	@Autowired
 	private ProductResourceService productResourceService;
+	
+	@Autowired
+	private AppUserDAO appUserDAO;
+	@Autowired
+	private AppUserService appUserService;
 
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String home(HttpServletRequest request) {
@@ -160,5 +176,13 @@ public class UserController {
 
 		return "/user/all-menu";
 	}
-
+	@RequestMapping(value = "/user/history", method = RequestMethod.GET)
+	public String history(HttpServletRequest request, Principal principal,Model model) {
+		User loginedUser = (User) ((Authentication) principal).getPrincipal();
+		AppUser user= appUserDAO.findAppUserbyUserName(loginedUser.getUsername());
+		AppUserDTO appUserDTO= appUserService.get(user.getUserId());
+		List<UserHistoryDTO> historyDTOs= historyService.searchUserHistory(appUserDTO.getUserId());
+		request.setAttribute("historyDTOs", historyDTOs);
+		return "/user/profile";
+	}
 }

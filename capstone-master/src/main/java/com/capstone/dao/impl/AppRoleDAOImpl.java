@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.capstone.dao.AppRoleDAO;
+import com.capstone.entity.AppRole;
 import com.capstone.entity.UserRole;
 
 @Repository
@@ -28,4 +29,10 @@ public class AppRoleDAOImpl implements AppRoleDAO {
         query.setParameter("userId", userId);
         return query.getResultList();
     }
+
+	@Override
+	public List<AppRole> getAllAppRole() {
+		String hql="select ar From AppRole ar where enable like '1' ";
+		return entityManager.createQuery(hql,AppRole.class).getResultList();
+	}
 }
