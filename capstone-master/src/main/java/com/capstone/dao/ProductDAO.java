@@ -16,5 +16,7 @@ public interface ProductDAO {
 	
 	public List<Product> getAllProduct(String enable);
 	
+	public List<Product> getAllProductByUser(String enable, int id);
+	
 	public Product getProductbyId(int id);
 }

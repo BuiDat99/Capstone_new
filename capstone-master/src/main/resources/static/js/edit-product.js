@@ -139,7 +139,7 @@ $("#editProduct").submit(function (e) {
             data: JSON.stringify(ProductResource2Dto),
             success: function(data){
             	
-                notify("Thông báo", "Thêm món ăn thành công");
+                notify("Thông báo", "Cập nhập món ăn thành công");
 		    },
 	        error: function(error){
 	        	console.log(error)

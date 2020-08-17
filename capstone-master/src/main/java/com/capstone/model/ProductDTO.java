@@ -14,6 +14,7 @@ public class ProductDTO {
 	private List<ProductResourceDTO> productResourceDTOs;
 	private String productDescription;
 	private String enable;
+	private AppUserDTO appUserDTO;
 	public List<ProductResourceDTO> getProductResourceDTOs() {
 		return productResourceDTOs;
 	}

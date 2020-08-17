@@ -1,6 +1,7 @@
 package com.capstone.controller.admin;
 
 import java.beans.PropertyEditor;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
@@ -19,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.capstone.dao.AppUserDAO;
+import com.capstone.entity.AppUser;
 import com.capstone.entity.Product;
 import com.capstone.entity.ProductResource;
 import com.capstone.entity.Resource;
@@ -38,6 +43,9 @@ import com.capstone.utils.ImgurUtil;
 
 @Controller
 public class AdminProductController {
+	
+	@Autowired
+	private AppUserDAO appUserService;
 
 	@Autowired
 	private ProductService productService;
@@ -101,11 +109,15 @@ public class AdminProductController {
 	public @ResponseBody int addProductPost(HttpServletRequest request,
 			@RequestParam(value = "productName", required = false) String productName,
 			@RequestParam(value = "productDescription", required = false) String productDescription,
-			@RequestParam(value = "image", required = false) MultipartFile file) {
+			@RequestParam(value = "image", required = false) MultipartFile file,Principal principal) {
+		User loginedUser = (User) ((Authentication) principal).getPrincipal();
+		AppUser user = appUserService.findAppUserbyUserName(loginedUser.getUsername());
 		Product p = new Product();
 		p.setProductName(productName);
 		p.setProductDescription(productDescription);
 		p.setImage(imgurUtil.uploadImage(file));
+		p.setUser(user);
+		p.setEnable("1");
 		p = productRepository.save(p);
 		
 		return p.getId();

@@ -55,5 +55,10 @@ public class ProductDAOImpl implements ProductDAO {
 		return entityManager.find(Product.class, id);
 	
 	}
+	@Override
+	public List<Product> getAllProductByUser(String enable, int id) {
+		String jql = "select p from Product p join p.user u where p.enable like :enable and u.userId =: id";
+		return entityManager.createQuery(jql,Product.class).setParameter("enable", "%"+enable+"%").setParameter("id", id).getResultList();
+	}
 
 }

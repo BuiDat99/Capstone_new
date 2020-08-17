@@ -14,5 +14,7 @@ public interface ProductService {
 	
 	public List<ProductDTO> getAllProducts(String enable);
 	
+	public List<ProductDTO> getAllProductsByUser(String enable, int id);
+	
 	public ProductDTO getProductbyId(int id);
 }
