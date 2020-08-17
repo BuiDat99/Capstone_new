@@ -61,7 +61,7 @@ public class LoginController   {
 	private GoogleUtils googleUtils;
 
 	@RequestMapping("/login-google")
-	public String loginGoogle(HttpServletRequest request)
+	public String loginGoogle(HttpServletRequest request,Model model)
 			throws ClientProtocolException, IOException {
 		String code = request.getParameter("code");
 
@@ -72,8 +72,9 @@ public class LoginController   {
 
 		GooglePojo googlePojo = googleUtils.getUserInfo(accessToken);
 		Boolean check = userService.checkExistUserEmail(googlePojo.getEmail());
+		AppUserDTO userDTO = new AppUserDTO();
 		if (!check) {
-			AppUserDTO userDTO = new AppUserDTO();
+			
 
 			userDTO.setUsername(googlePojo.getEmail());
 			userDTO.setPassword("123456");
@@ -118,6 +119,7 @@ public class LoginController   {
 //
 //			userRoleDao.addUserRole(ur);
 //		}
+		model.addAttribute("userInfo", userDTO);
 		return "user/userInfoPage";
 	}
 
