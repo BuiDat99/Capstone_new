@@ -2,10 +2,13 @@ package com.capstone.controller;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.http.HttpRequest;
 import org.apache.http.client.ClientProtocolException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -36,8 +39,10 @@ import com.capstone.entity.UserRole;
 import com.capstone.google.GooglePojo;
 import com.capstone.google.GoogleUtils;
 import com.capstone.model.AppUserDTO;
+import com.capstone.model.UserHistoryDTO;
 import com.capstone.repository.AppUserRepository;
 import com.capstone.service.AppUserService;
+import com.capstone.service.UserHistoryService;
 import com.capstone.utils.EncrytedPasswordUtils;
 import com.capstone.utils.WebUtils;
 
@@ -59,6 +64,10 @@ public class LoginController   {
 	private UserDetailsService userDetailsService;
 	@Autowired
 	private GoogleUtils googleUtils;
+	@Autowired
+	UserHistoryService historyService;
+	
+	
 
 	@RequestMapping("/login-google")
 	public String loginGoogle(HttpServletRequest request,Model model)
@@ -148,7 +157,7 @@ public class LoginController   {
 //    }
 
 	@RequestMapping(value = "/user/userInfo", method = RequestMethod.GET)
-	public String userInfo(Model model, Principal principal, HttpSession session) {
+	public String userInfo(Model model, Principal principal, HttpSession session,HttpServletRequest request) {
 
 		// Sau khi user login thanh cong se co principal
 		String userName = principal.getName();
@@ -165,6 +174,10 @@ public class LoginController   {
 			
 			String userInfo = WebUtils.toString(loginedUser);
 			model.addAttribute("userInfo", userDTO);
+			List<UserHistoryDTO>  userHistoryDTOs  = historyService.searchUserHistory(userDTO.getUserId());
+			//int a= userHistoryDTOs.size();
+			UserHistoryDTO dto= userHistoryDTOs.get(userHistoryDTOs.size() - 1);
+			request.setAttribute("dto", dto);
 			if (userInfo.contains("ROLE_ADMIN")) {
 				return "redirect:/admin";
 			}
@@ -175,10 +188,29 @@ public class LoginController   {
 		
 	}
 	@RequestMapping(value = "/user/userInfo", method = RequestMethod.POST)
-	public String userupdateInfo(Model model, Principal principal, HttpSession session, @ModelAttribute AppUserDTO appUserDTO) {
+	public String userupdateInfo(Model model, HttpSession session, @ModelAttribute AppUserDTO appUserDTO,
+			@RequestParam(name="height" , required = false) float height,
+			@RequestParam(name="weight" , required = false) float weight,Principal principal) {
 		appUserDTO.setEnable("1");
 		
 		userService.update(appUserDTO);
+		
+		float heights = height / 100;
+		float bmi = weight / (heights * heights);
+		
+		Date date= new Date();
+		User loginedUser = (User) ((Authentication) principal).getPrincipal();
+		AppUser user= userDao.findAppUserbyUserName(loginedUser.getUsername());
+		AppUserDTO UserDTO= userService.get(user.getUserId());
+		UserHistoryDTO  userHistoryDTO  = new  UserHistoryDTO();
+		userHistoryDTO.setHeight(height);
+		userHistoryDTO.setWeight(weight);
+		userHistoryDTO.setBmi(bmi);
+		userHistoryDTO.setAppUser(UserDTO);
+		userHistoryDTO.setDesire("a");
+		userHistoryDTO.setTrack_Results("a");
+		userHistoryDTO.setCreation_Date(date.toString());
+		historyService.add(userHistoryDTO);
 		
 		return "redirect:/user/userInfo";
 	}
