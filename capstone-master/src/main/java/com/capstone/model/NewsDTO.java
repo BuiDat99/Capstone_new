@@ -1,5 +1,7 @@
 package com.capstone.model;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.Data;
 
 @Data
@@ -19,6 +21,7 @@ public class NewsDTO {
 	private String modifiedDate;
 	private String creationDate;
 	private NewCategoryDTO category;
+	private MultipartFile file;
 	
 	
 	public NewsDTO() {

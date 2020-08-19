@@ -12,14 +12,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.capstone.model.NewCategoryDTO;
 import com.capstone.model.NewsDTO;
 import com.capstone.service.NewCategoryService;
 import com.capstone.service.NewsService;
+import com.capstone.utils.ImgurUtil;
 
 @Controller
 public class AdminNewController {
+	@Autowired
+	private ImgurUtil imgurUtil;
 	@Autowired
 	private NewCategoryService categoryService;
 	@Autowired
@@ -58,7 +62,8 @@ public class AdminNewController {
     }
 	
 	@PostMapping(value = "/admin/news/insert")
-	public String AdminAddNewsPost(@ModelAttribute(name = "addCategory") NewsDTO news) {		
+	public String AdminAddNewsPost(@ModelAttribute(name = "addCategory") NewsDTO news,@RequestParam(name="imageFile") MultipartFile file) {		
+		news.setImageTitle(imgurUtil.uploadImage(file));
 		newsService.addNews(news);
 		return "redirect:/admin/news/search";
 
@@ -75,7 +80,8 @@ public class AdminNewController {
 	}
 
 	@PostMapping(value = "/admin/news/update")
-	public String AdminUpdateNewsPost(@ModelAttribute(name = "category") NewsDTO news) {
+	public String AdminUpdateNewsPost(@ModelAttribute(name = "category") NewsDTO news,@RequestParam(name="imageFile") MultipartFile file) {
+		news.setImageTitle(imgurUtil.uploadImage(file));
 		newsService.updateNews(news);
 		return "redirect:/admin/news/search";
 	}

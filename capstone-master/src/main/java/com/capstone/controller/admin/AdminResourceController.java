@@ -1,6 +1,5 @@
 package com.capstone.controller.admin;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,15 +13,18 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.capstone.model.ResourceCategoryDTO;
 import com.capstone.model.ResourceDTO;
 import com.capstone.service.ResourceCategoryService;
 import com.capstone.service.ResourceService;
+import com.capstone.utils.ImgurUtil;
 
 @Controller
 public class AdminResourceController {
-
+	@Autowired
+	private ImgurUtil imgurUtil;
 	@Autowired
 	private ResourceCategoryService categoryService;
 	@Autowired
@@ -62,7 +64,8 @@ public class AdminResourceController {
 	}
 
 	@PostMapping(value = "/admin/resource/insert")
-	public String AdminAddResourcePost(@ModelAttribute(name = "addCategory") ResourceDTO resource) {
+	public String AdminAddResourcePost(@ModelAttribute(name = "addCategory") ResourceDTO resource, @RequestParam(name="imageFile") MultipartFile file) {
+		resource.setImage(imgurUtil.uploadImage(file));
 		resourceService.addResource(resource);
 		return "redirect:/admin/resource/search";
 
@@ -100,8 +103,9 @@ public class AdminResourceController {
 	}
 
 	@PostMapping(value = "/admin/resource/update")
-	public String AdminUpdateResourcePost(@ModelAttribute(name = "category") ResourceDTO resource) {
-		resource.setEnable("1");;
+	public String AdminUpdateResourcePost(@ModelAttribute(name = "category") ResourceDTO resource, @RequestParam(name="imageFile") MultipartFile file) {
+		resource.setEnable("1");
+		resource.setImage(imgurUtil.uploadImage(file));
 		resourceService.updateResource(resource);
 		return "redirect:/admin/resource/search";
 	}

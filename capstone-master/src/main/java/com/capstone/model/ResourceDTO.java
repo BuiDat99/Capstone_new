@@ -1,5 +1,7 @@
 package com.capstone.model;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.Data;
 
 @Data
@@ -12,6 +14,7 @@ public class ResourceDTO {
 	private float kcal1g;
 	private ResourceCategoryDTO category;
 	private String enable;
+	private MultipartFile file;
 	public ResourceDTO() {
 		// TODO Auto-generated constructor stub
 	}
