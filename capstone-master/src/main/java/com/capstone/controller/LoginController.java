@@ -30,6 +30,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.capstone.dao.AppUserDAO;
 import com.capstone.dao.UserRoleDAO;
@@ -44,12 +45,14 @@ import com.capstone.repository.AppUserRepository;
 import com.capstone.service.AppUserService;
 import com.capstone.service.UserHistoryService;
 import com.capstone.utils.EncrytedPasswordUtils;
+import com.capstone.utils.ImgurUtil;
 import com.capstone.utils.WebUtils;
 
-
 @Controller
-public class LoginController   {
-
+public class LoginController {
+	@Autowired
+	private ImgurUtil imgurUtil;
+	
 	@Autowired
 	private AppUserDAO userDao;
 
@@ -66,12 +69,9 @@ public class LoginController   {
 	private GoogleUtils googleUtils;
 	@Autowired
 	UserHistoryService historyService;
-	
-	
 
 	@RequestMapping("/login-google")
-	public String loginGoogle(HttpServletRequest request,Model model)
-			throws ClientProtocolException, IOException {
+	public String loginGoogle(HttpServletRequest request, Model model) throws ClientProtocolException, IOException {
 		String code = request.getParameter("code");
 
 		if (code == null || code.isEmpty()) {
@@ -83,15 +83,14 @@ public class LoginController   {
 		Boolean check = userService.checkExistUserEmail(googlePojo.getEmail());
 		AppUserDTO userDTO = new AppUserDTO();
 		if (!check) {
-			
 
 			userDTO.setUsername(googlePojo.getEmail());
 			userDTO.setPassword("123456");
 			userDTO.setEmail(googlePojo.getEmail());
 			userDTO.setEnable("1");
-				
+
 			userService.insert(userDTO);
-			AppUser user= userDao.get(userDTO.getUserId());
+			AppUser user = userDao.get(userDTO.getUserId());
 			AppRole r = new AppRole();
 			r.setRoleId(2);
 
@@ -103,7 +102,7 @@ public class LoginController   {
 		}
 
 		UserDetails userDetail = userDetailsService.loadUserByUsername(googlePojo.getEmail());
-		//UserDetails userDetail = googleUtils.buildUser(googlePojo);
+		// UserDetails userDetail = googleUtils.buildUser(googlePojo);
 		UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetail, null,
 				userDetail.getAuthorities());
 		authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
@@ -148,7 +147,6 @@ public class LoginController   {
 
 		return "user/loginP";
 	}
-	
 
 //    @RequestMapping(value = "/logoutSuccessful", method = RequestMethod.GET)
 //    public String logoutSuccessfulPage(Model model) {
@@ -157,52 +155,53 @@ public class LoginController   {
 //    }
 
 	@RequestMapping(value = "/user/userInfo", method = RequestMethod.GET)
-	public String userInfo(Model model, Principal principal, HttpSession session,HttpServletRequest request) {
+	public String userInfo(Model model, Principal principal, HttpSession session, HttpServletRequest request) {
 
 		// Sau khi user login thanh cong se co principal
 		String userName = principal.getName();
 		System.out.println("User Name: " + userName);
 		User loginedUser = (User) ((Authentication) principal).getPrincipal();
-		AppUser user= userDao.findAppUserbyUserName(loginedUser.getUsername());
-		AppUserDTO userDTO= userService.get(user.getUserId());
+		AppUser user = userDao.findAppUserbyUserName(loginedUser.getUsername());
+		AppUserDTO userDTO = userService.get(user.getUserId());
 		System.out.println(userDTO.getPassword());
-		if(user.getEnabled().equals("0")) {
+		if (user.getEnabled().equals("0")) {
 			return "redirect:/logout";
-		}
-		else {
-			
-			
+		} else {
+
 			String userInfo = WebUtils.toString(loginedUser);
 			model.addAttribute("userInfo", userDTO);
-			List<UserHistoryDTO>  userHistoryDTOs  = historyService.searchUserHistory(userDTO.getUserId());
-			//int a= userHistoryDTOs.size();
-			UserHistoryDTO dto= userHistoryDTOs.get(userHistoryDTOs.size() - 1);
+			List<UserHistoryDTO> userHistoryDTOs = historyService.searchUserHistory(userDTO.getUserId());
+			// int a= userHistoryDTOs.size();
+			UserHistoryDTO dto = userHistoryDTOs.get(userHistoryDTOs.size() - 1);
 			request.setAttribute("dto", dto);
+			request.setAttribute("userDTO", userDTO);
 			if (userInfo.contains("ROLE_ADMIN")) {
 				return "redirect:/admin";
 			}
 
 			return "user/userInfoPage";
-			
+
 		}
-		
+
 	}
+
 	@RequestMapping(value = "/user/userInfo", method = RequestMethod.POST)
 	public String userupdateInfo(Model model, HttpSession session, @ModelAttribute AppUserDTO appUserDTO,
-			@RequestParam(name="height" , required = false) float height,
-			@RequestParam(name="weight" , required = false) float weight,Principal principal) {
+			@RequestParam(name = "height", required = false) float height,
+			@RequestParam(name = "weight", required = false) float weight, Principal principal,
+			@RequestParam(name = "imageFile") MultipartFile file) {
 		appUserDTO.setEnable("1");
-		
+		if(file!=null) {appUserDTO.setAvata(imgurUtil.uploadImage(file));}
 		userService.update(appUserDTO);
-		
+
 		float heights = height / 100;
 		float bmi = weight / (heights * heights);
-		
-		Date date= new Date();
+
+		Date date = new Date();
 		User loginedUser = (User) ((Authentication) principal).getPrincipal();
-		AppUser user= userDao.findAppUserbyUserName(loginedUser.getUsername());
-		AppUserDTO UserDTO= userService.get(user.getUserId());
-		UserHistoryDTO  userHistoryDTO  = new  UserHistoryDTO();
+		AppUser user = userDao.findAppUserbyUserName(loginedUser.getUsername());
+		AppUserDTO UserDTO = userService.get(user.getUserId());
+		UserHistoryDTO userHistoryDTO = new UserHistoryDTO();
 		userHistoryDTO.setHeight(height);
 		userHistoryDTO.setWeight(weight);
 		userHistoryDTO.setBmi(bmi);
@@ -211,7 +210,7 @@ public class LoginController   {
 		userHistoryDTO.setTrack_Results("a");
 		userHistoryDTO.setCreation_Date(date.toString());
 		historyService.add(userHistoryDTO);
-		
+
 		return "redirect:/user/userInfo";
 	}
 
@@ -238,6 +237,7 @@ public class LoginController   {
 	public String registerPage(Model model) {
 		return "/user/register";
 	}
+
 	@GetMapping(value = "/")
 	public String HomePage() {
 		return "/user/home";

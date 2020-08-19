@@ -86,8 +86,8 @@
 							</div>
 							<div class="row" >
 								<div class="text-center col" th:each="hash:${hashtags}">
-									<a th:href="@{'/tintuc?hashtag='+${hash}}" ><p th:text="${hash}"></p></a>
-									<a th:href="@{'/menu?hashtag='+${hash}}"><p th:text="${hash}"  style="color:red;font-family:cursive"></p></a>
+									<a th:href="@{'/news_and_menu?hashtag='+${hash}}" ><p th:text="${hash}"></p></a>
+									
 								</div>								
 							</div>
 						</div>

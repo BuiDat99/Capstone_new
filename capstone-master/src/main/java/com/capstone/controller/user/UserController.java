@@ -187,4 +187,17 @@ public class UserController {
 		request.setAttribute("historyDTOs", historyDTOs);
 		return "/user/profile";
 	}
+	@RequestMapping(value = "/news_and_menu", method = RequestMethod.GET)
+	public String MenuandNews(HttpServletRequest request, @RequestParam(value = "keyword", required = false) String keyword,
+			@RequestParam(value = "page", required = false) Integer page) {
+		String has = request.getParameter("hashtag") == null ? "" : request.getParameter("hashtag");
+
+		List<MenuDTO> menuDTOs = menuService.getAllMenu(has, "1");
+		List<NewsDTO> listNews = newsService.search(has, "1","",0,1000);
+		request.setAttribute("menuDTOs", menuDTOs);
+		request.setAttribute("listNews", listNews);
+		request.setAttribute("hash", has);
+
+		return "/user/newsandmenu";
+	}
 }

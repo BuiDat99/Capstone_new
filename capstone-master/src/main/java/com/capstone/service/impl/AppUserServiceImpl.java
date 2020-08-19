@@ -104,6 +104,7 @@ public class AppUserServiceImpl implements AppUserService {
 		dto.setEmail(user.getEmail());
 		dto.setAddress(user.getAddress());
 		dto.setName(user.getName());
+		dto.setAvata(user.getImage());
 		return dto;
 	}
 
@@ -117,6 +118,7 @@ public class AppUserServiceImpl implements AppUserService {
 			user.setEnabled(userDTO.getEnable());
 			user.setAddress(userDTO.getAddress());
 			user.setName(userDTO.getName());
+			user.setImage(userDTO.getAvata());
 			userDao.update(user);
 
 		}
