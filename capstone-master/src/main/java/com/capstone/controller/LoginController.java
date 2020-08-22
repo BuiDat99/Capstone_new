@@ -52,7 +52,7 @@ import com.capstone.utils.WebUtils;
 public class LoginController {
 	@Autowired
 	private ImgurUtil imgurUtil;
-	
+
 	@Autowired
 	private AppUserDAO userDao;
 
@@ -172,11 +172,17 @@ public class LoginController {
 			model.addAttribute("userInfo", userDTO);
 			List<UserHistoryDTO> userHistoryDTOs = historyService.searchUserHistory(userDTO.getUserId());
 			// int a= userHistoryDTOs.size();
-			UserHistoryDTO dto = userHistoryDTOs.get(userHistoryDTOs.size() - 1);
-			request.setAttribute("dto", dto);
-			if(userDTO.getAvata()!=null) {
+			if (userHistoryDTOs.size() != 0) {
+				UserHistoryDTO dto = userHistoryDTOs.get(userHistoryDTOs.size() - 1);
+				request.setAttribute("dto", dto);
+			}else {
+				UserHistoryDTO dto = new UserHistoryDTO();
+				request.setAttribute("dto", dto);
+			}
+
+			if (userDTO.getAvata() != null) {
 				System.out.println(" co avata");
-				String check="yes";
+				String check = "yes";
 				request.setAttribute("check", check);
 			}
 			request.setAttribute("userDTO", userDTO);
@@ -196,7 +202,9 @@ public class LoginController {
 			@RequestParam(name = "weight", required = false) float weight, Principal principal,
 			@RequestParam(name = "imageFile") MultipartFile file) {
 		appUserDTO.setEnable("1");
-		if(file!=null) {appUserDTO.setAvata(imgurUtil.uploadImage(file));}
+		if (file != null) {
+			appUserDTO.setAvata(imgurUtil.uploadImage(file));
+		}
 		userService.update(appUserDTO);
 
 		float heights = height / 100;
