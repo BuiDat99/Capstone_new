@@ -25,17 +25,17 @@
 </head>
 <body>
 	<div th:replace="/user/header.html :: head"></div>
-	  <div >
-		<div th:each="s : ${menuDTOs}" style="border:1px solid red;">
-			<a th:href="@{'/menu?hashtag='+${hash}}"><p th:text="${s.menuName}"></p></a>
-		</div>
-	</div>
+	
+	<h3>Một số bài viết phù hợp với bạn</h3>
 	<div >
 		<div th:each="n : ${listNews}" style="border:1px solid red;">
 			<a th:href="@{'/detailNews?id='+${n.id}}"><p th:text="${n.title}"></p></a>
 		</div>
 	</div>
-
+	<h3>Một số thực đơn phù hợp với bạn</h3>
+	  <div >
+			<a th:href="@{'/menu?hashtag='+${hash}}"><p> xem ngay</p></a>
+	</div>
 	<div th:replace="/user/footer :: foot"></div>
 
 	<script th:src="@{/assets/js/vendor/modernizr-3.5.0.min.js}"></script>
