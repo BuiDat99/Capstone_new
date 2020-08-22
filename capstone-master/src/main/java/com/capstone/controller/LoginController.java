@@ -174,6 +174,11 @@ public class LoginController {
 			// int a= userHistoryDTOs.size();
 			UserHistoryDTO dto = userHistoryDTOs.get(userHistoryDTOs.size() - 1);
 			request.setAttribute("dto", dto);
+			if(userDTO.getAvata()!=null) {
+				System.out.println(" co avata");
+				String check="yes";
+				request.setAttribute("check", check);
+			}
 			request.setAttribute("userDTO", userDTO);
 			if (userInfo.contains("ROLE_ADMIN")) {
 				return "redirect:/admin";
