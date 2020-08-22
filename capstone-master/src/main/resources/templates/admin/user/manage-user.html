@@ -120,8 +120,12 @@ a.underline {
 												<td>
 													<!--  <a
 													th:href="@{'/admin/user/update?id='+${u.userId}}">Sửa</a>--> 
-													<a
-													th:href="@{'/admin/user/update-role?id='+${u.userId}}">Sửa role</a>
+													<!--  <a
+													th:href="@{'/admin/user/update-role?id='+${u.userId}}">Sửa role</a>-->
+													<div th:each="role : ${u.roles}">
+														<a th:if="${role == 'ROLE_ADMIN'}" th:href="@{'/admin/user/update-role-user?id='+${u.userId}}">hạ cấp</a>
+														<a th:if="${role == 'ROLE_USER'}" th:href="@{'/admin/user/update-role-admin?id='+${u.userId}}">thăng cấp</a>
+													</div>
 													<div>
 														<a th:if="${u.enable == '1'}" th:href="@{'/admin/user/khoa?id='+${u.userId}}">khoa</a>
 														<a th:if="${u.enable == '0'}" th:href="@{'/admin/user/mokhoa?id='+${u.userId}}"> mo khoa</a>

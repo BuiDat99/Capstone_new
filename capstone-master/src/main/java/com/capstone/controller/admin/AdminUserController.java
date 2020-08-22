@@ -144,16 +144,35 @@ public class AdminUserController {
 		return appRoleService.getAllAppRole();
 	}
 	
-	@GetMapping(value = "/admin/user/update-role")
-	public String updateRole(HttpServletRequest request, Model model, @RequestParam(name = "id") int id) {
-		model.addAttribute("id", id);
-		return "admin/user/edit-user-role";
-	}
-
-	@PostMapping(value = "/admin/user/update-role")
-	public String changePassword(@ModelAttribute AppUserDTO appUserDTO) {
+	@GetMapping(value = "/admin/user/update-role-admin")
+	public String updateRoleADmin(HttpServletRequest request, Model model, @RequestParam(name = "id") int id) {
+		AppUserDTO appUserDTO= userService.get(id);
 		userRoleService.deleteUserRole(appUserDTO);
-		userRoleService.updateUserRole(appUserDTO);
+		UserRoleDTO userRole= new UserRoleDTO();
+		AppRoleDTO appRoleDTO= new AppRoleDTO();
+		appRoleDTO.setId(1);
+		userRole.setUser(appUserDTO);
+		userRole.setRole(appRoleDTO);
+		userRoleService.addUserRole(userRole);
 		return "redirect:/admin/user/search";
 	}
+	@GetMapping(value = "/admin/user/update-role-user")
+	public String updateRoleuser(HttpServletRequest request, Model model, @RequestParam(name = "id") int id) {
+		AppUserDTO appUserDTO= userService.get(id);
+		userRoleService.deleteUserRole(appUserDTO);
+		UserRoleDTO userRole= new UserRoleDTO();
+		AppRoleDTO appRoleDTO= new AppRoleDTO();
+		appRoleDTO.setId(2);
+		userRole.setUser(appUserDTO);
+		userRole.setRole(appRoleDTO);
+		userRoleService.addUserRole(userRole);
+		return "redirect:/admin/user/search";
+	}
+
+//	@PostMapping(value = "/admin/user/update-role")
+//	public String changePassword(@ModelAttribute AppUserDTO appUserDTO) {
+//		userRoleService.deleteUserRole(appUserDTO);
+//		userRoleService.updateUserRole(appUserDTO);
+//		return "redirect:/admin/user/search";
+//	}
 }
