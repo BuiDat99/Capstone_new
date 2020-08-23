@@ -25,7 +25,7 @@ public class Resource implements Serializable {
 	@Column(name = "resource_Id", nullable = false)
 	private int id;
 	
-	@Column(name = "image", length = 50, nullable = false)
+	@Column(name = "image", length = 50)
 	private String image;
 	
 	@Column(name = "resource_Name", length = 50, nullable = false)

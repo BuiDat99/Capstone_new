@@ -81,7 +81,10 @@ public class AdminNewController {
 
 	@PostMapping(value = "/admin/news/update")
 	public String AdminUpdateNewsPost(@ModelAttribute(name = "category") NewsDTO news,@RequestParam(name="imageFile") MultipartFile file) {
-		news.setImageTitle(imgurUtil.uploadImage(file));
+		NewsDTO newsDTO=newsService.getNewsbyId(news.getId());
+		news.setImageTitle(newsDTO.getImageTitle());
+		String image=imgurUtil.uploadImage(file);
+		if(image!=null) {news.setImageTitle(image);}
 		newsService.updateNews(news);
 		return "redirect:/admin/news/search";
 	}

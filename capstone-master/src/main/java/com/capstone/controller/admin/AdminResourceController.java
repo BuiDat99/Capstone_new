@@ -105,7 +105,12 @@ public class AdminResourceController {
 	@PostMapping(value = "/admin/resource/update")
 	public String AdminUpdateResourcePost(@ModelAttribute(name = "category") ResourceDTO resource, @RequestParam(name="imageFile") MultipartFile file) {
 		resource.setEnable("1");
-		resource.setImage(imgurUtil.uploadImage(file));
+		ResourceDTO dto=resourceService.getResourcebyId(resource.getId());
+		resource.setImage(dto.getImage());
+		String image=imgurUtil.uploadImage(file);
+		if(image!=null) {
+			resource.setImage(image);
+		}
 		resourceService.updateResource(resource);
 		return "redirect:/admin/resource/search";
 	}

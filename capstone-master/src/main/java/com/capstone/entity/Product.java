@@ -32,7 +32,7 @@ public class Product implements Serializable {
 	@Column(name = "product_Name", length = 255, nullable = false)
 	private String productName;
 	
-	@Column(name = "image", length = 50, nullable = false)
+	@Column(name = "image", length = 50)
 	private String image;
 	
 	@Column(name = "product_Description", length = 500, nullable = false)

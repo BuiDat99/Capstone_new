@@ -28,7 +28,7 @@ public class News implements Serializable{
 	@Column(name = "title", length = 255, nullable = false)
 	private String title;
 	
-	@Column(name = "image_Title", length = 50, nullable = false)
+	@Column(name = "image_Title", length = 50)
 	private String imageTitle;
 	
 	@Column(name = "poster", length = 255, nullable = false)

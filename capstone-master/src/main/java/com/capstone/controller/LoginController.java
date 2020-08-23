@@ -166,33 +166,32 @@ public class LoginController {
 		System.out.println(userDTO.getPassword());
 		if (user.getEnabled().equals("0")) {
 			return "redirect:/logout";
-		} else {
-
-			String userInfo = WebUtils.toString(loginedUser);
-			model.addAttribute("userInfo", userDTO);
-			List<UserHistoryDTO> userHistoryDTOs = historyService.searchUserHistory(userDTO.getUserId());
-			// int a= userHistoryDTOs.size();
-			if (userHistoryDTOs.size() != 0) {
-				UserHistoryDTO dto = userHistoryDTOs.get(userHistoryDTOs.size() - 1);
-				request.setAttribute("dto", dto);
-			}else {
-				UserHistoryDTO dto = new UserHistoryDTO();
-				request.setAttribute("dto", dto);
-			}
-
-			if (userDTO.getAvata() != null) {
-				System.out.println(" co avata");
-				String check = "yes";
-				request.setAttribute("check", check);
-			}
-			request.setAttribute("userDTO", userDTO);
-			if (userInfo.contains("ROLE_ADMIN")) {
-				return "redirect:/admin";
-			}
-
-			return "user/userInfoPage";
-
 		}
+
+		String userInfo = WebUtils.toString(loginedUser);
+		if (userInfo.contains("ROLE_ADMIN")) {
+			return "redirect:/admin";
+		}
+		model.addAttribute("userInfo", userDTO);
+		List<UserHistoryDTO> userHistoryDTOs = historyService.searchUserHistory(userDTO.getUserId());
+		// int a= userHistoryDTOs.size();
+		if (userHistoryDTOs.size() != 0) {
+			UserHistoryDTO dto = userHistoryDTOs.get(userHistoryDTOs.size() - 1);
+			request.setAttribute("dto", dto);
+		} else {
+			UserHistoryDTO dto = new UserHistoryDTO();
+			request.setAttribute("dto", dto);
+		}
+
+		if (userDTO.getAvata() != null) {
+			System.out.println(" co avata");
+			String check = "yes";
+			request.setAttribute("check", check);
+		}
+		request.setAttribute("userDTO", userDTO);
+		
+
+		return "user/userInfoPage";
 
 	}
 
@@ -200,10 +199,13 @@ public class LoginController {
 	public String userupdateInfo(Model model, HttpSession session, @ModelAttribute AppUserDTO appUserDTO,
 			@RequestParam(name = "height", required = false) float height,
 			@RequestParam(name = "weight", required = false) float weight, Principal principal,
-			@RequestParam(name = "imageFile") MultipartFile file) {
+			@RequestParam(name = "imageFile", required = false) MultipartFile file) {
+
 		appUserDTO.setEnable("1");
-		if (file != null) {
-			appUserDTO.setAvata(imgurUtil.uploadImage(file));
+		appUserDTO.setAvata(appUserDTO.getAvata());
+		String avata = imgurUtil.uploadImage(file);
+		if (avata != null) {
+			appUserDTO.setAvata(avata);
 		}
 		userService.update(appUserDTO);
 

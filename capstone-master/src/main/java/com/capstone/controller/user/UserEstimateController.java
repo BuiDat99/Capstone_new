@@ -172,7 +172,11 @@ public class UserEstimateController {
 		ProductDTO p = productService.getProductbyId(id);
 		p.setProductName(productName);
 		p.setProductDescription(productDescription);
-		p.setImage(imgurUtil.uploadImage(file));
+		String image=imgurUtil.uploadImage(file);
+		if(image!=null) {
+			p.setImage(image);
+		}
+		
 		productService.updateProduct(p);
 		List<ProductResourceDTO> productResourceDTOs= productResourceService.getProductResourceByProductId(id);
 		for(ProductResourceDTO productResourceDTO:productResourceDTOs) {
