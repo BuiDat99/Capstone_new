@@ -85,7 +85,7 @@ public class LoginController {
 		if (!check) {
 
 			userDTO.setUsername(googlePojo.getEmail());
-			userDTO.setPassword("123456");
+			userDTO.setPassword("");
 			userDTO.setEmail(googlePojo.getEmail());
 			userDTO.setEnable("1");
 
@@ -128,7 +128,7 @@ public class LoginController {
 //			userRoleDao.addUserRole(ur);
 //		}
 		model.addAttribute("userInfo", userDTO);
-		return "user/userInfoPage";
+		return "redirect:/user/userInfo";
 	}
 
 	@RequestMapping(value = "/admin", method = RequestMethod.GET)
@@ -143,8 +143,8 @@ public class LoginController {
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String loginPage(Model model) {
-
+	public String loginPage(Model model, @RequestParam(name="error", required = false) String err,HttpServletRequest request) {
+		if(err!=null) {request.setAttribute("err", "1");}
 		return "user/loginP";
 	}
 

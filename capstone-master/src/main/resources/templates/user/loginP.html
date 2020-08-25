@@ -34,7 +34,7 @@
 	th:href="@{/assets/css/login.css}" />
 </head>
 <body>
-	<div th:if="${#request.getParameter('error') == 'true'}"
+	<!--  <div th:if="${#request.getParameter('error') == 'true'}"
 		style="color: red; margin: 10px 0px;">
 		Login Failed!!!<br /> Reason : <span
 			th:if="${#session!= null and #session.getAttribute('SPRING_SECURITY_LAST_EXCEPTION') != null}"
@@ -46,7 +46,7 @@
 		style="color: red; margin: 10px 0px;">
 		Tai khoan da bi khoa!!!<br /> 
 
-	</div>
+	</div>-->
 	<div th:replace="/user/header :: head"></div>
 
 	<br>
@@ -70,7 +70,7 @@
 								<span class="word">Mật khẩu *</span> <input type="password"
 									class="form-control" name="password" />
 							</div>
-							
+							<p th:if="${err == '1'}"> Thông tin tài khoản hoặc mật khẩu không chính xác </p>
 							
 							<div class="fogot-flex">
 								<div class="custom-control custom-checkbox mb-3">

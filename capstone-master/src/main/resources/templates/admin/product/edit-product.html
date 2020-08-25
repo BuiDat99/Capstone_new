@@ -81,7 +81,11 @@
 													th:field="*{productDescription}" id="productDescription"></textarea>
 											</div>
 											<div class="form-group">
-												<label for="image">Hình ảnh</label> <input type="file"
+												<label>Hình ảnh</label>
+												<input th:field="*{image}" disabled/>
+											</div>
+											<div class="form-group">
+												<label for="image">Chọn hình ảnh mới</label> <input type="file"
 													name="image" id="image" accept="image/*">
 											</div>
 											<div class="form-group">
