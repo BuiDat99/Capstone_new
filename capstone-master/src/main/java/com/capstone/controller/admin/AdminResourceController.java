@@ -58,44 +58,56 @@ public class AdminResourceController {
 	@GetMapping(value = "/admin/resource/insert")
 	public String ResourceInsert(HttpServletRequest request, Model model) {
 		model.addAttribute("resource", new ResourceDTO());
-		List<ResourceCategoryDTO> list = categoryService.search("1","", 0, 100);
+		List<ResourceCategoryDTO> list = categoryService.search("1", "", 0, 100);
 		request.setAttribute("categoryList", list);
 		return "admin/resource/add-resources";
 	}
 
 	@PostMapping(value = "/admin/resource/insert")
-	public String AdminAddResourcePost(@ModelAttribute(name = "addCategory") ResourceDTO resource, @RequestParam(name="imageFile") MultipartFile file) {
+	public @ResponseBody void AdminAddResourcePost(
+			@RequestParam(value = "resourceName", required = false) String resourceName,
+			@RequestParam(value = "resourceDescription", required = false) String resourceDescription,
+			@RequestParam(value = "file", required = false) MultipartFile file,
+			@RequestParam(value = "kcal1g", required = false) Float kcal1g,
+			@RequestParam(value = "category", required = false) String category) {
+		ResourceCategoryDTO categoryDTO = new ResourceCategoryDTO();
+		categoryDTO.setId(Integer.parseInt(category));
+		ResourceDTO resource = new ResourceDTO();
+		resource.setResourceName(resourceName);
+		resource.setResourceDescription(resourceDescription);
+		resource.setKcal1g(kcal1g);
+		resource.setCategory(categoryDTO);
 		resource.setImage(imgurUtil.uploadImage(file));
 		resourceService.addResource(resource);
-		return "redirect:/admin/resource/search";
 
 	}
-	
+
 	@GetMapping(value = "/admin/resource/khoa")
-	public String AdminkhoaResourcePost(@RequestParam (name = "id") int id) {
+	public String AdminkhoaResourcePost(@RequestParam(name = "id") int id) {
 		ResourceDTO resource = resourceService.getResourcebyId(id);
-		
+
 		resource.setEnable("0");
 		resource.setCategory(resource.getCategory());
 		resourceService.updateResource(resource);
 		return "redirect:/admin/resource/search";
 
 	}
+
 	@GetMapping(value = "/admin/resource/mokhoa")
-	public String AdminmokhoaResourcePost(@RequestParam (name = "id") int id) {
+	public String AdminmokhoaResourcePost(@RequestParam(name = "id") int id) {
 		ResourceDTO resource = resourceService.getResourcebyId(id);
-		
+
 		resource.setEnable("1");
 		resource.setCategory(resource.getCategory());
 		resourceService.updateResource(resource);
 		return "redirect:/admin/resource/search";
 
 	}
-	
+
 	@GetMapping(value = "/admin/resource/update")
 	public String AdminUpdateResourceGet(HttpServletRequest request, Model model, @RequestParam(name = "id") int id) {
 		ResourceDTO resource = resourceService.getResourcebyId(id);
-		List<ResourceCategoryDTO> list = categoryService.search("1","", 0, 100);
+		List<ResourceCategoryDTO> list = categoryService.search("1", "", 0, 100);
 
 		model.addAttribute("resource", resource);
 		request.setAttribute("categoryList", list);
@@ -103,16 +115,30 @@ public class AdminResourceController {
 	}
 
 	@PostMapping(value = "/admin/resource/update")
-	public String AdminUpdateResourcePost(@ModelAttribute(name = "category") ResourceDTO resource, @RequestParam(name="imageFile") MultipartFile file) {
+	@ResponseBody
+	public void AdminUpdateResourcePost(@RequestParam(value = "resourceName", required = false) String resourceName,
+			@RequestParam(value = "resourceDescription", required = false) String resourceDescription,
+			@RequestParam(value = "id", required = false) int id,
+			@RequestParam(value = "file", required = false) MultipartFile file,
+			@RequestParam(value = "kcal1g", required = false) Float kcal1g,
+			@RequestParam(value = "category", required = false) String category) {
+		ResourceCategoryDTO categoryDTO = new ResourceCategoryDTO();
+		categoryDTO.setId(Integer.parseInt(category));
+		ResourceDTO resource = new ResourceDTO();
 		resource.setEnable("1");
-		ResourceDTO dto=resourceService.getResourcebyId(resource.getId());
+		ResourceDTO dto = resourceService.getResourcebyId(id);
+		resource.setResourceName(resourceName);
+		resource.setId(id);
+		resource.setResourceDescription(resourceDescription);
+		resource.setKcal1g(kcal1g);
+		resource.setCategory(categoryDTO);
 		resource.setImage(dto.getImage());
-		String image=imgurUtil.uploadImage(file);
-		if(image!=null) {
+		String image = imgurUtil.uploadImage(file);
+		if (image != null) {
 			resource.setImage(image);
 		}
 		resourceService.updateResource(resource);
-		return "redirect:/admin/resource/search";
+
 	}
 
 	@GetMapping(value = "/admin/resource/delete")

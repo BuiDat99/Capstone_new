@@ -20,6 +20,21 @@
 	rel="stylesheet" />
 </head>
 <body>
+	<div class="modal fade" id="notifyModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">...</h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">...</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
 	<div id="wrapper">
 		<div th:replace="/admin/nav-bar :: nav_bar"></div>
 		<!-- /. NAV TOP  -->
@@ -45,19 +60,22 @@
 									<div class="col-md-6">
 										<h3>Thông tin nguyên liệu</h3>
 
-										<form role="form" th:action="@{/admin/resource/update}"
-											method="post" th:object="${resource}"
-											enctype="multipart/form-data">
+										<form role="form" id="form"
+											th:action="@{/admin/resource/update}" method="post"
+											th:object="${resource}" enctype="multipart/form-data">
 
-											<input class="form-control" type="hidden" th:field="*{id}" />
+											<input class="form-control" type="hidden" th:field="*{id}"
+												id="id" />
 											<div class="form-group">
 												<label>Tên nguyên liệu:</label> <input class="form-control"
-													placeholder="Tên nguyên liệu" th:field="*{resourceName}" />
+													placeholder="Tên nguyên liệu" th:field="*{resourceName}"
+													id="resourceName" />
 											</div>
 
 											<div class="form-group">
 												<label>Mô tả</label> <input class="form-control"
-													placeholder="Mô tả" th:field="*{resourceDescription}" />
+													placeholder="Mô tả" th:field="*{resourceDescription}"
+													id="resourceDescription" />
 											</div>
 											<div class="form-group">
 												<label>Hình ảnh</label> <input class="form-control"
@@ -65,16 +83,17 @@
 											</div>
 											<div class="form-group">
 												<label>Hình ảnh</label> <input class="form-control"
-													 type="file" accept="image/*"
-													placeholder="gram" name="imageFile"  />
+													type="file" accept="image/*" placeholder="gram"
+													name="imageFile" id="imageFile" />
 											</div>
 											<div class="form-group">
 												<label>Lượng calo trên 1g</label> <input
 													class="form-control" placeholder="gram"
-													th:field="*{kcal1g}" />
+													th:field="*{kcal1g}" id="kcal1g" />
 											</div>
 											<div class="form-group">
-												<label>CategoryId</label> <select th:field="*{category.id}">
+												<label>CategoryId</label> <select th:field="*{category.id}"
+													id="category">
 													<option class="form-control" th:each="cat: ${categoryList}"
 														th:value="${cat.id}" th:text="${cat.categoryName}"></option>
 												</select>
@@ -115,11 +134,51 @@
 	<!-- DATA TABLE SCRIPTS -->
 	<script th:src="@{/js/dataTables/jquery.dataTables.js}"></script>
 	<script th:src="@{/js/dataTables/dataTables.bootstrap.js}"></script>
-	<script>
-            $(document).ready(function () {
-                $('#dataTables-example').dataTable();
-            });
-        </script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#dataTables-example').dataTable();
+		});
+		$("#form").submit(function(e) {
+			e.preventDefault();
+			var productName = $("#resourceName").val();
+			var productDescription = $("#resourceDescription").val();
+			var imageFile = $('#imageFile')[0].files[0];
+			var id = $("#kcal1g").val();
+			var rid = $("#id").val();
+			var cate = $("#category").val();
+
+			var form_data = new FormData();
+			form_data.append('resourceName', productName);
+			form_data.append('resourceDescription', productDescription);
+			form_data.append('file', imageFile);
+			form_data.append('kcal1g', id);
+			form_data.append('category', cate);
+			form_data.append('id', rid);
+			console.log(123)
+			$.ajax({
+				url : document.location.origin + "/admin/resource/update",
+				type : 'POST',
+				cache : false,
+				processData : false,
+				contentType : false,
+				data : form_data,
+				success : function() {
+					notify("Thông báo", "Cập nhập nguyên liệu thành công");
+				},
+				error : function() {
+					notify("Lỗi", "Không thể xử lí dữ liệu");
+				}
+			});
+			return false;
+		});
+		function notify(title, message) {
+			$("#notifyModal .modal-title").html(title);
+			$("#notifyModal .modal-body").html(message);
+			$("#notifyModal").modal({
+				backdrop : "static"
+			});
+		}
+	</script>
 	<!-- CUSTOM SCRIPTS -->
 	<!--        <script th:src="../static/js/custom.js"></script>-->
 </body>

@@ -11,7 +11,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.capstone.model.NewCategoryDTO;
 import com.capstone.service.NewCategoryService;
@@ -51,10 +53,12 @@ public class AdminNewCategoryController {
     }
 	
 	@PostMapping(value = "/admin/newCat/insert")
-	public String AdminAddCategoryPost(@ModelAttribute(name = "addCategory") NewCategoryDTO category) {		
+	@ResponseBody
+	public NewCategoryDTO AdminAddCategoryPost(@RequestBody NewCategoryDTO category) {		
 		categoryService.addCategory(category);
-		return "redirect:/admin/newCat/search";
-
+		// return "redirect:/admin/newCat/search";
+		//return "admin/success";
+		return category;
 	}
 	
 	@GetMapping(value = "/admin/newCat/update")
@@ -65,10 +69,11 @@ public class AdminNewCategoryController {
 	}
 
 	@PostMapping(value = "/admin/newCat/update")
-	public String AdminUpdateCategoryPost(@ModelAttribute(name = "category") NewCategoryDTO category) {
+	@ResponseBody
+	public NewCategoryDTO AdminUpdateCategoryPost(@RequestBody NewCategoryDTO category) {
 		category.setEnable("1");
 		categoryService.updateCategory(category);
-		return "redirect:/admin/newCat/search";
+		return category;
 	}
 	@GetMapping(value = "/admin/newCat/khoa")
 	public String AdminUpdatekhoaCategoryPost(@RequestParam(name = "id") int id) {
