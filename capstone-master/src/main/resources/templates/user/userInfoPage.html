@@ -76,7 +76,7 @@
 											<div class="col-8">
 												<input  name="username"
 													placeholder="Tên tài khoản" class="form-control here"
-													th:field="*{avata}" id="avata" required="required" type="text">
+													th:field="*{avata}" id="avata" disabled type="text">
 											</div>
 										</div>
 										<div class="form-group row">
@@ -202,6 +202,7 @@
 						function(e) {
 							e.preventDefault();
 							var userId = $("#userId").val();
+							var avata = $("#avata").val();
 							var username = $("#username").val();
 							var password = $("#password").val();
 							var name = $("#name").val();
@@ -214,6 +215,7 @@
 
 							var form_data = new FormData();
 							form_data.append('userId', userId);
+							form_data.append('avata', avata);
 							form_data.append('username', username);
 							form_data.append('password', password);
 							form_data.append('name', name);
