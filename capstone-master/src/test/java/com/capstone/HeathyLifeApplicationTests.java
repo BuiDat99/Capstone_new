@@ -18,7 +18,7 @@ class HeathyLifeApplicationTests {
 	private HashTagService tagService;
 	@Test
 	void contextLoads() {
-		List<HashTagDTO> tagList = tagService.search("", 1*7, 7);	
+		List<HashTagDTO> tagList = tagService.search("","", 1*7, 7);	
 		Assertions.assertNotNull(tagService);
 		Assertions.assertNotNull(tagList);
 		
