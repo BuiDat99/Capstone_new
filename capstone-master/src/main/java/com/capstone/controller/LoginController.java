@@ -130,7 +130,7 @@ public class LoginController {
 //			userRoleDao.addUserRole(ur);
 //		}
 		model.addAttribute("userInfo", userDTO);
-		return "redirect:/user/userInfo";
+		return "redirect:/login-success";
 	}
 
 	@RequestMapping(value = "/admin", method = RequestMethod.GET)
@@ -149,6 +149,13 @@ public class LoginController {
 		if(err!=null) {request.setAttribute("err", "1");}
 		return "user/loginP";
 	}
+
+	@RequestMapping(value = "/login-success", method = RequestMethod.GET)
+	public String loginPageh(Model model, @RequestParam(name="error", required = false) String err,HttpServletRequest request) {
+		if(err!=null) {request.setAttribute("err", "1");}
+		return "user/loginsuccess";
+	}
+	
 
 //    @RequestMapping(value = "/logoutSuccessful", method = RequestMethod.GET)
 //    public String logoutSuccessfulPage(Model model) {
