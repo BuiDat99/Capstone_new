@@ -11,7 +11,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.capstone.model.HashTagDTO;
 import com.capstone.service.HashTagService;
@@ -52,9 +54,10 @@ public class AdminHashTagController {
     }
 	
 	@PostMapping(value = "/admin/tag/insert")
-	public String AdminAddTagPost(@ModelAttribute(name = "addtag") HashTagDTO tag) {		
+	@ResponseBody
+	public HashTagDTO AdminAddTagPost(@RequestBody HashTagDTO tag) {		
 		tagService.addTag(tag);
-		return "redirect:/admin/tag/search";
+		return tag;
 
 	}
 	
@@ -66,10 +69,11 @@ public class AdminHashTagController {
 	}
 
 	@PostMapping(value = "/admin/tag/update")
-	public String AdminUpdateTagPost(@ModelAttribute(name = "tag") HashTagDTO tag) {
+	@ResponseBody
+	public HashTagDTO AdminUpdateTagPost(@RequestBody HashTagDTO tag) {
 		tag.setEnable("1");
 		tagService.updateTag(tag);
-		return "redirect:/admin/tag/search";
+		return tag;
 	}
 			
 

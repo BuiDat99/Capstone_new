@@ -11,7 +11,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.capstone.model.ResourceCategoryDTO;
 import com.capstone.service.ResourceCategoryService;
 
@@ -65,9 +68,10 @@ public class AdminResourceCategoryController {
     }
 	
 	@PostMapping(value = "/admin/resourceCat/insert")
-	public String AdminAddCategoryPost(@ModelAttribute(name = "addCategory") ResourceCategoryDTO category) {		
-		categoryService.addCategory(category);
-		return "redirect:/admin/resourceCat/search";
+	@ResponseBody
+	public ResourceCategoryDTO AdminAddCategoryPost(@RequestBody ResourceCategoryDTO ResourceCategoryDTO) {		
+		categoryService.addCategory(ResourceCategoryDTO);
+		return ResourceCategoryDTO;
 
 	}
 	
@@ -79,10 +83,11 @@ public class AdminResourceCategoryController {
 	}
 
 	@PostMapping(value = "/admin/resourceCat/update")
-	public String AdminUpdateCategoryPost(@ModelAttribute(name = "category") ResourceCategoryDTO category) {
+	@ResponseBody
+	public ResourceCategoryDTO AdminUpdateCategoryPost(@RequestBody ResourceCategoryDTO category) {
 		category.setEnable("1");
 		categoryService.updateCategory(category);
-		return "redirect:/admin/resourceCat/search";
+		return category;
 	}
 			
 

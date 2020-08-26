@@ -27,6 +27,20 @@
 <link rel="stylesheet" href="assets/css/login.css">
 </head>
 <body>
+	<div class="modal fade" id="notifyModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">...</h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">...</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+				</div>
+			</div>
+		</div>
+	</div>
 	<div th:replace="/user/header :: head"></div>
 
 	<main>
@@ -46,45 +60,45 @@
 								<div class="col-md-12">
 									<form th:object="${userInfo}" th:attribute="${dto}"
 										th:action="@{/user/userInfo}" method="post"
-										enctype="multipart/form-data">
+										enctype="multipart/form-data" id="form">
 										<div class="form-group row">
 
 											<div class="col-8">
-												<input id="image" placeholder="" class="form-control here"
-													required="required" th:field="*{userId}" type="hidden">
-												<input id="image" placeholder="" class="form-control here"
-													required="required" th:field="*{password}" type="hidden">
-													<input id="image" placeholder="" class="form-control here"
-													required="required" th:field="*{avata}" type="hidden">
+												<input  placeholder="" class="form-control here"
+													required="required" th:field="*{userId}" id="userId" type="hidden">
+												<input  placeholder="" class="form-control here"
+													required="required" th:field="*{password}" id="password" type="hidden">
+												
 											</div>
 										</div>
 										<div class="form-group row">
 											<label for="username" class="col-4 col-form-label">Ảnh</label>
 											<div class="col-8">
-												<input id="username" name="username"
+												<input  name="username"
 													placeholder="Tên tài khoản" class="form-control here"
-													th:field="*{avata}" required="required" type="text">
+													th:field="*{avata}" id="avata" required="required" type="text">
 											</div>
 										</div>
 										<div class="form-group row">
-											<label for="username" class="col-4 col-form-label">Chọn ảnh mới</label>
+											<label for="username" class="col-4 col-form-label">Chọn
+												ảnh mới</label>
 											<div class="col-8">
-												<input type="file" name="imageFile" accept="image/*" />
+												<input type="file" name="imageFile" id="imageFile" accept="image/*" />
 											</div>
 										</div>
 										<div class="form-group row">
 											<label for="username" class="col-4 col-form-label">Tên
 												tài khoản*</label>
 											<div class="col-8">
-												<input id="username" name="username"
+												<input name="username"
 													placeholder="Tên tài khoản" class="form-control here"
-													th:field="*{username}" required="required" type="text">
+													th:field="*{username}" id="username" required="required" type="text">
 											</div>
 										</div>
 										<div class="form-group row">
 											<label for="name" class="col-4 col-form-label">Tên</label>
 											<div class="col-8">
-												<input id="name" th:field="*{name}"
+												<input th:field="*{name}" id="name"
 													placeholder="Tên người dùng" class="form-control here"
 													type="text">
 											</div>
@@ -92,8 +106,8 @@
 										<div class="form-group row">
 											<label for="email" class="col-4 col-form-label">Email*</label>
 											<div class="col-8">
-												<input id="email" class="form-control here"
-													th:field="*{email}" required="required" type="text">
+												<input  class="form-control here"
+													th:field="*{email}" id="email" required="required" type="text">
 											</div>
 										</div>
 										<div class="form-group row">
@@ -118,7 +132,7 @@
 											<label for="address" class="col-4 col-form-label">Địa
 												chỉ</label>
 											<div class="col-8">
-												<input id="address" th:field="*{address}"
+												<input id="address" th:field="*{address}" 
 													placeholder="Địa chỉ" class="form-control here" type="text">
 											</div>
 										</div>
@@ -182,5 +196,59 @@
 	<!-- Jquery Plugins, main Jquery -->
 	<script th:src="@{/assets/js/plugins.js}"></script>
 	<script th:src="@{/assets/js/main.js}"></script>
+	<script type="text/javascript">
+		$("#form")
+				.submit(
+						function(e) {
+							e.preventDefault();
+							var userId = $("#userId").val();
+							var username = $("#username").val();
+							var password = $("#password").val();
+							var name = $("#name").val();
+							var imageFile = $('#imageFile')[0].files[0];
+							var email = $("#email").val();
+							var height = $("#height").val();
+							var weight = $("#weight").val();
+							var address = $("#address").val();
+							
+
+							var form_data = new FormData();
+							form_data.append('userId', userId);
+							form_data.append('username', username);
+							form_data.append('password', password);
+							form_data.append('name', name);
+							form_data.append('imageFile', imageFile);
+							form_data.append('email', email);
+							form_data.append('height', height);
+							form_data.append('weight', weight);
+							form_data.append('address',
+									address);
+							
+							$.ajax({
+								url : document.location.origin
+										+ "/user/userInfo",
+								type : 'POST',
+								cache : false,
+								processData : false,
+								contentType : false,
+								data : form_data,
+								success : function() {
+									notify("Thông báo",
+											"Cập nhập thông tin thành công");
+								},
+								error : function() {
+									notify("Lỗi", "Không thể xử lí dữ liệu");
+								}
+							});
+							return false;
+						});
+		function notify(title, message) {
+			$("#notifyModal .modal-title").html(title);
+			$("#notifyModal .modal-body").html(message);
+			$("#notifyModal").modal({
+				backdrop : "static"
+			});
+		}
+	</script>
 </body>
 </html>

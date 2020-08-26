@@ -20,6 +20,20 @@
 	rel="stylesheet" />
 </head>
 <body>
+	<div class="modal fade" id="notifyModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">...</h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">...</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+				</div>
+			</div>
+		</div>
+	</div>
 	<div id="wrapper">
 		<div th:replace="/admin/nav-bar :: nav_bar"></div>
 		<!-- /. NAV TOP  -->
@@ -45,16 +59,15 @@
 									<div class="col-md-6">
 
 
-										<form role="form" th:action="@{/admin/resourceCat/update}"
-											th:object="${category}" method="post"
-											enctype="multipart/form-data">
+										<form role="form" id="form" th:action="@{/admin/resourceCat/update}"
+											th:object="${category}" >
 
 
-											<input class="form-control" type="hidden" th:field="*{id}" />
+											<input class="form-control" type="hidden" th:field="*{id}" id="id" />
 											<div class="form-group">
 												<label>Tên loại nguyên liệu</label> <input
 													class="form-control" placeholder="Tên loại nguyên liệu"
-													th:field="*{categoryName}" />
+													th:field="*{categoryName}" id="categoryName" />
 											</div>
 
 
@@ -95,10 +108,42 @@
 	<script th:src="@{/js/dataTables/jquery.dataTables.js}"></script>
 	<script th:src="@{/js/dataTables/dataTables.bootstrap.js}"></script>
 	<script>
-            $(document).ready(function () {
-                $('#dataTables-example').dataTable();
-            });
-        </script>
+		$(document).ready(function() {
+			$('#dataTables-example').dataTable();
+		});
+		$("#form").submit(function(e) {
+			e.preventDefault();
+
+			var id = $("#id").val();
+			var categoryName = $("#categoryName").val();
+			//var tagContent=$("#tagContent").val();
+
+			$.ajax({
+				url : document.location.origin + "/admin/resourceCat/update",
+				dataType : "json",
+				type : 'POST',
+				contentType : "application/json",
+				data : JSON.stringify({
+					"id":id,
+					"categoryName" : categoryName
+				}),
+				success : function() {
+					notify("Thông báo", "Cập nhập loại nguyên liệu thành công");
+				},
+				error : function() {
+					notify("Lỗi", "Không thể xử lí dữ liệu");
+				}
+			});
+			return false;
+		});
+		function notify(title, message) {
+			$("#notifyModal .modal-title").html(title);
+			$("#notifyModal .modal-body").html(message);
+			$("#notifyModal").modal({
+				backdrop : "static"
+			});
+		}
+	</script>
 	<!-- CUSTOM SCRIPTS -->
 	<!--        <script th:src="../static/js/custom.js"></script>-->
 </body>

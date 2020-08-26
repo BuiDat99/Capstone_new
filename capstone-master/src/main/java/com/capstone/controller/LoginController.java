@@ -26,9 +26,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -196,7 +198,8 @@ public class LoginController {
 	}
 
 	@RequestMapping(value = "/user/userInfo", method = RequestMethod.POST)
-	public String userupdateInfo(Model model, HttpSession session, @ModelAttribute AppUserDTO appUserDTO,
+	@ResponseBody
+	public int userupdateInfo(Model model, HttpSession session, @ModelAttribute AppUserDTO appUserDTO,
 			@RequestParam(name = "height", required = false) float height,
 			@RequestParam(name = "weight", required = false) float weight, Principal principal,
 			@RequestParam(name = "imageFile", required = false) MultipartFile file) {
@@ -226,7 +229,7 @@ public class LoginController {
 		userHistoryDTO.setCreation_Date(date.toString());
 		historyService.add(userHistoryDTO);
 
-		return "redirect:/user/userInfo";
+		return 0;
 	}
 
 	@RequestMapping(value = "/403", method = RequestMethod.GET)

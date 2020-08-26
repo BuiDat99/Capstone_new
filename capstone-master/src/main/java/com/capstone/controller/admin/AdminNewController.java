@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.capstone.model.NewCategoryDTO;
@@ -28,13 +29,13 @@ public class AdminNewController {
 	private NewCategoryService categoryService;
 	@Autowired
 	private NewsService newsService;
-	
+
 	@GetMapping(value = "/admin/news/search")
 	public String searchResource(HttpServletRequest request
 //			,
 //			@RequestParam(value = "keyword", required = false) String keyword,
 //			@RequestParam(value = "page", required = false) Integer page
-			) {
+	) {
 //		final int PAGE_SIZE = 7;
 //		page = page == null ? 1 : page;
 //		keyword = keyword == null ? "" : keyword;
@@ -52,42 +53,53 @@ public class AdminNewController {
 //		request.setAttribute("listCount", listCount);
 		return "admin/news/manage-news";
 	}
-	
+
 	@GetMapping(value = "/admin/news/insert")
-    public String NewsInsert(HttpServletRequest request, Model model) {
+	public String NewsInsert(HttpServletRequest request, Model model) {
 		model.addAttribute("news", new NewsDTO());
-		List<NewCategoryDTO> list = categoryService.search("1","", 0, 100);
+		List<NewCategoryDTO> list = categoryService.search("1", "", 0, 100);
 		request.setAttribute("categoryList", list);
-        return "admin/news/add-news";
-    }
-	
+		return "admin/news/add-news";
+	}
+
 	@PostMapping(value = "/admin/news/insert")
-	public String AdminAddNewsPost(@ModelAttribute(name = "addCategory") NewsDTO news,@RequestParam(name="imageFile") MultipartFile file) {		
+	@ResponseBody
+	public NewsDTO AdminAddNewsPost(@ModelAttribute NewsDTO news, @RequestParam(name = "imageFile") MultipartFile file,
+			@RequestParam(name = "categoryId") int id) {
+		NewCategoryDTO categoryDTO= new NewCategoryDTO();
+		categoryDTO.setId(id);
+		news.setCategory(categoryDTO);
 		news.setImageTitle(imgurUtil.uploadImage(file));
 		newsService.addNews(news);
-		return "redirect:/admin/news/search";
+		return news;
 
 	}
-	
+
 	@GetMapping(value = "/admin/news/update")
-	public String AdminUpdateNewGet(HttpServletRequest request,Model model, @RequestParam(name = "id") int id) {
+	public String AdminUpdateNewGet(HttpServletRequest request, Model model, @RequestParam(name = "id") int id) {
 		NewsDTO news = newsService.getNewsbyId(id);
-		List<NewCategoryDTO> list = categoryService.search("1","", 0, 100);
-		
+		List<NewCategoryDTO> list = categoryService.search("1", "", 0, 100);
+
 		model.addAttribute("news", news);
 		request.setAttribute("categoryList", list);
 		return "admin/news/edit-news";
 	}
 
 	@PostMapping(value = "/admin/news/update")
-	public String AdminUpdateNewsPost(@ModelAttribute(name = "category") NewsDTO news,@RequestParam(name="imageFile") MultipartFile file) {
-		NewsDTO newsDTO=newsService.getNewsbyId(news.getId());
+	@ResponseBody
+	public NewsDTO AdminUpdateNewsPost(@ModelAttribute NewsDTO news, @RequestParam(name = "imageFile", required = false) MultipartFile file,
+			@RequestParam(name = "categoryId") int id) {
+		NewsDTO newsDTO = newsService.getNewsbyId(news.getId());
+		news.setCategory(new NewCategoryDTO(id,""));
 		news.setImageTitle(newsDTO.getImageTitle());
-		String image=imgurUtil.uploadImage(file);
-		if(image!=null) {news.setImageTitle(image);}
+		String image = imgurUtil.uploadImage(file);
+		if (image != null) {
+			news.setImageTitle(image);
+		}
 		newsService.updateNews(news);
-		return "redirect:/admin/news/search";
+		return news;
 	}
+
 	@GetMapping(value = "/admin/news/mokhoa")
 	public String AdminUpdatemoNewsPost(@RequestParam(name = "id") int id) {
 		NewsDTO news = newsService.getNewsbyId(id);
@@ -95,6 +107,7 @@ public class AdminNewController {
 		newsService.updateNews(news);
 		return "redirect:/admin/news/search";
 	}
+
 	@GetMapping(value = "/admin/news/khoa")
 	public String AdminUpdatekhoaNewsPost(@RequestParam(name = "id") int id) {
 		NewsDTO news = newsService.getNewsbyId(id);
@@ -102,7 +115,6 @@ public class AdminNewController {
 		newsService.updateNews(news);
 		return "redirect:/admin/news/search";
 	}
-			
 
 	@GetMapping(value = "/admin/news/delete")
 	public String deleteNews(int id) {
