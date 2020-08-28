@@ -65,8 +65,9 @@
 
 
 											<div class="form-group">
-												<label>Tên loại bài viết</label> <input class="form-control"
-													placeholder="Tên loại bài viết" name="categoryName" id="categoryName"/>
+												<label>Tên loại bài viết:</label> <input class="form-control"
+													placeholder="Tên loại bài viết" name="categoryName" id="categoryName"
+													required=""  oninvalid="this.setCustomValidity('Hãy nhập tên loại bài viết')" oninput="setCustomValidity('')"/>
 											</div>
 
 

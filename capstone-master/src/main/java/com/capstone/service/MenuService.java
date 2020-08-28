@@ -17,5 +17,9 @@ public interface MenuService {
 	public MenuDTO getMenubyId(int id);
 	
 	public List<MenuDTO> getAllMenubyuser(String has,String enable,int uId);
+	
+	public List<MenuDTO> search(String hashtag,String enable,String findName, int start, int length);
+	
+	public int countMenuWhensearch(String h,String enable,String name);
 
 }

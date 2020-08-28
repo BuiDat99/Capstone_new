@@ -191,4 +191,85 @@ public class ProductServiceimpl implements ProductService {
 		return dtos;
 	}
 
+	@Override
+	public List<ProductDTO> getTop4Products(String enable) {
+		List<Product> ps = productDao.getTop4Products(enable);
+		List<ProductDTO> dtos = new ArrayList<ProductDTO>();
+		for(Product p:ps) {
+			ProductDTO dto = new ProductDTO();
+			dto.setId(p.getId());
+			dto.setImage(p.getImage());
+			dto.setProductName(p.getProductName());
+			dto.setEnable(p.getEnable());
+			
+			AppUserDTO appUserDTO= new AppUserDTO();
+			appUserDTO.setUserId(p.getUser().getUserId());
+			
+			dto.setAppUserDTO(appUserDTO);
+			List<ProductResource> resources=p.getProductResources();
+			List<ProductResourceDTO> resourceDTOs= new ArrayList<ProductResourceDTO>();
+			for(ProductResource resource:resources) {
+				ProductResourceDTO resourceDTO = new ProductResourceDTO();
+				resourceDTO.setGram(resource.getKcal1g());
+				ResourceDTO resourceDTO2= resourceDao.getResourcebyId(resource.getResource().getId());
+				resourceDTO.setResource(resourceDTO2);
+				resourceDTOs.add(resourceDTO);
+			}
+//			ProductResourceDTO prDTO = new ProductResourceDTO();
+//			prDTO.setId(p.getId());
+			dto.setProductResourceDTOs(resourceDTOs);
+			// goi ra resource
+//			ResourceDTO resourceDTO = new ResourceDTO();
+//			resourceDTO.setId(p.getCategory().getId());
+//			resourceDTO.setCategoryName(r.getCategory().getCategoryName());
+//			dto.setCategory(resourceDTO);
+			dtos.add(dto);
+			
+		}
+		return dtos;
+	}
+	
+	@Override
+	public List<ProductDTO> search(String enable, String findName, int start, int length) {
+		List<Product> ps = productDao.search(enable, findName, start, length);
+		List<ProductDTO> dtos = new ArrayList<ProductDTO>();
+		for(Product p:ps) {
+			ProductDTO dto = new ProductDTO();
+			dto.setId(p.getId());
+			dto.setImage(p.getImage());
+			dto.setProductName(p.getProductName());
+			dto.setEnable(p.getEnable());
+			
+			AppUserDTO appUserDTO= new AppUserDTO();
+			appUserDTO.setUserId(p.getUser().getUserId());
+			
+			dto.setAppUserDTO(appUserDTO);
+			List<ProductResource> resources=p.getProductResources();
+			List<ProductResourceDTO> resourceDTOs= new ArrayList<ProductResourceDTO>();
+			for(ProductResource resource:resources) {
+				ProductResourceDTO resourceDTO = new ProductResourceDTO();
+				resourceDTO.setGram(resource.getKcal1g());
+				ResourceDTO resourceDTO2= resourceDao.getResourcebyId(resource.getResource().getId());
+				resourceDTO.setResource(resourceDTO2);
+				resourceDTOs.add(resourceDTO);
+			}
+//			ProductResourceDTO prDTO = new ProductResourceDTO();
+//			prDTO.setId(p.getId());
+			dto.setProductResourceDTOs(resourceDTOs);
+			// goi ra resource
+//			ResourceDTO resourceDTO = new ResourceDTO();
+//			resourceDTO.setId(p.getCategory().getId());
+//			resourceDTO.setCategoryName(r.getCategory().getCategoryName());
+//			dto.setCategory(resourceDTO);
+			dtos.add(dto);
+			
+		}
+		return dtos;
+	}
+
+	@Override
+	public int countProductWhensearch(String enable, String name) {
+		return productDao.countProductWhensearch(enable, name);
+	}
+
 }

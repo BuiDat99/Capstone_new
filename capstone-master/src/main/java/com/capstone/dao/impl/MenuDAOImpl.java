@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
@@ -53,6 +54,22 @@ public class MenuDAOImpl implements MenuDAO {
 		String jql = "select m from Menu m join m.user u where m.enable like :enable and m.hashtag like :h and u.userId =:uId ";
 		return entityManager.createQuery(jql, Menu.class).setParameter("enable", "%" + enable + "%")
 				.setParameter("h", "%" + hashtag + "%").setParameter("uId", userId).getResultList();
+	}
+	@Override
+	public List<Menu> search(String hash, String enable, String findName, int start, int length) {
+		String jql = "select m from Menu m where menuName like :menuName and enable like :enable and hashtag like :s";
+		Query query = entityManager.createQuery(jql,Menu.class);
+		query.setParameter("menuName", "%" + findName + "%").setParameter("enable","%"+ enable+"%").setParameter("s","%"+ hash+"%");
+		query.setFirstResult(start).setMaxResults(length);
+		return query.getResultList();
+	}
+
+	@Override
+	public int countMenuWhensearch(String h, String enable, String name) {
+		String jql="select m from Menu m where menuName like :menuName and enable like :enable and hashtag like :s ";
+		Query query = entityManager.createQuery(jql,Menu.class);
+		query.setParameter("menuName", "%" + name + "%").setParameter("enable", "%"+ enable+"%").setParameter("s", "%"+ h+"%");
+		return (int) query.getResultList().size();
 	}
 
 }

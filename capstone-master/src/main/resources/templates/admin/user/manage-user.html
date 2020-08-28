@@ -88,19 +88,13 @@ a.underline {
 									<table class="table table-striped table-bordered table-hover"
 										id="dataTables-example" th:if="${userList.size() != 0}"
 										border="1">
-										<thead>
-											 <div class="row btn">
-												<form th:action="@{/admin/user/insert}">
-													<button type="submit">Thêm nguyên liệu mới</button>
-
-												</form>
-											</div>
+										<thead>						
 											<tr>
 												<th>STT</th>
 												<th>Tài khoản</th>
 												<th>Email</th>
-												<th>Role</th>
-												<th>Enable</th>
+												<th>Vai trò</th>
+												<th>Trạng thái</th>
 												<th>Tuỳ chỉnh</th>
 											</tr>
 										</thead>
@@ -123,12 +117,12 @@ a.underline {
 													<!--  <a
 													th:href="@{'/admin/user/update-role?id='+${u.userId}}">Sửa role</a>-->
 													<div th:each="role : ${u.roles}">
-														<a th:if="${role == 'ROLE_ADMIN'}" th:href="@{'/admin/user/update-role-user?id='+${u.userId}}">hạ cấp</a>
-														<a th:if="${role == 'ROLE_USER'}" th:href="@{'/admin/user/update-role-admin?id='+${u.userId}}">thăng cấp</a>
+														<a data-target="#confirm-delete" data-toggle="modal" th:if="${role == 'ROLE_ADMIN'}" th:data-href="@{'/admin/user/update-role-user?id='+${u.userId}}" th:href="@{#}">Hạ cấp</a>
+														<a data-target="#confirm-delete" data-toggle="modal" th:if="${role == 'ROLE_USER'}" th:data-href="@{'/admin/user/update-role-admin?id='+${u.userId}}" th:href="@{#}">Thăng cấp</a>
 													</div>
 													<div>
-														<a th:if="${u.enable == '1'}" th:href="@{'/admin/user/khoa?id='+${u.userId}}">khoa</a>
-														<a th:if="${u.enable == '0'}" th:href="@{'/admin/user/mokhoa?id='+${u.userId}}"> mo khoa</a>
+														<a data-target="#confirm-delete" data-toggle="modal" th:if="${u.enable == '1'}" th:data-href="@{'/admin/user/khoa?id='+${u.userId}}" th:href="@{#}">Khoá</a>
+														<a data-target="#confirm-delete" data-toggle="modal" th:if="${u.enable == '0'}" th:data-href="@{'/admin/user/mokhoa?id='+${u.userId}}" th:href="@{#}">Mở Khoá</a>
 													</div>
 												</td>
 											</tr>

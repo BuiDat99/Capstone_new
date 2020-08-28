@@ -41,7 +41,7 @@ a.underline {
 					<button type="button" class="close" data-dismiss="modal"
 						aria-hidden="true">&times;</button>
 					<h4 class="modal-title" id="myModalLabel">Bạn có chắc chắn
-						muốn xoá không?</h4>
+						 không?</h4>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Không</button>
@@ -123,12 +123,10 @@ a.underline {
 												<td th:text="${news.modifiedDate}"></td>
 												<td th:text="${news.creationDate}"></td>
 												<td><a th:href="@{'/admin/news/update?id='+${news.id}}">Sửa</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-													<a data-target="#confirm-delete" data-toggle="modal"
-													th:data-href="@{'/admin/news/delete?id='+${news.id}}"
-													th:href="@{#}">Xoá</a>
+
 													<div>
-														<a th:if="${news.status == '1'}" th:href="@{'/admin/news/khoa?id='+${news.id}}">khoa</a>
-														<a th:if="${news.status == '0'}" th:href="@{'/admin/news/mokhoa?id='+${news.id}}"> mo khoa</a>
+														<a data-target="#confirm-delete" data-toggle="modal" th:if="${news.status == '1'}" th:data-href="@{'/admin/news/khoa?id='+${news.id}}" th:href="@{#}">Khoá</a>
+														<a data-target="#confirm-delete" data-toggle="modal" th:if="${news.status == '0'}" th:data-href="@{'/admin/news/mokhoa?id='+${news.id}}" th:href="@{#}">Mở khoá</a>
 													</div>
 													</td>
 											</tr>

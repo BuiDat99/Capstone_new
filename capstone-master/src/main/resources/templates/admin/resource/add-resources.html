@@ -63,23 +63,27 @@
 
 											<div class="form-group">
 												<label>Tên nguyên liệu:</label> <input class="form-control"
-													placeholder="Tên nguyên liệu" name="resourceName" id="resourceName" />
+													placeholder="Tên nguyên liệu" name="resourceName" id="resourceName"
+													required=""  oninvalid="this.setCustomValidity('Hãy nhập tên nguyên liệu')" oninput="setCustomValidity('')" />
 											</div>
 
 											<div class="form-group">
-												<label>Mô tả</label> <input class="form-control"
-													placeholder="Mô tả" name="resourceDescription" id="resourceDescription" />
+												<label>Mô tả:</label> <input class="form-control"
+													placeholder="Mô tả" name="resourceDescription" id="resourceDescription"
+													required=""  oninvalid="this.setCustomValidity('Hãy nhập mô tả cho nguyên liệu')" oninput="setCustomValidity('')" />
 											</div>
 											<div class="form-group">
-												<label>Hình ảnh</label> <input class="form-control" type="file"
-													placeholder="gram" name="imageFile"  id="imageFile"  accept="image/*"/>
+												<label>Hình ảnh:</label> <input class="form-control" type="file"
+													placeholder="gram" name="imageFile"  id="imageFile"  accept="image/*"
+													required=""  oninvalid="this.setCustomValidity('Hãy chọn hình ảnh cho nguyên liệu')" oninput="setCustomValidity('')"/>
 											</div>
 											<div class="form-group">
-												<label>Lượng calo trên 1g</label> <input
-													class="form-control" placeholder="gram" name="kcal1g" id="kcal1g" />
+												<label>Lượng calo trên 1g:</label> <input
+													class="form-control" placeholder="gram" name="kcal1g" id="kcal1g" 
+													required=""  oninvalid="this.setCustomValidity('Hãy nhập kcal nguyên liệu')" oninput="setCustomValidity('')"/>
 											</div>
 											<div class="form-group">
-												<label>CategoryId</label> <select  id="category">
+												<label>Thể loại nguyên liệu:</label> <select  id="category">
 													<option class="form-control" th:each="cat: ${categoryList}"
 														th:value="${cat.id}" th:text="${cat.categoryName}"></option>
 												</select>

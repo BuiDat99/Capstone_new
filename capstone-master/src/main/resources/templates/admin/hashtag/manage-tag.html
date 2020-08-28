@@ -30,7 +30,7 @@
 					<button type="button" class="close" data-dismiss="modal"
 						aria-hidden="true">&times;</button>
 					<h4 class="modal-title" id="myModalLabel">Bạn có chắc chắn
-						muốn xoá không?</h4>
+						 không?</h4>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Không</button>
@@ -88,11 +88,10 @@
 												<td th:text="${tag.tagCode}"></td>
 												<td th:text="${tag.tagContent}"></td>
 												<td><a
-													th:href="@{'/admin/tag/update?id='+${tag.tagId}}">Sửa</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-													<a data-target="#confirm-delete" data-toggle="modal" th:data-href="@{'/admin/tag/delete?id='+${tag.tagId}}" th:href="@{#}">Xoá</a>
+													th:href="@{'/admin/tag/update?id='+${tag.tagId}}">Sửa</a>&nbsp;&nbsp;|&nbsp;&nbsp;													
 													<div>
-														<a th:if="${tag.enable == '1'}" th:href="@{'/admin/tag/khoa?id='+${tag.tagId}}">khoa</a>
-														<a th:if="${tag.enable == '0'}" th:href="@{'/admin/tag/mokhoa?id='+${tag.tagId}}"> mo khoa</a>
+														<a data-target="#confirm-delete" data-toggle="modal" th:if="${tag.enable == '1'}" th:data-href="@{'/admin/tag/khoa?id='+${tag.tagId}}" th:href="@{#}">Khoá</a>
+														<a data-target="#confirm-delete" data-toggle="modal" th:if="${tag.enable == '0'}" th:data-href="@{'/admin/tag/mokhoa?id='+${tag.tagId}}" th:href="@{#}">Mở Khoá</a>
 													</div>
 													</td>
 											</tr>

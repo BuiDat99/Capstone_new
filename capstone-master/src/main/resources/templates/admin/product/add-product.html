@@ -44,7 +44,7 @@
 			<div id="page-inner">
 				<div class="row">
 					<div class="col-md-12">
-						<h2>Thêm bài viết</h2>
+						<h2>Thêm món ăn</h2>
 
 					</div>
 				</div>
@@ -62,7 +62,8 @@
 										<form role="form" id="addProductForm">
 											<div class="form-group" id="add-product-form">
 												<label>Tên món ăn:</label> <input class="form-control"
-													placeholder="Tên món ăn" id="productName" required />
+													placeholder="Tên món ăn" id="productName"
+													required=""  oninvalid="this.setCustomValidity('Hãy nhập tên món ăn')" oninput="setCustomValidity('')" />
 											</div>
 											<div class="form-group">
 												<label>Mô tả món ăn:</label>
@@ -70,11 +71,11 @@
 													required></textarea>
 											</div>
 											<div class="form-group">
-												<label for="image">Hình ảnh</label>
-												<input type="file" id="image" required accept="image/*" >
+												<label for="image">Hình ảnh:</label>
+												<input type="file" id="image" accept="image/*" required=""  oninvalid="this.setCustomValidity('Hãy chọn ảnh món ăn')" oninput="setCustomValidity('')">
 											</div>
 											<div class="form-group">
-												<label>Loại nguyên liệu</label> <br> <select class="category"
+												<label>Loại nguyên liệu:</label> <br> <select class="category"
 													name="category" id="category">
 													<option value="0">--</option>
 													<option th:each="cat: ${categoryList}" th:value="${cat.id}"
@@ -82,7 +83,7 @@
 												</select>
 											</div>
 											<div class="form-group">
-												<label>Nguyên liệu</label>
+												<label>Nguyên liệu:</label>
 												<ul id="checkbox"
 													style="list-style: none; overflow-y: scroll; height: 250px;">Vui
 													lòng chọn loại nguyên liệu
@@ -90,7 +91,7 @@
 											</div>
 											<!-- table of resources -->
 											<div class="form-group">
-												<label>Bảng nguyên liệu</label>
+												<label>Bảng nguyên liệu:</label>
 												<div class="panel-body">
 													<div class="table-responsive">
 

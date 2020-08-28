@@ -68,16 +68,20 @@ public class UserController {
 	public String home(HttpServletRequest request) {
 		List<NewsDTO> listNews = newsService.getTop6News("1");
 		request.setAttribute("NewList", listNews);
+		
+		List<ProductDTO> listProducts = productService.getTop4Products("1");
+		request.setAttribute("ProductList", listProducts);
 		return "/user/home";
 	}
 
 	@RequestMapping(value = "/tintuc", method = RequestMethod.GET)
-	public String Tintuc(HttpServletRequest request, @RequestParam(name = "catId") Optional<Integer> catId,
+	public String Tintuc(HttpServletRequest request, @RequestParam(name = "catId") String cat_Id,
 			@RequestParam(value = "keyword", required = false) String keyword,
 			@RequestParam(value = "page", required = false) Integer page) {
+		
 		String has = request.getParameter("hashtag") == null ? "" : request.getParameter("hashtag");
 //		NewCategoryDTO category = new NewCategoryDTO();				
-		if (!catId.isPresent()) {
+		if (cat_Id == null) {
 			final int PAGE_SIZE = 1;
 			page = page == null ? 1 : page;
 			keyword = keyword == null ? "" : keyword;
@@ -94,12 +98,13 @@ public class UserController {
 			request.setAttribute("listCount", listCount);
 			request.setAttribute("hashtag", has);
 		} else {
+			int catId = Integer.parseInt(cat_Id);
 			final int PAGE_SIZE = 1;
 			page = page == null ? 1 : page;
 			keyword = keyword == null ? "" : keyword;
-			int totalPage = newsService.countNewsOfCategory(has, "1", catId.get());
+			int totalPage = newsService.countNewsOfCategory(has, "1", catId);
 			int pageCount = (totalPage % PAGE_SIZE == 0) ? totalPage / PAGE_SIZE : totalPage / PAGE_SIZE + 1;
-			List<NewsDTO> listNews = newsService.getAllNewsOfCat("1", catId.get(), (page - 1) * PAGE_SIZE, PAGE_SIZE);
+			List<NewsDTO> listNews = newsService.getAllNewsOfCat("1", catId, (page - 1) * PAGE_SIZE, PAGE_SIZE);
 			List<Integer> listCount = new ArrayList<Integer>();
 			for (int i = 1; i <= pageCount; i++) {
 				listCount.add(i);
@@ -155,28 +160,107 @@ public class UserController {
 		return "/user/detailNews";
 
 	}
+	
+	@RequestMapping(value = "/detailProduct", method = RequestMethod.GET)
+	public String DetailProduct(HttpServletRequest request, Model model, @RequestParam(name = "Pid") int id) {
+//		NewCategoryDTO category = new NewCategoryDTO();
+		String has = request.getParameter("hashtag") == null ? "" : request.getParameter("hashtag");
+		ProductDTO products = productService.getProductbyId(id);
+		NewCategoryDTO newCat = newCatService.getCategorybyId(id);
+		int countCom = commentService.countCommentOfPost(id);
+		List<CommentDTO> comment = commentService.getComentbyPostId("1", id, 0, 100);
+		String catName = newCat.getCategoryName();
+		List<NewCategoryDTO> listNewsCat = newCatService.getAllCategories("1");
+		List<NewsDTO> listNews4Date = newsService.getTop4NewsByDate("1");
+		List<HashTagDTO> listTag = hashtagService.getAllTags("1");
+		for (NewCategoryDTO newCate : listNewsCat) {
+			int countCat = 0;
+			countCat = newsService.countNewsOfCategory(has, "1", newCate.getId());
+			String count = "(" + countCat + ")";
+			newCate.setCount(count);
+		}
+		model.addAttribute("products", products);
+		request.setAttribute("countCom", countCom);
+		request.setAttribute("comment", comment);
+		request.setAttribute("catName", catName);
+		request.setAttribute("listNewsCat", listNewsCat);
+		request.setAttribute("listTag", listTag);
+		request.setAttribute("listNews4Date", listNews4Date);
+		return "/user/detailProducts";
+
+	}
 
 	@RequestMapping(value = "/mon_an", method = RequestMethod.GET)
 	public String Monan(HttpServletRequest request, @RequestParam(value = "keyword", required = false) String keyword,
 			@RequestParam(value = "page", required = false) Integer page) {
-		
-		List<ProductDTO> productDTOs = productService.getAllProducts("1");
-		
-		request.setAttribute("productDTOs", productDTOs);
-		
-		return "/user/all_foods";
+
+		String has = request.getParameter("hashtag") == null ? "" : request.getParameter("hashtag");
+		final int PAGE_SIZE = 1;
+		page = page == null ? 1 : page;
+		keyword = keyword == null ? "" : keyword;
+		int totalPage = productService.countProductWhensearch("1", keyword);
+		int pageCount = (totalPage % PAGE_SIZE == 0) ? totalPage / PAGE_SIZE : totalPage / PAGE_SIZE + 1;
+		List<ProductDTO> listProducts = productService.search("1", keyword, (page - 1) * PAGE_SIZE, PAGE_SIZE);
+		List<Integer> listCount = new ArrayList<Integer>();
+		for (int i = 1; i <= pageCount; i++) {
+			listCount.add(i);
+		}
+		request.setAttribute("listProducts", listProducts);
+		request.setAttribute("page", page);
+		request.setAttribute("keyword", keyword);
+		request.setAttribute("listCount", listCount);		
+		List<NewCategoryDTO> listNewsCat = newCatService.getAllCategories("1");
+		List<NewsDTO> listNews4Date = newsService.getTop4NewsByDate("1");
+		List<HashTagDTO> listTag = hashtagService.getAllTags("1");
+		for (NewCategoryDTO newCate : listNewsCat) {
+			int countCat = 0;
+			countCat = newsService.countNewsOfCategory(has, "1", newCate.getId());
+			String count = "(" + countCat + ")";
+			newCate.setCount(count);
+		}
+//		int countCat = newsService.countNewsOfCategory(1);
+		request.setAttribute("listNewsCat", listNewsCat);
+		request.setAttribute("listTag", listTag);
+		request.setAttribute("listNews4Date", listNews4Date);
+
+		return "/user/edit/all_food";
 	}
 
 	@RequestMapping(value = "/menu", method = RequestMethod.GET)
-	public String Menu(HttpServletRequest request, @RequestParam(value = "keyword", required = false) String keyword,
+	public String Thucdon(HttpServletRequest request, @RequestParam(value = "keyword", required = false) String keyword,
 			@RequestParam(value = "page", required = false) Integer page) {
+
 		String has = request.getParameter("hashtag") == null ? "" : request.getParameter("hashtag");
+		final int PAGE_SIZE = 4;
+		page = page == null ? 1 : page;
+		keyword = keyword == null ? "" : keyword;
+		int totalPage = menuService.countMenuWhensearch(has, "1", keyword);
+		int pageCount = (totalPage % PAGE_SIZE == 0) ? totalPage / PAGE_SIZE : totalPage / PAGE_SIZE + 1;
+		List<MenuDTO> listMenu = menuService.search(has, "1", keyword,  (page - 1) * PAGE_SIZE, PAGE_SIZE);
+		List<Integer> listCount = new ArrayList<Integer>();
+		for (int i = 1; i <= pageCount; i++) {
+			listCount.add(i);
+		}
+		request.setAttribute("listMenu", listMenu);
+		request.setAttribute("page", page);
+		request.setAttribute("keyword", keyword);
+		request.setAttribute("listCount", listCount);
+		request.setAttribute("hashtag", has);
+		List<NewCategoryDTO> listNewsCat = newCatService.getAllCategories("1");
+		List<NewsDTO> listNews4Date = newsService.getTop4NewsByDate("1");
+		List<HashTagDTO> listTag = hashtagService.getAllTags("1");
+		for (NewCategoryDTO newCate : listNewsCat) {
+			int countCat = 0;
+			countCat = newsService.countNewsOfCategory(has, "1", newCate.getId());
+			String count = "(" + countCat + ")";
+			newCate.setCount(count);
+		}
+//		int countCat = newsService.countNewsOfCategory(1);
+		request.setAttribute("listNewsCat", listNewsCat);
+		request.setAttribute("listTag", listTag);
+		request.setAttribute("listNews4Date", listNews4Date);
 
-		List<MenuDTO> menuDTOs = menuService.getAllMenu(has, "1");
-
-		request.setAttribute("menuDTOs", menuDTOs);
-
-		return "/user/all-menu";
+		return "/user/edit/all_menu";
 	}
 	@RequestMapping(value = "/user/history", method = RequestMethod.GET)
 	public String history(HttpServletRequest request, Principal principal,Model model) {

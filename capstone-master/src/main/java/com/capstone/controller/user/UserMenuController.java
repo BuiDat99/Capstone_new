@@ -18,11 +18,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.capstone.dao.AppUserDAO;
 import com.capstone.entity.AppUser;
+import com.capstone.model.HashTagDTO;
 import com.capstone.model.MenuDTO;
 import com.capstone.model.MenuProductDTO;
+import com.capstone.model.NewCategoryDTO;
+import com.capstone.model.NewsDTO;
 import com.capstone.model.ProductDTO;
+import com.capstone.service.HashTagService;
 import com.capstone.service.MenuProductService;
 import com.capstone.service.MenuService;
+import com.capstone.service.NewCategoryService;
+import com.capstone.service.NewsService;
 import com.capstone.service.ProductService;
 
 @Controller
@@ -40,11 +46,38 @@ public class UserMenuController {
 	@Autowired
 	private ProductService productService;
 
+	@Autowired
+	private NewsService newsService;
+	
+	@Autowired
+	private HashTagService hashtagService;
+	
+	@Autowired
+	private NewCategoryService newCatService;
 	@GetMapping(value = "/user/menu/add-menu")
 	public String addMenuGet(HttpServletRequest request) {
+		String has = request.getParameter("hashtag") == null ? "" : request.getParameter("hashtag");
+		
 		List<ProductDTO> productDTOs = productService.getAllProducts("1");
 		request.setAttribute("listProduct", productDTOs);
-		return "user/add-menu";
+		
+		// filter
+
+		request.setAttribute("hashtag", has);
+		List<NewCategoryDTO> listNewsCat = newCatService.getAllCategories("1");
+		List<NewsDTO> listNews4Date = newsService.getTop4NewsByDate("1");
+		List<HashTagDTO> listTag = hashtagService.getAllTags("1");
+		for (NewCategoryDTO newCate : listNewsCat) {
+			int countCat = 0;
+			countCat = newsService.countNewsOfCategory(has, "1", newCate.getId());
+			String count = "(" + countCat + ")";
+			newCate.setCount(count);
+		}
+//		int countCat = newsService.countNewsOfCategory(1);
+		request.setAttribute("listNewsCat", listNewsCat);
+		request.setAttribute("listTag", listTag);
+		request.setAttribute("listNews4Date", listNews4Date);
+		return "user/edit/add_menu";
 	}
 
 	@PostMapping(value = "/user/menu/add-menu")
@@ -73,14 +106,33 @@ public class UserMenuController {
 	
 	@GetMapping(value = "/user/menu/edit-menu")
 	public String updateMenuGet(HttpServletRequest request, @RequestParam(name = "id") int id, Model model) {
+		String has = request.getParameter("hashtag") == null ? "" : request.getParameter("hashtag");
+		
 		MenuDTO menuDTO = menuService.getMenubyId(id);
 		model.addAttribute("menuDTO", menuDTO);
-		return "user/edit-menu";
+		
+		// filter
+
+		request.setAttribute("hashtag", has);
+		List<NewCategoryDTO> listNewsCat = newCatService.getAllCategories("1");
+		List<NewsDTO> listNews4Date = newsService.getTop4NewsByDate("1");
+		List<HashTagDTO> listTag = hashtagService.getAllTags("1");
+		for (NewCategoryDTO newCate : listNewsCat) {
+			int countCat = 0;
+			countCat = newsService.countNewsOfCategory(has, "1", newCate.getId());
+			String count = "(" + countCat + ")";
+			newCate.setCount(count);
+		}
+//		int countCat = newsService.countNewsOfCategory(1);
+		request.setAttribute("listNewsCat", listNewsCat);
+		request.setAttribute("listTag", listTag);
+		request.setAttribute("listNews4Date", listNews4Date);
+		return "user/edit/edit_menu";
 	}
 
 	@PostMapping(value = "/user/menu/edit-menu")
 	@ResponseBody
-	public MenuDTO updateMenuPost(HttpServletRequest request, @RequestBody MenuDTO menuDTO) {
+	public MenuDTO updateMenuPost(HttpServletRequest request, @RequestBody MenuDTO menuDTO) {		
 		MenuDTO menuDTO2 = menuService.getMenubyId(menuDTO.getId());
 
 		menuDTO.setEnable("1");
@@ -111,11 +163,28 @@ public class UserMenuController {
 
 	@GetMapping(value = "/user/menu/search")
 	public String searchMenu(HttpServletRequest request,Principal principal) {
+		String has = request.getParameter("hashtag") == null ? "" : request.getParameter("hashtag");
+		
 		User loginedUser = (User) ((Authentication) principal).getPrincipal();
 		AppUser user = appUserService.findAppUserbyUserName(loginedUser.getUsername());
 		List<MenuDTO> listMenu = menuService.getAllMenubyuser("1","",user.getUserId());
 		System.out.println(listMenu.size());
 		request.setAttribute("listMenu", listMenu);
-		return "user/manage-menu";
+		
+		request.setAttribute("hashtag", has);
+		List<NewCategoryDTO> listNewsCat = newCatService.getAllCategories("1");
+		List<NewsDTO> listNews4Date = newsService.getTop4NewsByDate("1");
+		List<HashTagDTO> listTag = hashtagService.getAllTags("1");
+		for (NewCategoryDTO newCate : listNewsCat) {
+			int countCat = 0;
+			countCat = newsService.countNewsOfCategory(has, "1", newCate.getId());
+			String count = "(" + countCat + ")";
+			newCate.setCount(count);
+		}
+//		int countCat = newsService.countNewsOfCategory(1);
+		request.setAttribute("listNewsCat", listNewsCat);
+		request.setAttribute("listTag", listTag);
+		request.setAttribute("listNews4Date", listNews4Date);
+		return "user/edit/manage_menu";
 	}
 }

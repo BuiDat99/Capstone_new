@@ -16,7 +16,13 @@ public interface ProductDAO {
 	
 	public List<Product> getAllProduct(String enable);
 	
+	public List<Product> getTop4Products(String enable);
+	
 	public List<Product> getAllProductByUser(String enable, int id);
 	
 	public Product getProductbyId(int id);
+	
+	public List<Product> search(String enable, String findName, int start, int length);
+	
+	public int countProductWhensearch(String enable,String name);
 }

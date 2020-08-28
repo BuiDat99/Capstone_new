@@ -56,29 +56,7 @@
 							</div>
 						</div>
 					</div>
-				</div>
-				<!--      Single Slider -->
-				<!--   <div class="single-slider slider-height d-flex align-items-center">
-                            <div class="container">
-                                <div class="row align-items-center">
-                                    <div class="col-xl-6 col-lg-7 col-md-8">
-                                        <div class="hero__caption">
-                                            <span data-animation="fadeInLeft" data-delay=".2s">Popular Online Courses</span>
-                                            <h1 data-animation="fadeInLeft" data-delay=".4s">The New Way To Learn Properly in With Us!</h1>
-                                            Hero-btn
-                                            <div class="hero__btn">
-                                                <a href="industries.html" class="btn hero-btn"  data-animation="fadeInLeft" data-delay=".8s">Get Started</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-6 col-lg-5">
-                                        <div class="hero-man d-none d-lg-block f-right" data-animation="jello" data-delay=".4s">
-                                            <img src="assets/img/hero/heroman.png" alt="">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> -->
+				</div>			
 			</div>
 		</div>
 		<!-- slider Area End-->
@@ -100,7 +78,7 @@
 						<!-- Single course -->
 						<div class="single-course mb-40">
 							<div class="course-img">
-							<a th:href="@{'/detailNews?id='+${news.id}}">	<img th:src="@{#{imagePath.post.title} + ${news.imageTitle}}"></a>
+							<a th:href="@{'/detailNews?id='+${news.id}}">	<img th:src="@{${news.imageTitle}}"></a>
 							</div>
 							<div class="course-caption">
 								<div class="course-cap-top">
@@ -128,168 +106,7 @@
 								</div>
 							</div>
 						</div>
-					</div>
-					<!-- het 1 cai -->
-					<!-- <div class="col-xl-4 col-lg-4 col-md-6">
-						Single course
-						<div class="single-course mb-40">
-							<div class="course-img">
-								<img src="assets/img/gallery/popular_sub1.png" alt="">
-							</div>
-							<div class="course-caption">
-								<div class="course-cap-top">
-									<h4>
-										<a href="#">Làm sao để có một cuộc sống lành mạnh</a>
-									</h4>
-								</div>
-								<div class="course-cap-mid d-flex justify-content-between">
-									<div class="course-ratting">
-										<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
-											class="fas fa-star"></i> <i class="fas fa-star"></i> <i
-											class="fas fa-star"></i>
-									</div>
-									<ul>
-										<li>52 Review</li>
-									</ul>
-								</div>
-								<div class="course-cap-bottom d-flex justify-content-between">
-									<ul>
-										<li><i class="ti-user"></i> 562</li>
-										<li><i class="ti-heart"></i> 562</li>
-									</ul>
-									<span>Free</span>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-xl-4 col-lg-4 col-md-6">
-						Single course
-						<div class="single-course mb-40">
-							<div class="course-img">
-								<img src="assets/img/gallery/popular_sub1.png" alt="">
-							</div>
-							<div class="course-caption">
-								<div class="course-cap-top">
-									<h4>
-										<a href="#">Làm sao để có một cuộc sống lành mạnh</a>
-									</h4>
-								</div>
-								<div class="course-cap-mid d-flex justify-content-between">
-									<div class="course-ratting">
-										<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
-											class="fas fa-star"></i> <i class="fas fa-star"></i> <i
-											class="fas fa-star"></i>
-									</div>
-									<ul>
-										<li>52 Review</li>
-									</ul>
-								</div>
-								<div class="course-cap-bottom d-flex justify-content-between">
-									<ul>
-										<li><i class="ti-user"></i> 562</li>
-										<li><i class="ti-heart"></i> 562</li>
-									</ul>
-									<span>Free</span>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-xl-4 col-lg-4 col-md-6">
-						Single course
-						<div class="single-course mb-40">
-							<div class="course-img">
-								<img src="assets/img/gallery/popular_sub2.png" alt="">
-							</div>
-							<div class="course-caption">
-								<div class="course-cap-top">
-									<h4>
-										<a href="#">Web Development</a>
-									</h4>
-								</div>
-								<div class="course-cap-mid d-flex justify-content-between">
-									<div class="course-ratting">
-										<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
-											class="fas fa-star"></i> <i class="fas fa-star"></i> <i
-											class="fas fa-star"></i>
-									</div>
-									<ul>
-										<li>52 Review</li>
-									</ul>
-								</div>
-								<div class="course-cap-bottom d-flex justify-content-between">
-									<ul>
-										<li><i class="ti-user"></i> 562</li>
-										<li><i class="ti-heart"></i> 562</li>
-									</ul>
-									<span>Free</span>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-xl-4 col-lg-4 col-md-6">
-						Single course
-						<div class="single-course mb-40">
-							<div class="course-img">
-								<img src="assets/img/gallery/popular_sub2.png" alt="">
-							</div>
-							<div class="course-caption">
-								<div class="course-cap-top">
-									<h4>
-										<a href="#">Web Development</a>
-									</h4>
-								</div>
-								<div class="course-cap-mid d-flex justify-content-between">
-									<div class="course-ratting">
-										<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
-											class="fas fa-star"></i> <i class="fas fa-star"></i> <i
-											class="fas fa-star"></i>
-									</div>
-									<ul>
-										<li>52 Review</li>
-									</ul>
-								</div>
-								<div class="course-cap-bottom d-flex justify-content-between">
-									<ul>
-										<li><i class="ti-user"></i> 562</li>
-										<li><i class="ti-heart"></i> 562</li>
-									</ul>
-									<span>Free</span>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-xl-4 col-lg-4 col-md-6">
-						Single course
-						<div class="single-course mb-40">
-							<div class="course-img">
-								<img src="assets/img/gallery/popular_sub3.png" alt="">
-							</div>
-							<div class="course-caption">
-								<div class="course-cap-top">
-									<h4>
-										<a href="#">Digital Marketing</a>
-									</h4>
-								</div>
-								<div class="course-cap-mid d-flex justify-content-between">
-									<div class="course-ratting">
-										<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
-											class="fas fa-star"></i> <i class="fas fa-star"></i> <i
-											class="fas fa-star"></i>
-									</div>
-									<ul>
-										<li>52 Review</li>
-									</ul>
-								</div>
-								<div class="course-cap-bottom d-flex justify-content-between">
-									<ul>
-										<li><i class="ti-user"></i> 562</li>
-										<li><i class="ti-heart"></i> 562</li>
-									</ul>
-									<span>Free</span>
-								</div>
-							</div>
-						</div>
-					</div>-->
+					</div>					
 				</div> 
 				<!-- Section Button -->
 				<div class="row">
@@ -315,81 +132,25 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-lg-3 col-md-6 col-sm-6">
+					<div class="col-lg-3 col-md-6 col-sm-6" th:each="p : ${ProductList}">
 						<div class="single-team mb-30">
 							<div class="team-img">
-								<img src="assets/img/gallery/team1.png" alt="">
+								<a th:href="@{'/detailProduct?Pid='+${p.id}}"><img th:src="@{${p.image}}" alt=""></a>
 								<!-- Blog Social -->
-								<ul class="team-social">
+								<!-- <ul class="team-social">
 									<li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
 									<li><a href="#"><i class="fab fa-twitter"></i></a></li>
 									<li><a href="#"><i class="fas fa-globe"></i></a></li>
-								</ul>
+								</ul> -->
 							</div>
 							<div class="team-caption">
 								<h3>
-									<a href="instructor.html">Rau xanh</a>
+									<a th:href="@{'/detailProduct?Pid='+${p.id}}"><p th:text="${p.productName}"></p></a>
 								</h3>
 
 							</div>
 						</div>
-					</div>
-					<div class="col-lg-3 col-md-6 col-sm-6">
-						<div class="single-team mb-30">
-							<div class="team-img">
-								<img src="assets/img/gallery/team2.png" alt="">
-								<!-- Blog Social -->
-								<ul class="team-social">
-									<li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-									<li><a href="#"><i class="fab fa-twitter"></i></a></li>
-									<li><a href="#"><i class="fas fa-globe"></i></a></li>
-								</ul>
-							</div>
-							<div class="team-caption">
-								<h3>
-									<a href="instructor.html">Rau xanh</a>
-								</h3>
-							</div>
-						</div>
-					</div>
-					<div class="col-lg-3 col-md-6 col-sm-6">
-						<div class="single-team mb-30">
-							<div class="team-img">
-								<img src="assets/img/gallery/team3.png" alt="">
-								<!-- Blog Social -->
-								<ul class="team-social">
-									<li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-									<li><a href="#"><i class="fab fa-twitter"></i></a></li>
-									<li><a href="#"><i class="fas fa-globe"></i></a></li>
-								</ul>
-							</div>
-							<div class="team-caption">
-								<h3>
-									<a href="instructor.html">Rau xanh</a>
-								</h3>
-
-							</div>
-						</div>
-					</div>
-					<div class="col-lg-3 col-md-6 col-sm-6">
-						<div class="single-team mb-30">
-							<div class="team-img">
-								<img src="assets/img/gallery/team4.png" alt="">
-								<!-- Blog Social -->
-								<ul class="team-social">
-									<li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-									<li><a href="#"><i class="fab fa-twitter"></i></a></li>
-									<li><a href="#"><i class="fas fa-globe"></i></a></li>
-								</ul>
-							</div>
-							<div class="team-caption">
-								<h3>
-									<a href="instructor.html">Rau xanh</a>
-								</h3>
-
-							</div>
-						</div>
-					</div>
+					</div>													
 				</div>
 				<!-- Section Button -->
 				<div class="row">
@@ -420,9 +181,7 @@
 								</div>
 								<!-- Testimonial Content -->
 								<div class="testimonial-caption text-center">
-									<p>You can’t succeed if you just do what others do and
-										follow the well-worn path. You need to create a new and
-										original path for yourself.</p>
+									<p>A feeble body weakens the mind.</p>
 									<!-- Rattion -->
 									<div class="testimonial-ratting">
 										<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
@@ -430,8 +189,7 @@
 											class="fas fa-star"></i>
 									</div>
 									<div class="rattiong-caption">
-										<span>Clifford Frazier<span> - Colorlib Themes</span>
-										</span>
+										<span>Jean Jacques Rousseau</span>
 									</div>
 								</div>
 							</div>
@@ -444,9 +202,7 @@
 								</div>
 								<!-- Testimonial Content -->
 								<div class="testimonial-caption text-center">
-									<p>You can’t succeed if you just do what others do and
-										follow the well-worn path. You need to create a new and
-										original path for yourself.</p>
+									<p>Good health is not something we can buy. However, it can be an extremely valuable savings account.</p>
 									<!-- Rattion -->
 									<div class="testimonial-ratting">
 										<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
@@ -454,7 +210,7 @@
 											class="fas fa-star"></i>
 									</div>
 									<div class="rattiong-caption">
-										<span>Clifford Frazier<span> - Colorlib Themes</span>
+										<span>Anne Wilson Schaef
 										</span>
 									</div>
 								</div>

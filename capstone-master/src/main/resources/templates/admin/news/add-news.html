@@ -65,62 +65,71 @@
 											method="post" enctype="multipart/form-data"
 											th:object="${news}">
 											<div class="form-group">
-												<label>Loại bài viết</label> <select
+												<label>Loại bài viết:</label> <select
 													th:field="*{category.id}" id="category">
 													<option class="form-control" th:each="cat: ${categoryList}"
 														th:value="${cat.id}" th:text="${cat.categoryName}"></option>
 												</select>
 											</div>
 											<div class="form-group">
-												<label>Tiêu đề bài viết</label> <input class="form-control"
-													placeholder="Tiêu đề bài viết" name="title" id="title" />
+												<label>Tiêu đề bài viết:</label> <input class="form-control"
+													placeholder="Tiêu đề bài viết" name="title" id="title"
+													 required=""  oninvalid="this.setCustomValidity('Hãy nhập tiêu đề bài viết')" oninput="setCustomValidity('')" />
 											</div>
 											<div class="form-group">
-												<label>Ảnh tiêu đề</label> <input class="form-control"
+												<label>Ảnh tiêu đề:</label> <input class="form-control"
 													placeholder="Ảnh tiêu đề" name="imageFile" id="imageFile"
-													type="file" accept="image/*" />
+													type="file" accept="image/*"
+													required=""  oninvalid="this.setCustomValidity('Hãy chọn ảnh cho bài viết')" oninput="setCustomValidity('')" />
 											</div>
 											<div class="form-group">
-												<label>Người đăng</label> <input class="form-control"
-													placeholder="Người đăng" name="poster" id="poster" />
+												<label>Người đăng:</label> <input class="form-control"												
+													placeholder="Người đăng" name="poster" id="poster"
+													required=""  oninvalid="this.setCustomValidity('Hãy nhập người đăng bài viết')" oninput="setCustomValidity('')" />
 											</div>
 											<div class="form-group">
-												<label>Tác giả</label> <input class="form-control"
-													placeholder="Tác giả" name="author" id="author" />
+												<label>Tác giả:</label> <input class="form-control"
+													placeholder="Tác giả" name="author" id="author"
+													required=""  oninvalid="this.setCustomValidity('Hãy nhập tác giả bài viết')" oninput="setCustomValidity('')" />
 											</div>
-											<div class="form-group">
+<!-- 											<div class="form-group">
 												<label>Ảnh</label> <input class="form-control"
 													placeholder="Ảnh" name="image" id="image" />
-											</div>
+											</div> -->
 											<div class="form-group ">
-												<label>Nội dung ngắn</label> <input class="form-control"
+												<label>Nội dung ngắn:</label> <input class="form-control"
 													placeholder="Nội dung tiêu biểu" id="shortDescription"
-													name="shortDescription" />
+													name="shortDescription"
+													required=""  oninvalid="this.setCustomValidity('Hãy nhập nội dung ngắn cho bài viết')" oninput="setCustomValidity('')" />
 											</div>
 											<div class="form-group">
-												<label>Nội dung chi tiết</label>
-												<textarea class="ckeditor" rows="4" cols="50"
-													name="detailDescription" id="detailDescription"></textarea>
+												<label>Nội dung chi tiết:</label>
+												<textarea class="ckeditor"  rows="4" cols="50"
+													name="detailDescription" id="detailDescription"
+													required=""  oninvalid="this.setCustomValidity('Hãy nhập nội dung chi tiết cho bài viết')" oninput="setCustomValidity('')"></textarea>
 											</div>
 											<div class="form-group">
-												<label>Nguồn</label> <input class="form-control"
-													placeholder="Nguồn" name="source" id="source" />
+												<label>Nguồn:</label> <input class="form-control"
+													placeholder="Nguồn" name="source" id="source"
+													required=""  oninvalid="this.setCustomValidity('Hãy nhập nguồn')" oninput="setCustomValidity('')" />
 											</div>
 											<div class="form-group">
-												<label>Hashtag</label> <input class="form-control"
-													placeholder="Hashatg" id="hashtag" name="hashtag" />
+												<label>Hashtag:</label> <input class="form-control"
+													placeholder="Hashatg" id="hashtag" name="hashtag"
+													required=""  oninvalid="this.setCustomValidity('Hãy nhập hashtag cho bài viết')" oninput="setCustomValidity('')" />
 											</div>
 											<div class="form-group">
-												<label>Trạng thái</label> <input class="form-control"
-													placeholder="Trạng thái" name="status" id="status" />
+												<label>Trạng thái:</label> <input class="form-control"
+													placeholder="Trạng thái" name="status" id="status"
+													required=""  oninvalid="this.setCustomValidity('Hãy nhập trạng thái cho bài viết')" oninput="setCustomValidity('')" />
 											</div>
 											<div class="form-group">
-												<label>Ngày sửa</label> <input class="form-control"
+												<label>Ngày sửa:</label> <input class="form-control"
 													placeholder="Ngày sửa" id="modifiedDate"
 													name="modifiedDate" />
 											</div>
 											<div class="form-group">
-												<label>Ngày tạo</label> <input class="form-control"
+												<label>Ngày tạo:</label> <input class="form-control"
 													placeholder="Ngày tạo"
 													th:value="${#dates.format(#dates.createNow(), 'dd MMM')}"
 													name="creationDate" id="creationDate" />

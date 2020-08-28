@@ -1,29 +1,44 @@
+
 <!DOCTYPE html>
 <html>
-
 <head>
-	<script th:src="@{/ckeditor/ckeditor.js}" type="text/javascript"></script>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>Thêm nguyên liệu</title>
-	<!-- BOOTSTRAP STYLES-->
-	<link th:href="@{/css/bootstrap.css}" rel="stylesheet" />
-	<!-- FONTAWESOME STYLES-->
-	<link th:href="@{/css/font-awesome.css}" rel="stylesheet" />
-	<!-- MORRIS CHART STYLES-->
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title>Tin tức</title>
+<meta name="description" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="shortcut icon" type="image/x-icon"
+	th:href="@{/assets/img/favicon.ico}" />
 
-	<!-- CUSTOM STYLES-->
-	<link th:href="@{/css/custom.css}" rel="stylesheet" />
-	<!-- GOOGLE FONTS-->
-
-	<link th:href="@{/css/jquery-ui.min.css}" rel="stylesheet" type="text/css">
-	<link th:href="@{/css/multi-select.css}" rel="stylesheet" type="text/css">
-	<link th:href="@{/js/dataTables/dataTables.bootstrap.css}" rel="stylesheet" />
-
+<!-- CSS here -->
+<link rel="stylesheet" th:href="@{/assets/css/bootstrap.min.css}" />
+<link rel="stylesheet" th:href="@{/assets/css/owl.carousel.min.css}" />
+<link rel="stylesheet" th:href="@{/assets/css/slicknav.css}" />
+<link rel="stylesheet" th:href="@{/assets/css/animate.min.css}" />
+<link rel="stylesheet" th:href="@{/assets/css/magnific-popup.css}" />
+<link rel="stylesheet" th:href="@{/assets/css/fontawesome-all.min.css}" />
+<link rel="stylesheet" th:href="@{/assets/css/themify-icons.css}" />
+<link rel="stylesheet" th:href="@{/assets/css/slick.css}" />
+<link rel="stylesheet" th:href="@{/assets/css/nice-select.css}" />
+<link rel="stylesheet" th:href="@{/assets/css/style.css}" />
+<link rel="stylesheet" th:href="@{/assets/css/login.css}" />
 </head>
-
 <body>
-	<div class="modal fade" id="notifyModal">
+	<!-- <div th:replace="/user/header.html :: head"></div>
+	<div>
+		<div th:each="s : ${productDTOs}"  style="border:1px solid red;">
+			<p th:text="${s.id}"></p>
+			<p th:text="${s.productName}"></p>
+			<p th:text="${s.productDescription}"></p>
+			<img style="width: 200px;" th:src="${s.image}">
+			<div th:each="r:${s.productResourceDTOs}">
+				<p th:text="${r.resource.resourceName}"></p>
+				<p th:text="${r.gram}"></p> gram
+				
+			</div>
+		</div>
+	</div> -->
+		<div class="modal fade" id="notifyModal">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -37,16 +52,40 @@
 			</div>
 		</div>
 	</div>
-	<div id="wrapper">
-		<div th:replace="/admin/nav-bar :: nav_bar"></div>
-		<!-- /. NAV TOP  -->
-		<div th:replace="/admin/slide-bar :: slide_bar"></div>
+<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">Bạn có chắc chắn
+						muốn xoá không?</h4>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Không</button>
+					<a class="btn btn-danger btn-ok">Có</a>
+				</div>
+			</div>
+		</div>
+	</div>
+<div th:replace="/user/header.html :: head"></div>
+
+	<main>
+		<!--================Blog Area =================-->
+		<section class="blog_area section-padding">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-8 mb-5 mb-lg-0">
+					<div id="wrapper">
+		
 		<!-- /. NAV SIDE  -->
 		<div id="page-wrapper">
 			<div id="page-inner">
 				<div class="row">
 					<div class="col-md-12">
-						<h2>Thêm thực đơn</h2>
+						<h2>Thêm bài viết</h2>
 
 					</div>
 				</div>
@@ -60,44 +99,36 @@
 							<div class="panel-body">
 								<div class="row">
 									<div class="col-md-6">
-										<h3>Thông tin thực đơn</h3>
+										<h3>Thông tin nguyên liệu</h3>
 
 										<form role="form" method="post" id="form">
 
 											<div class="form-group">
 												<label>Tên menu:</label> <input class="form-control"
-													placeholder="Tên menu" name="menuName" id="menuName"
-													required=""  oninvalid="this.setCustomValidity('Hãy nhập tên menu')" oninput="setCustomValidity('')" />
+													placeholder="Tên menu" name="menuName" id="menuName" />
 											</div>
 
-											<!-- <div class="form-group">
-												<label>Mô tả:</label> <input class="form-control" placeholder="Mô tả"
+											<div class="form-group">
+												<label>Mo ta:</label> <input class="form-control" placeholder="mo ta"
 													name="menuDescription" id="menuDescription" />
-											</div> -->
-											<div class="form-group">
-												<label>Mô tả:</label>
-												<textarea class="ckeditor"  rows="4" cols="50"
-													name="menuDescription" id="menuDescription"
-													required=""  oninvalid="this.setCustomValidity('Hãy nhập mô tả cho thực đơn')" oninput="setCustomValidity('')"></textarea>
 											</div>
 											<div class="form-group">
-												<label>Hashtag</label> <input class="form-control" placeholder="Hashtag"
-													name="hashtag" id="hashtag"
-													required=""  oninvalid="this.setCustomValidity('Hãy nhập hashtag')" oninput="setCustomValidity('')" />
+												<label>hashtag</label> <input class="form-control" placeholder="Tên menu"
+													name="hashtag" id="hashtag" />
 											</div>
 											<div class="form-group">
-												 <input class="form-control" type="hidden" placeholder="user"
+												 <input type="hidden" class="form-control" placeholder="user"
 													name="userId" id="userId" />
 											</div>
 											<div class="form-group">
-												<label>Món ăn:</label>
+												<label>mon an</label>
 												<div>
 													<select id='productId' multiple='multiple'>
 													</select>
 												</div>
 											</div>
 
-											<button type="submit" class="btn btn-default">Thêm thực đơn</button>
+											<button type="submit" class="btn btn-default">Thêm</button>
 											<button type="reset" class="btn btn-primary">Làm mới</button>
 										</form>
 
@@ -119,21 +150,48 @@
 		</div>
 		<!-- /. PAGE WRAPPER  -->
 	</div>
-	<!-- /. WRAPPER  -->
-	<!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
-	<!-- JQUERY SCRIPTS -->
-	<script th:src="@{/js/jquery-1.10.2.js}"></script>
-	<!-- BOOTSTRAP SCRIPTS -->
-	<script th:src="@{/js/bootstrap.min.js}"></script>
-	<!-- METISMENU SCRIPTS -->
-	<script th:src="@{/js/jquery.metisMenu.js}"></script>
-	<!-- DATA TABLE SCRIPTS -->
-	<script th:src="@{/js/dataTables/jquery.dataTables.js}"></script>
-	<script th:src="@{/js/dataTables/dataTables.bootstrap.js}"></script>
-	<script th:src="@{/js/jquery-ui.min.js}"></script>
-	<script th:src="@{/js/jquery.multi-select.js}"></script>
-	<script th:src="@{/js/jquery.quicksearch.js}"></script>
+					</div>
+					<!-- right side -->
+					<div th:replace="/user/rightProduct.html :: rightProduct"></div>
+					<!-- end right side -->
+				</div>
+			</div>
+		</section>
+		<!--================Blog Area =================-->
+	</main>
+	<div th:replace="/user/footer :: foot"></div>
 
+	<script th:src="@{/assets/js/vendor/modernizr-3.5.0.min.js}"></script>
+	<!-- Jquery, Popper, Bootstrap -->
+	<script th:src="@{/assets/js/vendor/jquery-1.12.4.min.js}"></script>
+	<script th:src="@{/assets/js/popper.min.js}"></script>
+	<script th:src="@{/assets/js/bootstrap.min.js}"></script>
+	<!-- Jquery Mobile Menu -->
+	<script th:src="@{/assets/js/jquery.slicknav.min.js}"></script>
+
+	<!-- Jquery Slick , Owl-Carousel Plugins -->
+	<script th:src="@{/assets/js/owl.carousel.min.js}"></script>
+	<script th:src="@{/assets/js/slick.min.js}"></script>
+
+	<!-- One Page, Animated-HeadLin -->
+	<script th:src="@{/assets/js/wow.min.js}"></script>
+	<script th:src="@{/assets/js/animated.headline.js}"></script>
+	<script th:src="@{/assets/js/jquery.magnific-popup.js}"></script>
+
+	<!-- Nice-select, sticky -->
+	<script th:src="@{/assets/js/jquery.nice-select.min.js}"></script>
+	<script th:src="@{/assets/js/jquery.sticky.js}"></script>
+
+	<!-- contact js -->
+	<script th:src="@{/assets/js/contact.js}"></script>
+	<script th:src="@{/assets/js/jquery.form.js}"></script>
+	<script th:src="@{/assets/js/jquery.validate.min.js}"></script>
+	<script th:src="@{/assets/js/mail-script.js}"></script>
+	<script th:src="@{/assets/js/jquery.ajaxchimp.min.js}"></script>
+
+	<!-- Jquery Plugins, main Jquery -->
+	<script th:src="@{/assets/js/plugins.js}"></script>
+	<script th:src="@{/assets/js/main.js}"></script>
 	<script>
 		$(document)
 			.ready(
@@ -142,7 +200,7 @@
 					//load data dropdown user group
 					$.ajax({
 						url: document.location.origin
-							+ "/admin/product",
+							+ "/user/product",
 						type: 'GET',
 						dataType: "json",
 						success: function (resp) {
@@ -211,7 +269,7 @@
 			data.listproductId = listproductId;
 			console.log(data)
 			$.ajax({
-				url: document.location.origin + "/admin/menu/add-menu",
+				url: document.location.origin + "/user/menu/add-menu",
 				dataType: "json",
 				type: 'POST',
 				contentType: "application/json",
@@ -233,6 +291,6 @@
 	</script>
 	<!-- CUSTOM SCRIPTS -->
 	<!--        <script th:src="../static/js/custom.js"></script>-->
+	
 </body>
-
 </html>

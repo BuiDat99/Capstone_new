@@ -73,26 +73,26 @@
 											</div>
 
 											<div class="form-group">
-												<label>Mô tả</label> <input class="form-control"
+												<label>Mô tả:</label> <input class="form-control"
 													placeholder="Mô tả" th:field="*{resourceDescription}"
 													id="resourceDescription" />
 											</div>
 											<div class="form-group">
-												<label>Hình ảnh</label> <input class="form-control"
-													placeholder="Mô tả" th:field="*{image}" />
+												<label>Hình ảnh:</label> <input class="form-control"
+													placeholder="Mô tả" th:field="*{image}" disabled="disabled" />
 											</div>
 											<div class="form-group">
-												<label>Hình ảnh</label> <input class="form-control"
+												<label>Chọn hình ảnh mới:</label> <input class="form-control"
 													type="file" accept="image/*" placeholder="gram"
 													name="imageFile" id="imageFile" />
 											</div>
 											<div class="form-group">
-												<label>Lượng calo trên 1g</label> <input
+												<label>Lượng calo trên 1g:</label> <input
 													class="form-control" placeholder="gram"
 													th:field="*{kcal1g}" id="kcal1g" />
 											</div>
 											<div class="form-group">
-												<label>CategoryId</label> <select th:field="*{category.id}"
+												<label>Thể loại nguyên liệu:</label> <select th:field="*{category.id}"
 													id="category">
 													<option class="form-control" th:each="cat: ${categoryList}"
 														th:value="${cat.id}" th:text="${cat.categoryName}"></option>

@@ -41,7 +41,7 @@ a.underline {
 					<button type="button" class="close" data-dismiss="modal"
 						aria-hidden="true">&times;</button>
 					<h4 class="modal-title" id="myModalLabel">Bạn có chắc chắn
-						muốn xoá không?</h4>
+						không?</h4>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Không</button>
@@ -111,15 +111,15 @@ a.underline {
 												<td th:text="${resource.resourceName}"></td>
 												<td th:text="${resource.resourceDescription}"></td>
 												<!-- <td><img th:src="@{${'/imgData/resource/' + resource.image}}"></td> -->	
-												<td><img th:src="@{#{imagePath.resource} + ${resource.image}}"></td>											
+												<td><img th:src="@{#{imagePath.resource} + ${resource.image}}" width="50px"></td>											
 												<td th:text="${resource.kcal1g}"></td>
 												<td th:text="${resource.category.categoryName}"></td>
 												<td><a
 													th:href="@{'/admin/resource/update?id='+${resource.id}}">Sửa</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-													<a data-target="#confirm-delete" data-toggle="modal" th:data-href="@{'/admin/resource/delete?id='+${resource.id}}" th:href="@{#}">Xoá</a>
+													
 													<div>
-														<a th:if="${resource.enable == '1'}" th:href="@{'/admin/resource/khoa?id='+${resource.id}}">khoa</a>
-														<a th:if="${resource.enable == '0'}" th:href="@{'/admin/resource/mokhoa?id='+${resource.id}}"> mo khoa</a>
+														<a data-target="#confirm-delete" data-toggle="modal" th:if="${resource.enable == '1'}" th:data-href="@{'/admin/resource/khoa?id='+${resource.id}}" th:href="@{#}">Khoá</a>
+														<a data-target="#confirm-delete" data-toggle="modal" th:if="${resource.enable == '0'}" th:data-href="@{'/admin/resource/mokhoa?id='+${resource.id}}" th:href="@{#}">Mở Khoá</a>
 													</div>
 												</td>
 											</tr>

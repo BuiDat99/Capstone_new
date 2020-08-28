@@ -41,7 +41,7 @@ a.underline {
 					<button type="button" class="close" data-dismiss="modal"
 						aria-hidden="true">&times;</button>
 					<h4 class="modal-title" id="myModalLabel">Bạn có chắc chắn
-						muốn xoá không?</h4>
+						 không?</h4>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Không</button>
@@ -113,11 +113,10 @@ a.underline {
 													<i style="font-style: normal;" th:each="res : ${pro.resources}" th:text="|${res}, |"></i>
 											    </td> 												
 												<td><a
-													th:href="@{'/admin/product/edit-product?id='+${pro.id}}">Sửa</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-													<a data-target="#confirm-delete" data-toggle="modal" th:data-href="@{'/admin/product/delete?id='+${pro.id}}" th:href="@{#}">Xoá</a>
+													th:href="@{'/admin/product/edit-product?id='+${pro.id}}">Sửa</a>&nbsp;&nbsp;|&nbsp;&nbsp;													
 													<div>
-														<a th:if="${pro.enable == '1'}" th:href="@{'/admin/product/khoa?id='+${pro.id}}">khoa</a>
-														<a th:if="${pro.enable == '0'}" th:href="@{'/admin/product/mokhoa?id='+${pro.id}}"> mo khoa</a>
+														<a data-target="#confirm-delete" data-toggle="modal" th:if="${pro.enable == '1'}" th:data-href="@{'/admin/product/khoa?id='+${pro.id}}" th:href="@{#}">Khoá</a>
+														<a data-target="#confirm-delete" data-toggle="modal" th:if="${pro.enable == '0'}" th:data-href="@{'/admin/product/mokhoa?id='+${pro.id}}" th:href="@{#}">Mở Khoá</a>
 													</div>
 												</td>
 											</tr>

@@ -43,93 +43,20 @@
 
 		<!--================Blog Area =================-->
 		<section class="blog_area single-post-area section-padding">
-			<div class="container" th:object="${news}">
+			<div class="container" th:object="${menu}">
 				<div class="row">
 					<div class="col-lg-8 posts-list">
 						<div class="single-post">
-							<div class="feature-img">
-								<img class="img-fluid"
-									th:src="@{*{imageTitle}}" alt="post">
-							</div>
-
-							<div class="blog_details">
-								<h2 style="color: #2d2d2d;" th:text="*{title}">Tiêu đề</h2>
-								<ul class="blog-info-link mt-3 mb-4">
-									<li><a href="#" th:text="*{poster}"><i
-											class="fa fa-user"></i> </a></li>
-									<li><a href="#" th:text="*{creationDate}"><i
-											class="fa fa-comments"></i> 03 Comments</a></li>
-								</ul>
-								<p th:utext="*{detailDescription}"></p>
+						<div class="blog_details">
+								<h2 style="color: #2d2d2d;" th:text="*{menuName}"></h2>																																	
+								<p th:utext="*{menuDescription}"></p>
 
 							</div>
-						</div>
-						<!-- blog detail -->
-						<!-- 11 -->
-						<div class="comments-area">						
-							<h4 th:text="${countCom} +' Comments'"> </h4>							
-							<div class="comment-list" th:each="c : ${comment}">
-								<div class="single-comment justify-content-between d-flex">
-									<div class="user justify-content-between d-flex">
-										<div class="thumb">
-											<img src="assets/img/comment/comment_1.png" alt="">
-										</div>
-										<div class="desc">
-											<p class="comment" th:utext=${c.commentContent}></p>
-											<div class="d-flex justify-content-between">
-												<div class="d-flex align-items-center">
-													<h5>
-														<p th:text=${c.user.username}></p>
-													</h5>
-													<p class="date" th:utext=${c.commentDate}></p>
-												</div>
-												<div class="reply-btn">
-													<a href="#" class="btn-reply text-uppercase">reply</a>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>				
-						</div>
-						<!-- 11 -->
-
-						<!-- comment-form -->
-						<div class="comment-form">
-							<h4>Bình luận</h4>
-							<form class="form-contact comment_form" th:action="@{'/user/comment/add?postId='+*{id}}" method="POST"
-								id="commentForm">
-								<div class="row">
-									<div class="col-12">
-										<div class="form-group">
-												 <input type="hidden" class="form-control"
-													placeholder="Ngày tạo" th:value="${#dates.format(#dates.createNow(), 'dd MMM')}" name="commentDate" />
-													<!-- dd MMM yyyy HH:mm  -->
-											</div>
-										<div class="form-group">
-											<textarea class="form-control w-100" name="commentContent"
-												id="comment" cols="30" rows="9" placeholder="Viết bình luận"></textarea>
-										</div>
-									</div>
-									<!-- <div class="col-sm-6">
-										<div class="form-group">
-											<input class="form-control" name="name" id="name" type="text"
-												placeholder="Name">
-										</div>
-									</div> -->
-
-								</div>
-								<div class="form-group">
-									<button type="submit"
-										class="button button-contactForm btn_1 boxed-btn">Bình
-										luận</button>
-								</div>
-							</form>
-						</div>
+						</div>						
 						<!-- end comment-form -->
 					</div>
 					<!-- right side -->
-					<div th:replace="/user/rightSide.html :: rightSide"></div>
+					<div th:replace="/user/rightMenu.html :: rightMenu"></div>
 					<!-- end right side -->
 				</div>
 			</div>

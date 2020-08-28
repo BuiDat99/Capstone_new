@@ -168,4 +168,45 @@ public class MenuServiceImpl implements MenuService {
 		return dtos;
 	}
 
+	@Override
+	public List<MenuDTO> search(String hashtag, String enable, String findName, int start, int length) {
+		List<Menu> ms = menuDao.search(hashtag, enable, findName, start, length);
+		List<MenuDTO> dtos = new ArrayList<MenuDTO>();
+		for(Menu m:ms) {
+			MenuDTO dto = new MenuDTO();
+			dto.setId(m.getId());
+			dto.setHashtag(m.getHashtag());
+			dto.setMenuName(m.getMenuName());
+// thieu set role
+//			dto.setRole(m.getRole().getRoleId());
+			dto.setEnable(m.getEnable());
+			dto.setUserId(m.getUser().getUserId());
+			List<MenuProductDTO> menuProductDTOs= new ArrayList<MenuProductDTO>();
+			List<MenuProduct> menuProducts= m.getMenuProducts();
+			for(MenuProduct menuProduct:menuProducts) {
+				MenuProductDTO menuProductDTO= new MenuProductDTO();
+				menuProductDTO.setId(menuProduct.getId());
+				Menu menu= menuDao.getMenubyId(menuProduct.getMenu().getId());
+				MenuDTO menuDTO= new MenuDTO();
+				menuDTO.setId(menu.getId());
+				Product product = productDAO.getProductbyId(menuProduct.getProduct().getId());
+				ProductDTO productDTO= new ProductDTO();
+				productDTO.setId(product.getId());
+				productDTO.setProductName(product.getProductName());
+				menuProductDTO.setMenu(menuDTO);
+				menuProductDTO.setProduct(productDTO);
+				menuProductDTOs.add(menuProductDTO);
+				dto.setMenuProductDTOs(menuProductDTOs);
+			}
+			dtos.add(dto);
+			
+		}
+		return dtos;
+	}
+
+	@Override
+	public int countMenuWhensearch(String h, String enable, String name) {
+		return menuDao.countMenuWhensearch(h, enable, name);
+	}
+
 }

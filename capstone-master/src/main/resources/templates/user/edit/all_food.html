@@ -24,7 +24,22 @@
 <link rel="stylesheet" th:href="@{/assets/css/login.css}" />
 </head>
 <body>
-	<div th:replace="/user/header.html :: head"></div>
+	<!-- <div th:replace="/user/header.html :: head"></div>
+	<div>
+		<div th:each="s : ${productDTOs}"  style="border:1px solid red;">
+			<p th:text="${s.id}"></p>
+			<p th:text="${s.productName}"></p>
+			<p th:text="${s.productDescription}"></p>
+			<img style="width: 200px;" th:src="${s.image}">
+			<div th:each="r:${s.productResourceDTOs}">
+				<p th:text="${r.resource.resourceName}"></p>
+				<p th:text="${r.gram}"></p> gram
+				
+			</div>
+		</div>
+	</div> -->
+
+<div th:replace="/user/header.html :: head"></div>
 
 	<main>
 		<!--================Blog Area =================-->
@@ -33,48 +48,33 @@
 				<div class="row">
 					<div class="col-lg-8 mb-5 mb-lg-0">
 						<div class="blog_left_sidebar">
-							<article class="blog_item" th:each="news : ${NewList}">
+							<article class="blog_item" th:each="pro : ${listProducts}">
 								<div class="blog_item_img">
-									<a th:href="@{'/detailNews?id='+${news.id}}"> <img
+									<a th:href="@{'/detailProduct?Pid='+${pro.id}}"> <img
 										class="card-img rounded-0"
-										th:src="@{${news.imageTitle}}"
+										th:src="@{${pro.image}}"
 										alt="">
-									</a>
-									<h3 class="blog_item_date" th:text="${news.creationDate}"></h3>
+									</a>									
 								</div>
-								<div class="blog_details">
-									<a class="d-inline-block"
-										th:href="@{'/detailNews?id='+${news.id}}">
-										<h2 class="blog-head" style="color: #2d2d2d;"
-											th:text="${news.title}"></h2>
-									</a>
-									<p th:text="${news.shortDescription}"></p>
-									<ul class="blog-info-link">
-										<li><a href="#"><i class="fa fa-user"></i> Travel,
-												Lifestyle</a></li>
-										<li><a href="#"><i class="fa fa-comments"></i> 03
-												Comments</a></li>
-									</ul>
-								</div>
+								<p th:text="${pro.productName}"></p>
 							</article>
 							<nav class="blog-pagination justify-content-center d-flex">
 								<ul class="pagination">
 									<li class="page-item" th:each="page : ${listCount}">
-                                        <a th:href="@{'/tintuc?hashtag='+${hashtag}+'&page='+${page}+'&keyword='+${keyword}+'&catId='+${catId}}" class="page-link" th:text="${page}"></a>
+                                        <a th:href="@{'/mon_an?page='+${page}+'&keyword='+${keyword}}" class="page-link" th:text="${page}"></a>
                                     </li>
 								</ul>
 							</nav>
 						</div>
 					</div>
 					<!-- right side -->
-					<div th:replace="/user/rightSide.html :: rightSide"></div>
+					<div th:replace="/user/rightProduct.html :: rightProduct"></div>
 					<!-- end right side -->
 				</div>
 			</div>
 		</section>
 		<!--================Blog Area =================-->
 	</main>
-
 	<div th:replace="/user/footer :: foot"></div>
 
 	<script th:src="@{/assets/js/vendor/modernizr-3.5.0.min.js}"></script>

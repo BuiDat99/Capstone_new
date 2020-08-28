@@ -41,7 +41,7 @@ a.underline {
 					<button type="button" class="close" data-dismiss="modal"
 						aria-hidden="true">&times;</button>
 					<h4 class="modal-title" id="myModalLabel">Bạn có chắc chắn
-						muốn xoá không?</h4>
+						 không?</h4>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Không</button>
@@ -70,7 +70,7 @@ a.underline {
 			<div id="page-inner">
 				<div class="row">
 					<div class="col-md-12">
-						<h2>Tất cả nguyên liệu</h2>
+						<h2>Tất cả thực đơn</h2>
 					</div>
 				</div>
 				<!-- /. ROW  -->
@@ -91,7 +91,7 @@ a.underline {
 										<thead>
 											<div class="row btn">
 												<form th:action="@{/admin/menu/add-menu}">
-													<button type="submit">Thêm nguyên liệu mới</button>
+													<button type="submit">Thêm thực đơn mới</button>
 
 												</form>
 											</div>
@@ -115,12 +115,9 @@ a.underline {
 												</td>
 												<td><a
 													th:href="@{'/admin/menu/edit-menu?id='+${menu.id}}">Sửa</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-													<a data-target="#confirm-delete" data-toggle="modal"
-													th:data-href="@{'/admin/menu/delete-menu?id='+${menu.id}}"
-													th:href="@{#}">Xoá</a>
 													<div>
-														<a th:if="${menu.enable == '1'}" th:href="@{'/admin/menu/khoa?id='+${menu.id}}">khoa</a>
-														<a th:if="${menu.enable == '0'}" th:href="@{'/admin/menu/mokhoa?id='+${menu.id}}"> mo khoa</a>
+														<a data-target="#confirm-delete" data-toggle="modal" th:if="${menu.enable == '1'}" th:data-href="@{'/admin/menu/khoa?id='+${menu.id}}" th:href="@{#}">Khoá</a>
+														<a data-target="#confirm-delete" data-toggle="modal" th:if="${menu.enable == '0'}" th:data-href="@{'/admin/menu/mokhoa?id='+${menu.id}}" th:href="@{#}">Mở Khoá</a>
 													</div>
 													</td>
 											</tr>

@@ -3,6 +3,7 @@ package com.capstone.controller.user;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -27,6 +28,9 @@ import com.capstone.entity.AppUser;
 import com.capstone.entity.Product;
 import com.capstone.entity.ProductResource;
 import com.capstone.entity.Resource;
+import com.capstone.model.HashTagDTO;
+import com.capstone.model.NewCategoryDTO;
+import com.capstone.model.NewsDTO;
 import com.capstone.model.ProductDTO;
 import com.capstone.model.ProductResource2Dto;
 import com.capstone.model.ProductResourceDTO;
@@ -36,6 +40,9 @@ import com.capstone.model.ResourceDTO;
 import com.capstone.repository.ProductRepository;
 import com.capstone.repository.ProductResourceRepository;
 import com.capstone.repository.ResourceRepository;
+import com.capstone.service.HashTagService;
+import com.capstone.service.NewCategoryService;
+import com.capstone.service.NewsService;
 import com.capstone.service.ProductResourceService;
 import com.capstone.service.ProductService;
 import com.capstone.service.ResourceCategoryService;
@@ -72,8 +79,19 @@ public class UserEstimateController {
 	@Autowired
 	private ProductResourceService productResourceService;
 	
+	@Autowired
+	private NewCategoryService newCatService;
+
+	@Autowired
+	private NewsService newsService;
+	
+	@Autowired
+	private HashTagService hashtagService;
+	
 	@GetMapping(value = "/user/product/search")
-	public String searchProduct(HttpServletRequest request,Principal principal) {
+	public String searchProduct(HttpServletRequest request,Principal principal,
+			@RequestParam(name = "catId") Optional<Integer> catId) {
+		String has = request.getParameter("hashtag") == null ? "" : request.getParameter("hashtag");
 		User loginedUser = (User) ((Authentication) principal).getPrincipal();
 		AppUser user = appUserService.findAppUserbyUserName(loginedUser.getUsername());
 		List<ProductDTO> listProduct = productService.getAllProductsByUser("", user.getUserId());
@@ -90,14 +108,49 @@ public class UserEstimateController {
 			pdto.setResources(resources);
 		}
 		request.setAttribute("listProduct", listProduct);
-		return "user/manage-product";
+		
+		// filter
+
+		request.setAttribute("hashtag", has);
+		List<NewCategoryDTO> listNewsCat = newCatService.getAllCategories("1");
+		List<NewsDTO> listNews4Date = newsService.getTop4NewsByDate("1");
+		List<HashTagDTO> listTag = hashtagService.getAllTags("1");
+		for (NewCategoryDTO newCate : listNewsCat) {
+			int countCat = 0;
+			countCat = newsService.countNewsOfCategory(has, "1", newCate.getId());
+			String count = "(" + countCat + ")";
+			newCate.setCount(count);
+		}
+//		int countCat = newsService.countNewsOfCategory(1);
+		request.setAttribute("listNewsCat", listNewsCat);
+		request.setAttribute("listTag", listTag);
+		request.setAttribute("listNews4Date", listNews4Date);
+		return "user/edit/manage_product";
 	}
 
 	@RequestMapping(value = "/user/estimate", method = RequestMethod.GET)
 	public String ResetPass(Model model, HttpServletRequest request) {
+		String has = request.getParameter("hashtag") == null ? "" : request.getParameter("hashtag");
 		List<ResourceCategoryDTO> categoryList = categoryService.getAllCategories("1");
 		request.setAttribute("categoryList", categoryList);
-		return "user/estimatedCalories";
+		
+		// filter
+
+				request.setAttribute("hashtag", has);
+				List<NewCategoryDTO> listNewsCat = newCatService.getAllCategories("1");
+				List<NewsDTO> listNews4Date = newsService.getTop4NewsByDate("1");
+				List<HashTagDTO> listTag = hashtagService.getAllTags("1");
+				for (NewCategoryDTO newCate : listNewsCat) {
+					int countCat = 0;
+					countCat = newsService.countNewsOfCategory(has, "1", newCate.getId());
+					String count = "(" + countCat + ")";
+					newCate.setCount(count);
+				}
+//				int countCat = newsService.countNewsOfCategory(1);
+				request.setAttribute("listNewsCat", listNewsCat);
+				request.setAttribute("listTag", listTag);
+				request.setAttribute("listNews4Date", listNews4Date);
+		return "user/edit/estimateCalo";
 	}
 
 	@PostMapping(value = "/user/product/add-product")
@@ -131,7 +184,7 @@ public class UserEstimateController {
 			prodResource.setKcal1g(r.getGram());
 			productResourceRepository.save(prodResource);
 		}
-		return "user/manage-product";
+		return "user/edit/manage_product";
 	}
 
 	@GetMapping(value = "/user/resource/resourceCat/{id}")
@@ -140,11 +193,29 @@ public class UserEstimateController {
 	}
 	@GetMapping(value = "/user/product/edit-product")
 	public String editProduct(HttpServletRequest request, @RequestParam  (name="id") int id,Model model) {
+		String has = request.getParameter("hashtag") == null ? "" : request.getParameter("hashtag");
 		ProductDTO productDTO= productService.getProductbyId(id);
 		model.addAttribute("productDTO", productDTO);
 		List<ResourceCategoryDTO> categoryList = categoryService.getAllCategories("1");
 		request.setAttribute("categoryList", categoryList);
-		return "user/edit-product";
+		
+		// filter
+
+		request.setAttribute("hashtag", has);
+		List<NewCategoryDTO> listNewsCat = newCatService.getAllCategories("1");
+		List<NewsDTO> listNews4Date = newsService.getTop4NewsByDate("1");
+		List<HashTagDTO> listTag = hashtagService.getAllTags("1");
+		for (NewCategoryDTO newCate : listNewsCat) {
+			int countCat = 0;
+			countCat = newsService.countNewsOfCategory(has, "1", newCate.getId());
+			String count = "(" + countCat + ")";
+			newCate.setCount(count);
+		}
+//		int countCat = newsService.countNewsOfCategory(1);
+		request.setAttribute("listNewsCat", listNewsCat);
+		request.setAttribute("listTag", listTag);
+		request.setAttribute("listNews4Date", listNews4Date);
+		return "user/edit/edit_product";
 	}
 	@GetMapping(value = "/user/product/mokhoa")
 	public String editmokhoaProduct( @RequestParam  (name="id") int id) {

@@ -1,0 +1,256 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title>Tin tức</title>
+<meta name="description" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="shortcut icon" type="image/x-icon"
+	th:href="@{/assets/img/favicon.ico}" />
+
+<!-- CSS here -->
+<link rel="stylesheet" th:href="@{/assets/css/bootstrap.min.css}" />
+<link rel="stylesheet" th:href="@{/assets/css/owl.carousel.min.css}" />
+<link rel="stylesheet" th:href="@{/assets/css/slicknav.css}" />
+<link rel="stylesheet" th:href="@{/assets/css/animate.min.css}" />
+<link rel="stylesheet" th:href="@{/assets/css/magnific-popup.css}" />
+<link rel="stylesheet" th:href="@{/assets/css/fontawesome-all.min.css}" />
+<link rel="stylesheet" th:href="@{/assets/css/themify-icons.css}" />
+<link rel="stylesheet" th:href="@{/assets/css/slick.css}" />
+<link rel="stylesheet" th:href="@{/assets/css/nice-select.css}" />
+<link rel="stylesheet" th:href="@{/assets/css/style.css}" />
+<link rel="stylesheet" th:href="@{/assets/css/login.css}" />
+</head>
+<body>
+	<!-- <div th:replace="/user/header.html :: head"></div>
+	<div>
+		<div th:each="s : ${productDTOs}"  style="border:1px solid red;">
+			<p th:text="${s.id}"></p>
+			<p th:text="${s.productName}"></p>
+			<p th:text="${s.productDescription}"></p>
+			<img style="width: 200px;" th:src="${s.image}">
+			<div th:each="r:${s.productResourceDTOs}">
+				<p th:text="${r.resource.resourceName}"></p>
+				<p th:text="${r.gram}"></p> gram
+				
+			</div>
+		</div>
+	</div> -->
+<div class="modal fade" id="notifyModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">...</h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">...</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+				</div>
+			</div>
+		</div>
+	</div>
+<div th:replace="/user/header.html :: head"></div>
+
+	<main>
+		<!--================Blog Area =================-->
+		<section class="blog_area section-padding">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-8 mb-5 mb-lg-0">
+					<div id="wrapper">
+		
+		<!-- /. NAV SIDE  -->
+		<div id="page-wrapper">
+			<div id="page-inner">
+				<div class="row">
+					<div class="col-md-12">
+						<h2>Sửa Nguyên Liệu</h2>
+
+					</div>
+				</div>
+				<!-- /. ROW  -->
+				<hr />
+				<div class="row">
+					<div class="col-md-12">
+						<!-- Form Elements -->
+						<div class="panel panel-default">
+							<div class="panel-heading">Sửa nguyên liệu</div>
+							<div class="panel-body">
+								<div class="row">
+									<div class="col-md-6">
+										<h3>Thông tin nguyên liệu</h3>
+
+										<form role="form" id ="form" th:action="@{/admin/menu/edit-menu}"
+											method="post" th:object="${menuDTO}" 
+											>
+
+											<input class="form-control" type="hidden" th:field="*{id}" />
+											<div class="form-group">
+												<label>Tên menu:</label> <input class="form-control"
+													placeholder="Tên menu" th:field="*{menuName}" id="menuName" />
+											</div>
+
+											<div class="form-group">
+												<label>Mo ta:</label> <input class="form-control"
+													placeholder="mo ta" name="menuDescription" th:field="*{menuDescription}"  id="menuDescription"/>
+											</div>
+											<div class="form-group">
+												<label>hashtag</label> <input class="form-control"
+													placeholder="Tên menu" name="hashtag" th:field="*{hashtag}"   id="hashtag"/>
+											</div>
+											<div class="form-group">
+												 <input type="hidden" class="form-control"
+													placeholder="user" name="userId" th:field="*{userId}" id="userId" />
+											</div>
+											<div class="form-group">
+												<label>mon an</label>
+												<div>
+													<select id='productId' multiple='multiple' >
+													</select>
+												</div>
+											</div>
+
+
+											<button type="submit" class="btn btn-default">Cập
+												nhật</button>
+											<button type="reset" class="btn btn-primary">Làm mới</button>
+										</form>
+
+
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- End Form Elements -->
+					</div>
+				</div>
+				<!-- /. ROW  -->
+				<div class="row">
+					<div class="col-md-12"></div>
+				</div>
+				<!-- /. ROW  -->
+			</div>
+			<!-- /. PAGE INNER  -->
+		</div>
+		<!-- /. PAGE WRAPPER  -->
+	</div>
+					</div>
+					<!-- right side -->
+					<div th:replace="/user/rightProduct.html :: rightProduct"></div>
+					<!-- end right side -->
+				</div>
+			</div>
+		</section>
+		<!--================Blog Area =================-->
+	</main>
+	<div th:replace="/user/footer :: foot"></div>
+
+	<script th:src="@{/assets/js/vendor/modernizr-3.5.0.min.js}"></script>
+	<!-- Jquery, Popper, Bootstrap -->
+	<script th:src="@{/assets/js/vendor/jquery-1.12.4.min.js}"></script>
+	<script th:src="@{/assets/js/popper.min.js}"></script>
+	<script th:src="@{/assets/js/bootstrap.min.js}"></script>
+	<!-- Jquery Mobile Menu -->
+	<script th:src="@{/assets/js/jquery.slicknav.min.js}"></script>
+
+	<!-- Jquery Slick , Owl-Carousel Plugins -->
+	<script th:src="@{/assets/js/owl.carousel.min.js}"></script>
+	<script th:src="@{/assets/js/slick.min.js}"></script>
+
+	<!-- One Page, Animated-HeadLin -->
+	<script th:src="@{/assets/js/wow.min.js}"></script>
+	<script th:src="@{/assets/js/animated.headline.js}"></script>
+	<script th:src="@{/assets/js/jquery.magnific-popup.js}"></script>
+
+	<!-- Nice-select, sticky -->
+	<script th:src="@{/assets/js/jquery.nice-select.min.js}"></script>
+	<script th:src="@{/assets/js/jquery.sticky.js}"></script>
+
+	<!-- contact js -->
+	<script th:src="@{/assets/js/contact.js}"></script>
+	<script th:src="@{/assets/js/jquery.form.js}"></script>
+	<script th:src="@{/assets/js/jquery.validate.min.js}"></script>
+	<script th:src="@{/assets/js/mail-script.js}"></script>
+	<script th:src="@{/assets/js/jquery.ajaxchimp.min.js}"></script>
+
+	<!-- Jquery Plugins, main Jquery -->
+	<script th:src="@{/assets/js/plugins.js}"></script>
+	<script th:src="@{/assets/js/main.js}"></script>
+	<script th:inline="javascript">
+	$(document)
+	.ready(
+		function () {
+
+			//load data dropdown user group
+			$.ajax({
+				url: document.location.origin
+					+ "/admin/product",
+				type: 'GET',
+				dataType: "json",
+				success: function (resp) {
+					resp.forEach(function (v) {
+						console.log(v.id)
+						$('#productId').append(
+							"<option value='" + v.id + "'>"
+							+ v.productName
+							+ "</option>");
+					})
+					$('#productId')
+						.multiSelect();
+					
+					var menuProductDTOs = [[${menuDTO.menuProductDTOs}]];
+					
+					var listproductId = menuProductDTOs.map(item =>{
+						return item.product.id;
+					})
+					$('#productId').val(listproductId)
+		        	$('#productId').multiSelect("refresh");
+				}
+			
+			});
+			
+
+			$("#btn-reset").click(function () {
+				resourceList = [];
+				drawBottomTable();
+			});
+		})
+		$("#form").submit(function (e) {
+		    e.preventDefault();
+		    var data = {};
+			$("#form").serializeArray().map(function (x) {
+				data[x.name] = x.value;
+			});
+			var listproductId = [];
+			$("#productId option[selected]").map(function (i, el) {
+				listproductId.push($(el).val())
+			});
+			data.listproductId = listproductId;
+			console.log(data)
+			$.ajax({
+				url: document.location.origin + "/user/menu/edit-menu",
+				dataType: "json",
+				type: 'POST',
+				contentType: "application/json",
+				data: JSON.stringify(data),
+				success: function () {
+					 notify("Lỗi", "Cập nhập thực đơn thành công");
+				},
+				error: function () {
+					 notify("Lỗi", "Không thể xử lí dữ liệu");
+				}
+			});
+			return false;
+		});
+	function notify(title, message) {
+	    $("#notifyModal .modal-title").html(title);
+	    $("#notifyModal .modal-body").html(message);
+	    $("#notifyModal").modal({ backdrop: "static" });
+	}
+        </script>
+	
+</body>
+</html>

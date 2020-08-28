@@ -66,68 +66,68 @@
 											<input class="form-control" type="hidden" th:field="*{id}"
 												id="id" />
 											<div class="form-group">
-												<label>Loại bài viết</label> <select
+												<label>Loại bài viết:</label> <select
 													th:field="*{category.id}" id="category">
 													<option class="form-control" th:each="cat: ${categoryList}"
 														th:value="${cat.id}" th:text="${cat.categoryName}"></option>
 												</select>
 											</div>
 											<div class="form-group">
-												<label>Tiêu đề bài viết</label> <input class="form-control"
+												<label>Tiêu đề bài viết:</label> <input class="form-control"
 													placeholder="Tiêu đề bài viết" th:field="*{title}"
 													id="title" />
 											</div>
 											<div class="form-group">
-												<label>Ảnh tiêu đề</label> <input class="form-control"
+												<label>Ảnh tiêu đề:</label> <input class="form-control"
 													placeholder="Ảnh tiêu đề" th:field="*{imageTitle}" disabled />
 											</div>
 											<div class="form-group">
-												<label>Chọn ảnh mới</label> <input class="form-control"
+												<label>Chọn ảnh mới:</label> <input class="form-control"
 													placeholder="Ảnh tiêu đề" type="file" name="imageFile"
 													id="imageFile" accept="image/*" />
 											</div>
 											<div class="form-group">
-												<label>Người đăng</label> <input class="form-control"
+												<label>Người đăng:</label> <input class="form-control"
 													placeholder="Người đăng" th:field="*{poster}" id="poster" />
 											</div>
 											<div class="form-group">
-												<label>Tác giả</label> <input class="form-control"
+												<label>Tác giả:</label> <input class="form-control"
 													placeholder="Tác giả" th:field="*{author}" id="author" />
 											</div>
-											<div class="form-group">
-												<label>Ảnh</label> <input class="form-control"
+											<!-- <div class="form-group">
+												<label>Ảnh:</label> <input class="form-control"
 													placeholder="Ảnh" th:field="*{image}" id="image" />
-											</div>
+											</div> -->
 											<div class="form-group">
-												<label>Nội dung ngắn</label> <input class="form-control"
+												<label>Nội dung ngắn:</label> <input class="form-control"
 													placeholder="Nội dung tiêu biểu"
 													th:field="*{shortDescription}" id="shortDescription" />
 											</div>
 											<div class="form-group">
-												<label>Nội dung chi tiết</label>
+												<label>Nội dung chi tiết:</label>
 												<textarea class="ckeditor" rows="4" cols="50"
 													th:field="*{detailDescription}" id="detailDescription"></textarea>
 											</div>
 											<div class="form-group">
-												<label>Nguồn</label> <input class="form-control"
+												<label>Nguồn:</label> <input class="form-control"
 													placeholder="Nguồn" th:field="*{source}" id="source" />
 											</div>
 											<div class="form-group">
-												<label>Hashtag</label> <input class="form-control"
+												<label>Hashtag:</label> <input class="form-control"
 													placeholder="Hashtag" th:field="*{hashtag}" id="hashtag" />
 											</div>
 											<div class="form-group">
-												<label>Trạng thái</label> <input class="form-control"
+												<label>Trạng thái:</label> <input class="form-control"
 													placeholder="Trạng thái" th:field="*{status}" id="status" />
 											</div>
 											<div class="form-group">
-												<label>Ngày sửa</label> <input class="form-control"
+												<label>Ngày sửa:</label> <input class="form-control"
 													placeholder="Ngày sửa"
 													th:value="${#dates.format(#dates.createNow(), 'dd MMM yyyy HH:mm')}"
 													name="modifiedDate" id="modifiedDate" />
 											</div>
 											<div class="form-group">
-												<label>Ngày tạo</label> <input class="form-control"
+												<label>Ngày tạo:</label> <input class="form-control"
 													placeholder="Ngày tạo" th:field="*{creationDate}"
 													id="creationDate" />
 											</div>

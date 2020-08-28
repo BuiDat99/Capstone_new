@@ -65,18 +65,17 @@
 
 
 											<div class="form-group">
-												<label>Mã thẻ tag</label> <input class="form-control"
-													placeholder="Tên loại thẻ tag" name="tagCode" id="tagCode" />
+												<label>Mã thẻ tag:</label> <input class="form-control"
+													placeholder="Mã thẻ tag" name="tagCode" id="tagCode"
+													required=""  oninvalid="this.setCustomValidity('Hãy nhập mã thẻ tag')" oninput="setCustomValidity('')" />
 											</div>
 											<div class="form-group">
-												<label>Nội dung</label> <input class="form-control"
-													placeholder="Tên loại thẻ tag" name="tagContent" id="tagContent" />
+												<label>Nội dung:</label> <input class="form-control"
+													placeholder="Nội dung" name="tagContent" id="tagContent"
+													required=""  oninvalid="this.setCustomValidity('Hãy nhập nội dung thẻ tag')" oninput="setCustomValidity('')" />
 											</div>
 
-
-
-
-											<button type="submit" class="btn btn-default">Tạo</button>
+											<button type="submit" class="btn btn-default">Thêm thẻ tag</button>
 											<button type="reset" class="btn btn-primary">Refresh</button>
 										</form>
 

@@ -25,9 +25,11 @@ import com.capstone.model.ProductDTO;
 import com.capstone.service.MenuProductService;
 import com.capstone.service.MenuService;
 import com.capstone.service.ProductService;
+import com.capstone.service.impl.ProductServiceimpl;
 
 @Controller
 public class AdminMenuController {
+		
 	@Autowired
 	MenuProductDAO dao;
 
@@ -43,10 +45,14 @@ public class AdminMenuController {
 	@Autowired
 	private ProductService productService;
 
+	public void setProductService(ProductService productService) {
+		this.productService = productService;
+	}
+
 	@GetMapping(value = "/admin/menu/search")
 	public String searchMenu(HttpServletRequest request) {
 
-		List<MenuDTO> listMenu = menuService.getAllMenu("", "");
+		List<MenuDTO> listMenu = menuService.getAllMenu("","");
 		request.setAttribute("listMenu", listMenu);
 		for (MenuDTO menuDTO : listMenu) {
 			List<MenuProductDTO> dtos = (menuDTO.getMenuProductDTOs());
