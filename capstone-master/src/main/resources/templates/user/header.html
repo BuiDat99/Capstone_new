@@ -57,12 +57,13 @@
 										<li sec:authorize="isAuthenticated()" class="nav-item dropdown"><a
 											class="nav-link dropdown-toggle" data-toggle="dropdown"
 											href="#" role="button" aria-haspopup="true"
-											aria-expanded="false">chào <span th:utext="${#request.userPrincipal.name}"></span></a>
+											aria-expanded="false">Chào <span th:utext="${#request.userPrincipal.name}"></span></a>
 											<div class="dropdown-menu">
-												<a class="dropdown-item" th:href="@{/user/userInfo}">Profile</a>
-												<a class="dropdown-item" th:href="@{/user/history}">History</a>
-												<a class="dropdown-item" th:href="@{/logout}">Change password</a> 
-												<a class="dropdown-item" th:href="@{/user/changePassword}">Logout</a> 
+												<a class="dropdown-item" th:href="@{/user/userInfo}">Trang cá nhân</a>
+												<a class="dropdown-item" th:href="@{/user/history}">Lịch sử</a>
+												<a class="dropdown-item" th:href="@{/user/changePassword}">Đổi mật khẩu</a>
+												<a class="dropdown-item" th:href="@{/logout}">Đăng xuất</a> 
+												 
 													
 											</div></li>
 										<!--  <li sec:authorize="isAuthenticated()"><a
@@ -109,7 +110,7 @@
 														tạo</a></li>
 											</ul></li>
 										<!--  <li><a th:href="@{/user/estimate}">Tạo Món ăn</a></li>-->
-										<li><a th:href="@{/menu}">Menu</a>
+										<li><a th:href="@{/menu}">Thực đơn</a>
 											<ul class="submenu">
 												<li><a th:href="@{/user/menu/add-menu}">Tạo Menu</a></li>
 												<li><a th:href="@{/user/menu/search}"> Menu đã tạo</a></li>
@@ -126,7 +127,7 @@
 												<li><a th:href="@{/bfp}">BFP</a></li>
 
 											</ul></li>
-										<li><a th:href="@{contact.html}">Liên hệ</a></li>
+										<li><a th:href="@{/about}">Liên hệ</a></li>
 										<!-- <li sec:authorize="isAuthenticated()"><a
 											th:href="@{/user/history}">Lich su</a></li> -->
 									</ul>

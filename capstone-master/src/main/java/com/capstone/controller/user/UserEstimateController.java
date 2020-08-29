@@ -184,7 +184,7 @@ public class UserEstimateController {
 		p.setProductDescription(productDescription);
 		p.setImage(imgurUtil.uploadImage(file));
 		p.setUser(user);
-		p.setEnable("1");
+		p.setEnable("0");
 		p = productRepository.save(p);
 
 		return p.getId();

@@ -293,4 +293,8 @@ public class LoginController {
 //	public String calculateBMI(Model model) {
 //		return "/user/result_bmi_caculate";
 //	}
+	@GetMapping(value = "/about")
+	public String ABout(Model model) {
+		return "/user/about";
+	}
 }

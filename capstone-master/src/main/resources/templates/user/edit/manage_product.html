@@ -96,8 +96,8 @@
 													th:href="@{'/user/product/edit-product?id='+${pro.id}}">Sửa</a>&nbsp;&nbsp;|&nbsp;&nbsp;
 													<a data-target="#confirm-delete" data-toggle="modal" th:data-href="@{'/user/product/delete?id='+${pro.id}}" th:href="@{#}">Xoá</a>
 													<div>
-														<a data-target="#confirm-delete" data-toggle="modal" th:if="${pro.enable == '1'}" th:data-href="@{'/user/product/khoa?id='+${pro.id}}" th:href="@{#}">Private</a>
-														<a data-target="#confirm-delete" data-toggle="modal" th:if="${pro.enable == '0'}" th:data-href="@{'/user/product/mokhoa?id='+${pro.id}}" th:href="@{#}">Public</a>
+														<a data-target="#confirm-delete" data-toggle="modal" th:if="${pro.enable == '1'}" th:data-href="@{'/user/product/khoa?id='+${pro.id}}" th:href="@{#}">Cá nhân</a>
+														<a data-target="#confirm-delete" data-toggle="modal" th:if="${pro.enable == '0'}" th:data-href="@{'/user/product/mokhoa?id='+${pro.id}}" th:href="@{#}">Công khai</a>
 													</div>
 												</td>
 											</tr>
