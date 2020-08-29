@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -37,21 +38,57 @@ public class UserCalculateController {
 	AppUserDAO appUserDao;
 	
 	@RequestMapping(value = "/bfp", method = RequestMethod.GET) // ham Dat viet
-	public String calculateBFP(Model model) {
+	public String calculateBFP(Model model, HttpServletRequest request,HttpSession httpSession) {
+		AppUserDTO userDTO=(AppUserDTO) httpSession.getAttribute("userInfo");
+		request.setAttribute("userDTO",userDTO);
+		if(userDTO!=null) {
+			if (userDTO.getAvata() != null) {
+				System.out.println(" co avata");
+				String check = "yes";
+				request.setAttribute("check", check);
+			}}
+
 		return "/user/result_bfp_caculate";
 	}
 
 	@RequestMapping(value = "/bmr", method = RequestMethod.GET) // ham Dat viet
-	public String calculateBMR(Model model) {
+	public String calculateBMR(Model model, HttpSession httpSession, HttpServletRequest request) {
+		AppUserDTO userDTO=(AppUserDTO) httpSession.getAttribute("userInfo");
+		request.setAttribute("userDTO",userDTO);
+		if(userDTO!=null) {
+			if (userDTO.getAvata() != null) {
+				System.out.println(" co avata");
+				String check = "yes";
+				request.setAttribute("check", check);
+			}}
+
 		return "/user/result_bmr_caculate";
 	}
 
 	@RequestMapping(value = "/bmi", method = RequestMethod.GET) // ham Dat viet
-	public String calculateBMI(Model model) {
+	public String calculateBMI(Model model, HttpSession httpSession, HttpServletRequest request) {
+		AppUserDTO userDTO=(AppUserDTO) httpSession.getAttribute("userInfo");
+		request.setAttribute("userDTO",userDTO);
+		if(userDTO!=null) {
+			if (userDTO.getAvata() != null) {
+				System.out.println(" co avata");
+				String check = "yes";
+				request.setAttribute("check", check);
+			}}
+
 		return "/user/result_bmi_caculate";
 	}
 	@RequestMapping(value = "/user/bmi", method = RequestMethod.GET) // ham Dat viet
-	public String calculateBMIuser(Model model) {
+	public String calculateBMIuser(Model model , HttpSession httpSession, HttpServletRequest request) {
+		AppUserDTO userDTO=(AppUserDTO) httpSession.getAttribute("userInfo");
+		request.setAttribute("userDTO",userDTO);
+		if(userDTO!=null) {
+			if (userDTO.getAvata() != null) {
+				System.out.println(" co avata");
+				String check = "yes";
+				request.setAttribute("check", check);
+			}}
+
 		return "/user/result_bmi_caculate";
 	}
 
@@ -59,7 +96,15 @@ public class UserCalculateController {
 	public String CalBMI(HttpServletRequest request, @RequestParam(name = "weight", required = true) float weight,
 			@RequestParam(name = "height", required = true) float height,
 			@RequestParam(name = "inlineRadioOptions", required = true) String gender, Model model,
-			Principal principal) {
+			Principal principal, HttpSession httpSession) {
+		AppUserDTO userDTO=(AppUserDTO) httpSession.getAttribute("userInfo");
+		request.setAttribute("userDTO",userDTO);
+		if(userDTO!=null) {
+		if (userDTO.getAvata() != null) {
+			System.out.println(" co avata");
+			String check = "yes";
+			request.setAttribute("check", check);
+		}}
 
 		if (weight < 1 || weight > 300) {
 			request.setAttribute("messErr", "Vui lòng nhập cân nặng từ 1 cân đến 300 cân");
@@ -133,7 +178,16 @@ public class UserCalculateController {
 	public String userCalBMI(HttpServletRequest request, @RequestParam(name = "weight", required = true) float weight,
 			@RequestParam(name = "height", required = true) float height,
 			@RequestParam(name = "inlineRadioOptions", required = true) String gender, Model model,
-			Principal principal) {
+			Principal principal,HttpSession httpSession) {
+		AppUserDTO userDTO=(AppUserDTO) httpSession.getAttribute("userInfo");
+		request.setAttribute("userDTO",userDTO);
+		if(userDTO!=null) {
+			if (userDTO.getAvata() != null) {
+				System.out.println(" co avata");
+				String check = "yes";
+				request.setAttribute("check", check);
+			}}
+
 
 		if (weight < 1 || weight > 300) {
 			request.setAttribute("messErr", "Vui lòng nhập cân nặng từ 1 cân đến 300 cân");
@@ -222,7 +276,15 @@ public class UserCalculateController {
 	public String CalBFP(HttpServletRequest request, @RequestParam(name = "age", required = true) double age,
 			@RequestParam(name = "weight", required = true) double weight,
 			@RequestParam(name = "height", required = true) double height,
-			@RequestParam(name = "inlineRadioOptions", required = true) String gender, Model model) {
+			@RequestParam(name = "inlineRadioOptions", required = true) String gender, Model model,HttpSession httpSession) {
+		AppUserDTO userDTO=(AppUserDTO) httpSession.getAttribute("userInfo");
+		request.setAttribute("userDTO",userDTO);
+		if(userDTO!=null) {
+			if (userDTO.getAvata() != null) {
+				System.out.println(" co avata");
+				String check = "yes";
+				request.setAttribute("check", check);
+			}}
 
 		if (weight < 1 || weight > 300) {
 			request.setAttribute("messErr", "Vui lòng nhập cân nặng từ 1 cân đến 300 cân");
@@ -285,7 +347,16 @@ public class UserCalculateController {
 			@RequestParam(name = "weight", required = true) double weight,
 			@RequestParam(name = "height", required = true) double height,
 			@RequestParam(name = "inlineRadioOptions", required = true) String gender,
-			@RequestParam(name = "cuongdo", required = true) String cuongdo, Model model) {
+			@RequestParam(name = "cuongdo", required = true) String cuongdo, Model model, HttpSession httpSession) {
+		AppUserDTO userDTO=(AppUserDTO) httpSession.getAttribute("userInfo");
+		request.setAttribute("userDTO",userDTO);
+		if(userDTO!=null) {
+			if (userDTO.getAvata() != null) {
+				System.out.println(" co avata");
+				String check = "yes";
+				request.setAttribute("check", check);
+			}}
+
 
 		height = height / 100;
 		double bmr = 0;

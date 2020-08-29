@@ -119,9 +119,11 @@
 													required=""  oninvalid="this.setCustomValidity('Hãy nhập hashtag cho bài viết')" oninput="setCustomValidity('')" />
 											</div>
 											<div class="form-group">
-												<label>Trạng thái:</label> <input class="form-control"
-													placeholder="Trạng thái" name="status" id="status"
-													required=""  oninvalid="this.setCustomValidity('Hãy nhập trạng thái cho bài viết')" oninput="setCustomValidity('')" />
+												<label>Trạng thái:</label> 
+												<select id=status>
+													<option value="1">Enable</option>
+													<option value="0">Disable</option>
+												</select>
 											</div>
 											<div class="form-group">
 												<label>Ngày sửa:</label> <input class="form-control"

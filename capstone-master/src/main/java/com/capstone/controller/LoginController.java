@@ -182,6 +182,7 @@ public class LoginController {
 			return "redirect:/admin";
 		}
 		model.addAttribute("userInfo", userDTO);
+		session.setAttribute("userInfo", userDTO);
 		List<UserHistoryDTO> userHistoryDTOs = historyService.searchUserHistory(userDTO.getUserId());
 		// int a= userHistoryDTOs.size();
 		if (userHistoryDTOs.size() != 0) {

@@ -13,6 +13,7 @@ public class MenuDTO {
 	private AppRoleDTO role;
 	private String menuDescription;
 	private int userId;
+	private String userName;
 	private List<MenuProductDTO> menuProductDTOs;
 	private List<String> listproductId;
 	private String enable;

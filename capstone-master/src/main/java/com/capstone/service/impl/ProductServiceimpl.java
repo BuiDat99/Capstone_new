@@ -100,6 +100,7 @@ public class ProductServiceimpl implements ProductService {
 			
 			AppUserDTO appUserDTO= new AppUserDTO();
 			appUserDTO.setUserId(p.getUser().getUserId());
+			appUserDTO.setName(p.getUser().getName());
 			
 			dto.setAppUserDTO(appUserDTO);
 			List<ProductResource> resources=p.getProductResources();
@@ -134,6 +135,7 @@ public class ProductServiceimpl implements ProductService {
 		productDTO.setProductName(product.getProductName());
 		AppUserDTO appUserDTO= new AppUserDTO();
 		appUserDTO.setUserId(product.getUser().getUserId());
+		appUserDTO.setName(product.getUser().getName());
 		
 		productDTO.setAppUserDTO(appUserDTO);
 		List<ProductResource> productResources= productResourceDAO.getProductResourceByProductId(id);
@@ -166,6 +168,7 @@ public class ProductServiceimpl implements ProductService {
 			
 			AppUserDTO appUserDTO= new AppUserDTO();
 			appUserDTO.setUserId(p.getUser().getUserId());
+			appUserDTO.setName(p.getUser().getName());
 			
 			dto.setAppUserDTO(appUserDTO);
 			List<ProductResource> resources=p.getProductResources();
@@ -204,7 +207,7 @@ public class ProductServiceimpl implements ProductService {
 			
 			AppUserDTO appUserDTO= new AppUserDTO();
 			appUserDTO.setUserId(p.getUser().getUserId());
-			
+			appUserDTO.setName(p.getUser().getName());
 			dto.setAppUserDTO(appUserDTO);
 			List<ProductResource> resources=p.getProductResources();
 			List<ProductResourceDTO> resourceDTOs= new ArrayList<ProductResourceDTO>();
@@ -242,7 +245,7 @@ public class ProductServiceimpl implements ProductService {
 			
 			AppUserDTO appUserDTO= new AppUserDTO();
 			appUserDTO.setUserId(p.getUser().getUserId());
-			
+			appUserDTO.setName(p.getUser().getName());
 			dto.setAppUserDTO(appUserDTO);
 			List<ProductResource> resources=p.getProductResources();
 			List<ProductResourceDTO> resourceDTOs= new ArrayList<ProductResourceDTO>();

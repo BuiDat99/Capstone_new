@@ -106,7 +106,7 @@ $("#editProduct").submit(function (e) {
     e.preventDefault();
     var productName = $("#productName").val();
     var productDescription = CKEDITOR.instances.productDescription.getData();
-    var image = $('#image')[0].files[0];
+    var image = $("#imageFile")[0].files[0];
     var id =$("#id").val();
    
     var form_data = new FormData();

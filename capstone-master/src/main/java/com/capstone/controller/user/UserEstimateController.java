@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -28,6 +29,7 @@ import com.capstone.entity.AppUser;
 import com.capstone.entity.Product;
 import com.capstone.entity.ProductResource;
 import com.capstone.entity.Resource;
+import com.capstone.model.AppUserDTO;
 import com.capstone.model.HashTagDTO;
 import com.capstone.model.NewCategoryDTO;
 import com.capstone.model.NewsDTO;
@@ -90,7 +92,15 @@ public class UserEstimateController {
 	
 	@GetMapping(value = "/user/product/search")
 	public String searchProduct(HttpServletRequest request,Principal principal,
-			@RequestParam(name = "catId") Optional<Integer> catId) {
+			@RequestParam(name = "catId") Optional<Integer> catId, HttpSession httpSession) {
+		AppUserDTO userDTO=(AppUserDTO) httpSession.getAttribute("userInfo");
+		request.setAttribute("userDTO",userDTO);
+		if(userDTO!=null) {
+		if (userDTO.getAvata() != null) {
+			System.out.println(" co avata");
+			String check = "yes";
+			request.setAttribute("check", check);
+		}}
 		String has = request.getParameter("hashtag") == null ? "" : request.getParameter("hashtag");
 		User loginedUser = (User) ((Authentication) principal).getPrincipal();
 		AppUser user = appUserService.findAppUserbyUserName(loginedUser.getUsername());
@@ -129,7 +139,15 @@ public class UserEstimateController {
 	}
 
 	@RequestMapping(value = "/user/estimate", method = RequestMethod.GET)
-	public String ResetPass(Model model, HttpServletRequest request) {
+	public String ResetPass(Model model, HttpServletRequest request, HttpSession httpSession) {
+		AppUserDTO userDTO=(AppUserDTO) httpSession.getAttribute("userInfo");
+		request.setAttribute("userDTO",userDTO);
+		if(userDTO!=null) {
+		if (userDTO.getAvata() != null) {
+			System.out.println(" co avata");
+			String check = "yes";
+			request.setAttribute("check", check);
+		}}
 		String has = request.getParameter("hashtag") == null ? "" : request.getParameter("hashtag");
 		List<ResourceCategoryDTO> categoryList = categoryService.getAllCategories("1");
 		request.setAttribute("categoryList", categoryList);
@@ -154,10 +172,11 @@ public class UserEstimateController {
 	}
 
 	@PostMapping(value = "/user/product/add-product")
-	public @ResponseBody int addProductPost(HttpServletRequest request,
+	public @ResponseBody int addProductPost(HttpServletRequest request,HttpSession httpSession,
 			@RequestParam(value = "productName", required = false) String productName,
 			@RequestParam(value = "productDescription", required = false) String productDescription,
 			@RequestParam(value = "image", required = false) MultipartFile file,Principal principal) {
+		
 		User loginedUser = (User) ((Authentication) principal).getPrincipal();
 		AppUser user = appUserService.findAppUserbyUserName(loginedUser.getUsername());
 		Product p = new Product();
@@ -192,7 +211,15 @@ public class UserEstimateController {
 		return resourceService.getResourceFromWithResouceCatId(id);
 	}
 	@GetMapping(value = "/user/product/edit-product")
-	public String editProduct(HttpServletRequest request, @RequestParam  (name="id") int id,Model model) {
+	public String editProduct(HttpServletRequest request, @RequestParam  (name="id") int id,Model model,HttpSession httpSession) {
+		AppUserDTO userDTO=(AppUserDTO) httpSession.getAttribute("userInfo");
+		request.setAttribute("userDTO",userDTO);
+		if(userDTO!=null) {
+		if (userDTO.getAvata() != null) {
+			System.out.println(" co avata");
+			String check = "yes";
+			request.setAttribute("check", check);
+		}}
 		String has = request.getParameter("hashtag") == null ? "" : request.getParameter("hashtag");
 		ProductDTO productDTO= productService.getProductbyId(id);
 		model.addAttribute("productDTO", productDTO);

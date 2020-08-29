@@ -4,6 +4,7 @@ import java.security.Principal;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.capstone.dao.AppUserDAO;
 import com.capstone.entity.AppUser;
+import com.capstone.model.AppUserDTO;
 import com.capstone.model.HashTagDTO;
 import com.capstone.model.MenuDTO;
 import com.capstone.model.MenuProductDTO;
@@ -48,19 +50,28 @@ public class UserMenuController {
 
 	@Autowired
 	private NewsService newsService;
-	
+
 	@Autowired
 	private HashTagService hashtagService;
-	
+
 	@Autowired
 	private NewCategoryService newCatService;
+
 	@GetMapping(value = "/user/menu/add-menu")
-	public String addMenuGet(HttpServletRequest request) {
+	public String addMenuGet(HttpServletRequest request,HttpSession httpSession) {
+		AppUserDTO userDTO=(AppUserDTO) httpSession.getAttribute("userInfo");
+		request.setAttribute("userDTO",userDTO);
+		if(userDTO!=null) {
+		if (userDTO.getAvata() != null) {
+			System.out.println(" co avata");
+			String check = "yes";
+			request.setAttribute("check", check);
+		}}
 		String has = request.getParameter("hashtag") == null ? "" : request.getParameter("hashtag");
-		
+
 		List<ProductDTO> productDTOs = productService.getAllProducts("1");
 		request.setAttribute("listProduct", productDTOs);
-		
+
 		// filter
 
 		request.setAttribute("hashtag", has);
@@ -87,6 +98,7 @@ public class UserMenuController {
 		AppUser user = appUserService.findAppUserbyUserName(loginedUser.getUsername());
 		MenuDTO dto = menuDTO;
 		dto.setUserId(user.getUserId());
+		dto.setEnable("0");
 		menuService.addMenu(dto);
 		for (String string : menuDTO.getListproductId()) {
 			System.out.println(string);
@@ -99,18 +111,42 @@ public class UserMenuController {
 		return menuDTO;
 	}
 
+	@GetMapping(value = "/user/menu/khoa")
+	public String khoaMenuGet(HttpServletRequest request, @RequestParam(name = "id") int id) {
+		MenuDTO menuDTO = menuService.getMenubyId(id);
+		menuDTO.setEnable("0");
+		menuService.updateMenu(menuDTO);
+		return "redirect:/user/menu/search";
+	}
+
+	@GetMapping(value = "/user/menu/mokhoa")
+	public String mokhoaMenuGet(HttpServletRequest request, @RequestParam(name = "id") int id) {
+		MenuDTO menuDTO = menuService.getMenubyId(id);
+		menuDTO.setEnable("1");
+		menuService.updateMenu(menuDTO);
+		return "redirect:/user/menu/search";
+	}
+
 	@GetMapping(value = "/user/product")
 	public @ResponseBody List<ProductDTO> getAllProducts() {
 		return productService.getAllProducts("1");
 	}
-	
+
 	@GetMapping(value = "/user/menu/edit-menu")
-	public String updateMenuGet(HttpServletRequest request, @RequestParam(name = "id") int id, Model model) {
+	public String updateMenuGet(HttpServletRequest request, @RequestParam(name = "id") int id, Model model,HttpSession httpSession) {
+		AppUserDTO userDTO=(AppUserDTO) httpSession.getAttribute("userInfo");
+		request.setAttribute("userDTO",userDTO);
+		if(userDTO!=null) {
+		if (userDTO.getAvata() != null) {
+			System.out.println(" co avata");
+			String check = "yes";
+			request.setAttribute("check", check);
+		}}
 		String has = request.getParameter("hashtag") == null ? "" : request.getParameter("hashtag");
-		
+
 		MenuDTO menuDTO = menuService.getMenubyId(id);
 		model.addAttribute("menuDTO", menuDTO);
-		
+
 		// filter
 
 		request.setAttribute("hashtag", has);
@@ -132,7 +168,7 @@ public class UserMenuController {
 
 	@PostMapping(value = "/user/menu/edit-menu")
 	@ResponseBody
-	public MenuDTO updateMenuPost(HttpServletRequest request, @RequestBody MenuDTO menuDTO) {		
+	public MenuDTO updateMenuPost(HttpServletRequest request, @RequestBody MenuDTO menuDTO) {
 		MenuDTO menuDTO2 = menuService.getMenubyId(menuDTO.getId());
 
 		menuDTO.setEnable("1");
@@ -153,8 +189,6 @@ public class UserMenuController {
 		return menuDTO;
 	}
 
-	
-
 	@GetMapping(value = "/user/menu/delete-menu")
 	public String deleteMenuGet(HttpServletRequest request, @RequestParam(name = "id") int id) {
 		menuService.deleteMenu(id);
@@ -162,15 +196,23 @@ public class UserMenuController {
 	}
 
 	@GetMapping(value = "/user/menu/search")
-	public String searchMenu(HttpServletRequest request,Principal principal) {
+	public String searchMenu(HttpServletRequest request, Principal principal, HttpSession httpSession) {
+		AppUserDTO userDTO=(AppUserDTO) httpSession.getAttribute("userInfo");
+		request.setAttribute("userDTO",userDTO);
+		if(userDTO!=null) {
+		if (userDTO.getAvata() != null) {
+			System.out.println(" co avata");
+			String check = "yes";
+			request.setAttribute("check", check);
+		}}
 		String has = request.getParameter("hashtag") == null ? "" : request.getParameter("hashtag");
-		
+
 		User loginedUser = (User) ((Authentication) principal).getPrincipal();
 		AppUser user = appUserService.findAppUserbyUserName(loginedUser.getUsername());
-		List<MenuDTO> listMenu = menuService.getAllMenubyuser("1","",user.getUserId());
+		List<MenuDTO> listMenu = menuService.getAllMenubyuser("", "", user.getUserId());
 		System.out.println(listMenu.size());
 		request.setAttribute("listMenu", listMenu);
-		
+
 		request.setAttribute("hashtag", has);
 		List<NewCategoryDTO> listNewsCat = newCatService.getAllCategories("1");
 		List<NewsDTO> listNews4Date = newsService.getTop4NewsByDate("1");

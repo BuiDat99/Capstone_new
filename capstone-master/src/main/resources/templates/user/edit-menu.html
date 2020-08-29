@@ -133,7 +133,7 @@
 			//load data dropdown user group
 			$.ajax({
 				url: document.location.origin
-					+ "/admin/product",
+					+ "/user/product",
 				type: 'GET',
 				dataType: "json",
 				success: function (resp) {
@@ -144,8 +144,8 @@
 							+ v.productName
 							+ "</option>");
 					})
-					$('#productId')
-						.multiSelect();
+					//$('#productId')
+						//.multiSelect();
 					
 					var menuProductDTOs = [[${menuDTO.menuProductDTOs}]];
 					
@@ -183,7 +183,7 @@
 				contentType: "application/json",
 				data: JSON.stringify(data),
 				success: function () {
-					 notify("Lỗi", "Cập nhập thực đơn thành công");
+					 notify("Thành công", "Cập nhập thực đơn thành công");
 				},
 				error: function () {
 					 notify("Lỗi", "Không thể xử lí dữ liệu");

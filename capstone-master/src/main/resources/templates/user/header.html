@@ -22,6 +22,7 @@
 	<link rel="stylesheet" th:href="@{/assets/css/slick.css}" />
 	<link rel="stylesheet" th:href="@{/assets/css/nice-select.css}" />
 	<link rel="stylesheet" th:href="@{/assets/css/style.css}" />
+	
 </head>
 <body>
 	<header th:fragment="head">
@@ -42,7 +43,7 @@
 									</ul>
 								</div>
 								<div class="header-info-right">
-									<ul>
+									<ul class="nav nav-pills">
 										<li sec:authorize="!isAuthenticated()"><a
 											th:href="@{/login}"><i class="ti-user"></i>Đăng Nhập</a></li>
 										<li sec:authorize="!isAuthenticated()"><a
@@ -51,12 +52,24 @@
 											th:href="@{/user/userInfo}"> <img th:if="${check=='yes'}"
 												th:src="@{${userDTO.avata}}"
 												style="height: 50px; width: 50px; border-radius: 50%; -moz-border-radius: 50%; -webkit-border-radius: 50%;">
-												chào <span th:utext="${#request.userPrincipal.name}"></span></a></li>
-										<li sec:authorize="isAuthenticated()"><a
+												
+										</a></li>
+										<li sec:authorize="isAuthenticated()" class="nav-item dropdown"><a
+											class="nav-link dropdown-toggle" data-toggle="dropdown"
+											href="#" role="button" aria-haspopup="true"
+											aria-expanded="false">chào <span th:utext="${#request.userPrincipal.name}"></span></a>
+											<div class="dropdown-menu">
+												<a class="dropdown-item" th:href="@{/user/userInfo}">Profile</a>
+												<a class="dropdown-item" th:href="@{/user/history}">History</a>
+												<a class="dropdown-item" th:href="@{/logout}">Change password</a> 
+												<a class="dropdown-item" th:href="@{/user/changePassword}">Logout</a> 
+													
+											</div></li>
+										<!--  <li sec:authorize="isAuthenticated()"><a
 											th:href="@{/logout}"><i class="ti-lock"></i>Đăng xuất</a></li>
 										<li sec:authorize="isAuthenticated()"><a
 											th:href="@{/user/changePassword}"><i class="ti-lock"></i>Doi
-												mat khau</a></li>
+												mat khau</a></li>-->
 
 									</ul>
 								</div>
@@ -114,8 +127,8 @@
 
 											</ul></li>
 										<li><a th:href="@{contact.html}">Liên hệ</a></li>
-										<li sec:authorize="isAuthenticated()"><a
-											th:href="@{/user/history}">Lich su</a></li>
+										<!-- <li sec:authorize="isAuthenticated()"><a
+											th:href="@{/user/history}">Lich su</a></li> -->
 									</ul>
 								</nav>
 							</div>
@@ -172,6 +185,13 @@
 	<!-- Jquery Plugins, main Jquery -->
 	<script th:src="@{/assets/js/plugins.js}"></script>
 	<script th:src="@{/assets/js/main.js}"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('.dropdown').hover(function() {
+				$('.dropdown-toggle', this).trigger('click');
+			});
+		})
+	</script>
 
 </body>
 </html>

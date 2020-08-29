@@ -98,7 +98,8 @@ a.underline {
 												<th>STT</th>
 												<th>Tên Sản phẩm</th>												
 												<th>Hình ảnh</th>
-												<th>Nguyên liệu</th>	 											
+												<th>Nguyên liệu</th>	
+												<th>Người tạo</th>	 											
 												<th>Tuỳ chỉnh</th>
 											</tr>
 										</thead>
@@ -111,7 +112,8 @@ a.underline {
 												</td>																																				
 											    <td>
 													<i style="font-style: normal;" th:each="res : ${pro.resources}" th:text="|${res}, |"></i>
-											    </td> 												
+											    </td> 
+											    <td th:text="${pro.appUserDTO.name}"></td>												
 												<td><a
 													th:href="@{'/admin/product/edit-product?id='+${pro.id}}">Sửa</a>&nbsp;&nbsp;|&nbsp;&nbsp;													
 													<div>

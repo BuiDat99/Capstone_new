@@ -36,7 +36,7 @@ public class MenuServiceImpl implements MenuService {
 		menu2.setMenuName(menu.getMenuName());
 		menu2.setHashtag(menu.getHashtag());
 		menu2.setUser(appUserDAO.get(menu.getUserId()));
-		menu2.setEnable("1");
+		menu2.setEnable(menu.getEnable());
 		menuDao.addMenu(menu2);
 		menu.setId(menu2.getId());
 	}
@@ -77,6 +77,7 @@ public class MenuServiceImpl implements MenuService {
 //			dto.setRole(m.getRole().getRoleId());
 			dto.setEnable(m.getEnable());
 			dto.setUserId(m.getUser().getUserId());
+			dto.setUserName(m.getUser().getName());
 			List<MenuProductDTO> menuProductDTOs= new ArrayList<MenuProductDTO>();
 			List<MenuProduct> menuProducts= m.getMenuProducts();
 			for(MenuProduct menuProduct:menuProducts) {
@@ -89,6 +90,8 @@ public class MenuServiceImpl implements MenuService {
 				ProductDTO productDTO= new ProductDTO();
 				productDTO.setId(product.getId());
 				productDTO.setProductName(product.getProductName());
+				productDTO.setImage(product.getImage());
+				
 				menuProductDTO.setMenu(menuDTO);
 				menuProductDTO.setProduct(productDTO);
 				menuProductDTOs.add(menuProductDTO);
@@ -109,6 +112,7 @@ public class MenuServiceImpl implements MenuService {
 		menuDTO.setMenuName(menu.getMenuName());
 		menuDTO.setHashtag(menu.getHashtag());
 		menuDTO.setUserId(menu.getUser().getUserId());
+		menuDTO.setUserName(menu.getUser().getName());
 		menuDTO.setEnable(menu.getEnable());
 		List<MenuProduct> menuProducts= menu.getMenuProducts();
 		List<MenuProductDTO> menuProductDTOs= new ArrayList<MenuProductDTO>();
@@ -123,6 +127,7 @@ public class MenuServiceImpl implements MenuService {
 			ProductDTO productDTO= new ProductDTO();
 			productDTO.setId(product.getId());
 			productDTO.setProductName(product.getProductName());
+			productDTO.setImage(product.getImage());
 			productDTO.setEnable(product.getEnable());
 			menuProductDTO.setMenu(menuDTO1);
 			menuProductDTO.setProduct(productDTO);
@@ -145,6 +150,7 @@ public class MenuServiceImpl implements MenuService {
 //			dto.setRole(m.getRole().getRoleId());
 			dto.setEnable(m.getEnable());
 			dto.setUserId(m.getUser().getUserId());
+			dto.setUserName(m.getUser().getName());
 			List<MenuProductDTO> menuProductDTOs= new ArrayList<MenuProductDTO>();
 			List<MenuProduct> menuProducts= m.getMenuProducts();
 			for(MenuProduct menuProduct:menuProducts) {
@@ -155,6 +161,7 @@ public class MenuServiceImpl implements MenuService {
 				menuDTO.setId(menu.getId());
 				Product product = productDAO.getProductbyId(menuProduct.getProduct().getId());
 				ProductDTO productDTO= new ProductDTO();
+				productDTO.setImage(product.getImage());
 				productDTO.setId(product.getId());
 				productDTO.setProductName(product.getProductName());
 				menuProductDTO.setMenu(menuDTO);
@@ -181,6 +188,7 @@ public class MenuServiceImpl implements MenuService {
 //			dto.setRole(m.getRole().getRoleId());
 			dto.setEnable(m.getEnable());
 			dto.setUserId(m.getUser().getUserId());
+			dto.setUserName(m.getUser().getName());
 			List<MenuProductDTO> menuProductDTOs= new ArrayList<MenuProductDTO>();
 			List<MenuProduct> menuProducts= m.getMenuProducts();
 			for(MenuProduct menuProduct:menuProducts) {
@@ -191,6 +199,7 @@ public class MenuServiceImpl implements MenuService {
 				menuDTO.setId(menu.getId());
 				Product product = productDAO.getProductbyId(menuProduct.getProduct().getId());
 				ProductDTO productDTO= new ProductDTO();
+				productDTO.setImage(product.getImage());
 				productDTO.setId(product.getId());
 				productDTO.setProductName(product.getProductName());
 				menuProductDTO.setMenu(menuDTO);

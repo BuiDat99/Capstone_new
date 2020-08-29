@@ -22,6 +22,9 @@
 <link rel="stylesheet" th:href="@{/assets/css/nice-select.css}" />
 <link rel="stylesheet" th:href="@{/assets/css/style.css}" />
 <link rel="stylesheet" th:href="@{/assets/css/login.css}" />
+<link th:href="@{/css/jquery-ui.min.css}" rel="stylesheet" type="text/css">
+	<link th:href="@{/css/multi-select.css}" rel="stylesheet" type="text/css">
+	
 </head>
 <body>
 	<!-- <div th:replace="/user/header.html :: head"></div>
@@ -192,6 +195,9 @@
 	<!-- Jquery Plugins, main Jquery -->
 	<script th:src="@{/assets/js/plugins.js}"></script>
 	<script th:src="@{/assets/js/main.js}"></script>
+	<script th:src="@{/js/jquery-ui.min.js}"></script>
+	<script th:src="@{/js/jquery.multi-select.js}"></script>
+	<script th:src="@{/js/jquery.quicksearch.js}"></script>
 	<script>
 		$(document)
 			.ready(

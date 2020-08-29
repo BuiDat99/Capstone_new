@@ -105,6 +105,8 @@ public class AppUserServiceImpl implements AppUserService {
 		dto.setAddress(user.getAddress());
 		dto.setName(user.getName());
 		dto.setAvata(user.getImage());
+		dto.setDate_Of_Birth(user.getDate_Of_Birth());
+		dto.setGender(user.getGender());
 		return dto;
 	}
 
@@ -119,6 +121,8 @@ public class AppUserServiceImpl implements AppUserService {
 			user.setAddress(userDTO.getAddress());
 			user.setName(userDTO.getName());
 			user.setImage(userDTO.getAvata());
+			user.setDate_Of_Birth(userDTO.getDate_Of_Birth());
+			user.setGender(userDTO.getGender());
 			userDao.update(user);
 
 		}

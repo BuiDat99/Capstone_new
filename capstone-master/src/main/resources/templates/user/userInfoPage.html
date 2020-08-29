@@ -136,6 +136,23 @@
 													placeholder="Địa chỉ" class="form-control here" type="text">
 											</div>
 										</div>
+										<div class="form-group row">
+											<label for="address" class="col-4 col-form-label">Ngày sinh</label>
+											<div class="col-8">
+												<input id="date_Of_Birth" th:field="*{date_Of_Birth}" 
+													placeholder="YYYY-MM-DD" class="form-control here" type="text">
+											</div>
+										</div>
+										<div class="form-group row">
+											<label for="address" class="col-4 col-form-label">Giới tính</label>
+											<div class="col-8">
+												<select id="gender" th:field="*{gender}">
+													<option value="Nam">Nam</option>
+													<option value="Nu">Nữ</option>
+													<option value="Khác">Khác</option>
+												</select>
+											</div>
+										</div>
 										<!-- <div class="form-group row">
 											<label for="newpass" class="col-4 col-form-label">Mật
 												khẩu mới</label>
@@ -211,6 +228,8 @@
 							var height = $("#height").val();
 							var weight = $("#weight").val();
 							var address = $("#address").val();
+							var date_Of_Birth = $("#date_Of_Birth").val();
+							var gender = $("#gender").val();
 							
 
 							var form_data = new FormData();
@@ -225,6 +244,10 @@
 							form_data.append('weight', weight);
 							form_data.append('address',
 									address);
+							form_data.append('date_Of_Birth',
+									date_Of_Birth);
+							form_data.append('gender',
+									gender);
 							
 							$.ajax({
 								url : document.location.origin

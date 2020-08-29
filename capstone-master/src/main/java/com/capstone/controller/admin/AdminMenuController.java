@@ -81,6 +81,7 @@ public class AdminMenuController {
 		AppUser user = appUserService.findAppUserbyUserName(loginedUser.getUsername());
 		MenuDTO dto = menuDTO;
 		dto.setUserId(user.getUserId());
+		dto.setEnable("1");
 		menuService.addMenu(dto);
 		for (String string : menuDTO.getListproductId()) {
 			MenuProductDTO menuProductDTO = new MenuProductDTO();
@@ -105,7 +106,7 @@ public class AdminMenuController {
 
 		MenuDTO menuDTO2 = menuService.getMenubyId(menuDTO.getId());
 
-		menuDTO.setEnable("1");
+		menuDTO.setEnable(menuDTO2.getEnable());
 		menuService.updateMenu(menuDTO);
 
 		for (String string : menuDTO.getListproductId()) {

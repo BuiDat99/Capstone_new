@@ -18,6 +18,8 @@ public class AppUserDTO {
 	private String name;
 	private String avata;
 	private MultipartFile file;
+	private String date_Of_Birth;
+	private String gender;
 	
 	public AppUserDTO() {
 		// TODO Auto-generated constructor stub

@@ -34,7 +34,8 @@
 	</div>
 	<h3>Một số thực đơn phù hợp với bạn</h3>
 	  <div >
-			<a th:href="@{'/menu?hashtag='+${hash}}"><p> xem ngay</p></a>
+	 		<div th:each="m : ${menuDTOs}" style="border:1px solid red;">	
+			<a th:href="@{'/detailMenu?Mid='+${m.id}}"><p  th:text="${m.menuName}"></p></a>
 	</div>
 	<div th:replace="/user/footer :: foot"></div>
 
