@@ -75,16 +75,15 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/tintuc", method = RequestMethod.GET)
-	public String Tintuc(HttpServletRequest request, @RequestParam(name = "catId") String cat_Id,
+	public String Tintuc(HttpServletRequest request, @RequestParam(name = "catId") Optional<Integer> catId,
 			@RequestParam(value = "keyword", required = false) String keyword,
 			@RequestParam(value = "page", required = false) Integer page) {
-		
 		String has = request.getParameter("hashtag") == null ? "" : request.getParameter("hashtag");
+		keyword = keyword == null ? "" : keyword;
 //		NewCategoryDTO category = new NewCategoryDTO();				
-		if (cat_Id == null) {
+		if (!catId.isPresent()) {
 			final int PAGE_SIZE = 1;
-			page = page == null ? 1 : page;
-			keyword = keyword == null ? "" : keyword;
+			page = page == null ? 1 : page;			
 			int totalPage = newsService.countNewsWhensearch(has, "1", keyword);
 			int pageCount = (totalPage % PAGE_SIZE == 0) ? totalPage / PAGE_SIZE : totalPage / PAGE_SIZE + 1;
 			List<NewsDTO> listNews = newsService.search(has, "1", keyword, (page - 1) * PAGE_SIZE, PAGE_SIZE);
@@ -98,13 +97,11 @@ public class UserController {
 			request.setAttribute("listCount", listCount);
 			request.setAttribute("hashtag", has);
 		} else {
-			int catId = Integer.parseInt(cat_Id);
 			final int PAGE_SIZE = 1;
 			page = page == null ? 1 : page;
-			keyword = keyword == null ? "" : keyword;
-			int totalPage = newsService.countNewsOfCategory(has, "1", catId);
+			int totalPage = newsService.countNewsOfCategory(has, "1", catId.get());
 			int pageCount = (totalPage % PAGE_SIZE == 0) ? totalPage / PAGE_SIZE : totalPage / PAGE_SIZE + 1;
-			List<NewsDTO> listNews = newsService.getAllNewsOfCat("1", catId, (page - 1) * PAGE_SIZE, PAGE_SIZE);
+			List<NewsDTO> listNews = newsService.getAllNewsOfCat("1", catId.get(), (page - 1) * PAGE_SIZE, PAGE_SIZE);
 			List<Integer> listCount = new ArrayList<Integer>();
 			for (int i = 1; i <= pageCount; i++) {
 				listCount.add(i);

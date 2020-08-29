@@ -60,7 +60,7 @@
 							<nav class="blog-pagination justify-content-center d-flex">
 								<ul class="pagination">
 									<li class="page-item" th:each="page : ${listCount}">
-                                        <a th:href="@{'/tintuc?hashtag='+${hashtag}+'&page='+${page}+'&keyword='+${keyword}+'&catId='+${catId}}" class="page-link" th:text="${page}"></a>
+                                        <a th:href="@{'/tintuc?hashtag='+${hashtag}+'&page='+${page}+'&keyword='+${keyword}}" class="page-link" th:text="${page}"></a>
                                     </li>
 								</ul>
 							</nav>
