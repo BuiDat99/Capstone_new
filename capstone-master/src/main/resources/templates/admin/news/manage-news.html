@@ -119,7 +119,8 @@ a.underline {
 														th:text="${news.detailDescription}" id="editer"></textarea></td>
 												<!-- <td th:text="${news.source}"></td> -->
 												<td th:text="${news.hashtag}"></td>
-												<td th:text="${news.status}"></td>
+												<td th:if="${news.status == '1'}">Hoạt động</td>
+												<td th:if="${news.status == '0'}">Khoá</td>
 												<td th:text="${news.modifiedDate}"></td>
 												<td th:text="${news.creationDate}"></td>
 												<td><a th:href="@{'/admin/news/update?id='+${news.id}}">Sửa</a>&nbsp;&nbsp;|&nbsp;&nbsp;
