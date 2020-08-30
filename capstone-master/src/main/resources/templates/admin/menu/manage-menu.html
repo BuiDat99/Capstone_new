@@ -115,7 +115,7 @@ a.underline {
 													</div>
 												</td>
 												<td th:text="${menu.userName}"></td>
-												<td><a
+												<td><a th:if="${menu.userName eq 'admin'}"
 													th:href="@{'/admin/menu/edit-menu?id='+${menu.id}}">Sửa</a>&nbsp;&nbsp;|&nbsp;&nbsp;
 													<div>
 														<a data-target="#confirm-delete" data-toggle="modal" th:if="${menu.enable == '1'}" th:data-href="@{'/admin/menu/khoa?id='+${menu.id}}" th:href="@{#}">Khoá</a>

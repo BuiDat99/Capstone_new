@@ -114,7 +114,7 @@ a.underline {
 													<i style="font-style: normal;" th:each="res : ${pro.resources}" th:text="|${res}, |"></i>
 											    </td> 
 											    <td th:text="${pro.appUserDTO.name}"></td>												
-												<td><a
+												<td><a th:if="${pro.appUserDTO.name eq 'admin'}"
 													th:href="@{'/admin/product/edit-product?id='+${pro.id}}">Sửa</a>&nbsp;&nbsp;|&nbsp;&nbsp;													
 													<div>
 														<a data-target="#confirm-delete" data-toggle="modal" th:if="${pro.enable == '1'}" th:data-href="@{'/admin/product/khoa?id='+${pro.id}}" th:href="@{#}">Khoá</a>
