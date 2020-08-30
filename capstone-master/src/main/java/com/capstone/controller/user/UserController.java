@@ -100,7 +100,7 @@ public class UserController {
 		}}
 //		NewCategoryDTO category = new NewCategoryDTO();				
 		if (catId=="") {
-			final int PAGE_SIZE = 1;
+			final int PAGE_SIZE = 3;
 			page = page == null ? 1 : page;			
 			int totalPage = newsService.countNewsWhensearch(has, "1", keyword);
 			int pageCount = (totalPage % PAGE_SIZE == 0) ? totalPage / PAGE_SIZE : totalPage / PAGE_SIZE + 1;
@@ -116,7 +116,7 @@ public class UserController {
 			request.setAttribute("hashtag", has);
 //			request.setAttribute("catId", catId);
 		} else {
-			final int PAGE_SIZE = 1;
+			final int PAGE_SIZE = 3;
 			page = page == null ? 1 : page;
 			int totalPage = newsService.countNewsOfCategory(has, "1", Integer.parseInt(catId));
 			int pageCount = (totalPage % PAGE_SIZE == 0) ? totalPage / PAGE_SIZE : totalPage / PAGE_SIZE + 1;
@@ -236,7 +236,7 @@ public class UserController {
 		}}
 
 		String has = request.getParameter("hashtag") == null ? "" : request.getParameter("hashtag");
-		final int PAGE_SIZE = 1;
+		final int PAGE_SIZE = 3;
 		page = page == null ? 1 : page;
 		keyword = keyword == null ? "" : keyword;
 		int totalPage = productService.countProductWhensearch("1", keyword);
