@@ -114,9 +114,9 @@
 													required=""  oninvalid="this.setCustomValidity('Hãy nhập nguồn')" oninput="setCustomValidity('')" />
 											</div>
 											<div class="form-group">
-												<label>Hashtag:</label> <input class="form-control"
-													placeholder="Hashatg" id="hashtag" name="hashtag"
-													required=""  oninvalid="this.setCustomValidity('Hãy nhập hashtag cho bài viết')" oninput="setCustomValidity('')" />
+												<label>Hashtag:</label> <select id="hashtag" name="hashtag" >
+													<option th:each="h:${hashTagDTOs}" th:value="${h.tagCode}" th:text="${h.tagCode}"  ></option>	
+												</select>
 											</div>
 											<div class="form-group">
 												<label>Trạng thái:</label> 

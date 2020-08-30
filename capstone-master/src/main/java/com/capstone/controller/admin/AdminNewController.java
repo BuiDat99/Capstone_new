@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.capstone.model.HashTagDTO;
 import com.capstone.model.NewCategoryDTO;
 import com.capstone.model.NewsDTO;
+import com.capstone.service.HashTagService;
 import com.capstone.service.NewCategoryService;
 import com.capstone.service.NewsService;
 import com.capstone.utils.ImgurUtil;
@@ -29,6 +31,8 @@ public class AdminNewController {
 	private NewCategoryService categoryService;
 	@Autowired
 	private NewsService newsService;
+	@Autowired
+	private HashTagService hashTagService;
 
 	@GetMapping(value = "/admin/news/search")
 	public String searchResource(HttpServletRequest request
@@ -59,6 +63,8 @@ public class AdminNewController {
 		model.addAttribute("news", new NewsDTO());
 		List<NewCategoryDTO> list = categoryService.search("1", "", 0, 100);
 		request.setAttribute("categoryList", list);
+		List<HashTagDTO> hashTagDTOs= hashTagService.getAllTags("1");
+		request.setAttribute("hashTagDTOs", hashTagDTOs);
 		return "admin/news/add-news";
 	}
 
@@ -79,7 +85,8 @@ public class AdminNewController {
 	public String AdminUpdateNewGet(HttpServletRequest request, Model model, @RequestParam(name = "id") int id) {
 		NewsDTO news = newsService.getNewsbyId(id);
 		List<NewCategoryDTO> list = categoryService.search("1", "", 0, 100);
-
+		List<HashTagDTO> hashTagDTOs= hashTagService.getAllTags("1");
+		request.setAttribute("hashTagDTOs", hashTagDTOs);
 		model.addAttribute("news", news);
 		request.setAttribute("categoryList", list);
 		return "admin/news/edit-news";

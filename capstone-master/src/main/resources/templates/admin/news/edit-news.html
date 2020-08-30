@@ -113,8 +113,9 @@
 													placeholder="Nguồn" th:field="*{source}" id="source" />
 											</div>
 											<div class="form-group">
-												<label>Hashtag:</label> <input class="form-control"
-													placeholder="Hashtag" th:field="*{hashtag}" id="hashtag" />
+												<label>Hashtag:</label><select id="hashtag" th:field="*{hashtag}" >
+													<option th:each="h:${hashTagDTOs}" th:value="${h.tagCode}" th:text="${h.tagCode}"  ></option>	
+												</select>
 											</div>
 											<div class="form-group">
 												<label>Trạng thái:</label> <select id=status th:field="*{status}">

@@ -19,9 +19,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.capstone.dao.AppUserDAO;
 import com.capstone.dao.MenuProductDAO;
 import com.capstone.entity.AppUser;
+import com.capstone.model.HashTagDTO;
 import com.capstone.model.MenuDTO;
 import com.capstone.model.MenuProductDTO;
 import com.capstone.model.ProductDTO;
+import com.capstone.service.HashTagService;
 import com.capstone.service.MenuProductService;
 import com.capstone.service.MenuService;
 import com.capstone.service.ProductService;
@@ -44,6 +46,9 @@ public class AdminMenuController {
 
 	@Autowired
 	private ProductService productService;
+	
+	@Autowired
+	private HashTagService hashTagService;
 
 	public void setProductService(ProductService productService) {
 		this.productService = productService;
@@ -71,6 +76,8 @@ public class AdminMenuController {
 	public String addMenuGet(HttpServletRequest request) {
 		List<ProductDTO> productDTOs = productService.getAllProducts("1");
 		request.setAttribute("listProduct", productDTOs);
+		List<HashTagDTO> hashTagDTOs= hashTagService.getAllTags("1");
+		request.setAttribute("hashTagDTOs", hashTagDTOs);
 		return "admin/menu/add-menu";
 	}
 
@@ -97,6 +104,8 @@ public class AdminMenuController {
 	public String updateMenuGet(HttpServletRequest request, @RequestParam(name = "id") int id, Model model) {
 		MenuDTO menuDTO = menuService.getMenubyId(id);
 		model.addAttribute("menuDTO", menuDTO);
+		List<HashTagDTO> hashTagDTOs= hashTagService.getAllTags("1");
+		request.setAttribute("hashTagDTOs", hashTagDTOs);
 		return "admin/menu/edit-menu";
 	}
 
