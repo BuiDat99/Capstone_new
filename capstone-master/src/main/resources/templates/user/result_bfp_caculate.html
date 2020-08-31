@@ -67,6 +67,10 @@
 								<input type="submit" class="btn btn-primary btn-block "
 								value="Tính BFP" />
 							</div>
+							<br>
+							<div class="text-center">
+								<p th:text="${messErr}" ></p>
+							</div>
 
 						</div>
 					</div>
@@ -107,74 +111,47 @@
 						<table class="table" cellspacing="3" cellpadding="2"
 							bgcolor="#E2e2e2" style="border-style: thin; padding-left: 5PX">
 							<tbody>
-								<tr>
-									<td>
-										<h2 align="center" style="line-height: 175%;" class="">
-											<strong>THÔNG TIN VỀ CHỈ SỐ BFP </strong>
-										</h2>
-										<h2 align="justify" style="" class="">
-											<strong><em><span
-													style="line-height: 175%; font-size: 10pt;">Chỉ số BFP (Body Fat Percentage) hay còn gọi là tỷ lệ mỡ cơ thể. Là một chỉ số kha quan trọng để biết được 
-													cơ thể mình có lượng mỡ có nằm trong mức an toàn hay không, cơ thể mình có dư mỡ hay thiếu lượng mỡ hay không.
-													 Ở công thức này chúng tôi đã nghiên cứu và xây dựng công cụ tính BFP  cho việc tính toán nhanh chóng.</span></em></strong>
-										</h2>
-									
-										<span style="font-size: 10pt;">
-											<strong><h2 style="">Cách tính và đánh giá
-													chỉ số BFP như thế nào?</h2></strong><strong> <br> <!--[if !supportLineBreakNewLine]-->
-												<br> <!--[endif]-->
-										</strong>
-									</span>
-										<p></p>
+								<div class="entry-content single-page">
+<h2><strong><span style="color:#000080">Chỉ số BFP (tỷ lệ mỡ trong cơ thể)</span></strong></h2>
 
-										<table width="100%" align="center">
-											<tbody>
-												<tr>
-													<td align="center">
+<p>Khi n&oacute;i đến lượng mỡ trong cơ thể, mọi người cho rằng đ&oacute; l&agrave; một loại đ&aacute;ng gh&eacute;t, chẳng c&oacute; t&aacute;c dụng g&igrave; ngo&agrave;i việc l&agrave;m cho ch&uacute;ng ta b&eacute;o l&ecirc;n. Tuy nhi&ecirc;n, thực tế mỡ trong cơ thể đ&oacute;ng vai tr&ograve; kh&aacute; quan trọng trong việc dự trữ năng lượng cũng như bảo vệ c&aacute;c cơ quan nội tạng.</p>
 
-														<div class="col-sm-12" style="padding-bottom: 15px;">
-															<div class="col-sm-2"></div>
-															<div class="col-sm-8">
-																<img
-																	th:src="@{assets/img/post/chi-so-bmi-do-can-nang-chieu-cao.jpg}"
-																	alt="Bảng đánh giá chỉ số BMI chuẩn cho cả nam và nữ">
+<p>Dựa v&agrave;o chỉ số BMI ch&uacute;ng ta c&oacute; thể t&iacute;nh tỷ lệ mỡ trong cơ thể v&agrave; so s&aacute;nh với ti&ecirc;u chuẩn để biết ch&uacute;ng ta đang thừa hay thiếu mỡ từ đ&oacute; c&oacute; c&aacute;ch giảm c&acirc;n khoa học.</p>
+<img alt="Nguy cơ béo phì qua số đo vòng eo" class="size-medium wp-image-2305" src="https://khoedeptunhien24h.com/wp-content/uploads/2019/05/A-quiet-place-to-visit-while-youre-on-vacation-1-1-800x400.jpg" style="height:400px; width:800px" />
+<p>Nguy cơ b&eacute;o ph&igrave; qua số đo v&ograve;ng eo(đơn vị t&iacute;nh:m)</p>
 
-															</div>
-															<div class="col-sm-2"></div>
-														</div>
-													</td>
-												</tr>
-											</tbody>
-										</table>
-										<p align="justify"
-											style="margin: 0in 0in 0.0001pt; line-height: 175%;"></p>
-										<h2 style="font-size: 10pt;">
-											<br> <strong>- &nbsp;Cách đánh giá chỉ số BMI </strong>
-											<br> Đối với người lớn từ 20 tuổi trở lên, Sử dụng bảng
-											phân loại chuẩn cho cả nam và nữ để đánh giá chỉ số BMI.
-										</h2>
-										<p></p>
-										<div align="justify">
-											<p>- BMI &lt;16: Gầy độ III</p>
-											<p>- 16 ≤ BMI &lt;17: Gầy độ II</p>
-											<p>- 17 ≤ BMI &lt;18.5: Gầy độ I</p>
-											<p>- 18.5 ≤ BMI &lt;25: Bình thường</p>
-											<p>- 25 ≤ BMI &lt;30: Thừa cân</p>
-											<p>- 30 ≤ BMI 35: Béo phì độ 1</p>
-											<p>- 35 ≤ BMI &lt;40: Béo phì độ II</p>
-											<p>- BMI &gt;40: Béo phì độ III</p>
-											<p>&nbsp;</p>
-										</div>
-										<p align="center"
-											style="margin: 0in 0in 0.0001pt; line-height: 175%;">
-											<span style="font-size: 10pt;">&nbsp;</span>---------------------------------------------------------------------------------
-										</p>
-										<p align="center"
-											style="margin: 0in 0in 0.0001pt; line-height: 175%;">&nbsp;</p>
-									</td>
+<h3><strong><span style="color:#000080">C&ocirc;ng thức:</span></strong></h3>
 
+<p>Dưới 16 tuổi:</p>
 
-								</tr>
+<p>BFP= 1.51*BMI &ndash; 0.7*tuổi &ndash; 3.6*gen + 1.4(gen: nam=1, nữ=0)</p>
+
+<p>16 -25 tuổi</p>
+
+<p>BFP = 1.2*BMI + 0.23*tuổi &ndash; 10.8*gen &ndash; 5.4(gen: nam=1, nữ=0)</p>
+
+<p>Tr&ecirc;n 25 tuổi</p>
+
+<p>BFP= 1.39*BMI &ndash; 0.16*tuổi &ndash; 10.34*gen &ndash; 9(gen: nam=1, nữ=0)</p>
+
+<p>Từ tỷ lệ mỡ ta c&oacute; thể t&iacute;nh được lượng mỡ thừa trong cơ thể ch&uacute;ng ta.</p>
+
+<p>Tỉ lệ mỡ cơ thể (%)= {Lượng mỡ của cơ thể (kg) / Trọng lượng cơ thể (kg)} x 100 %</p>
+
+<p>Chẳng hạn: Một phụ nữ 60kg, tỉ lệ mỡ cơ thể 20%, vậy người đ&oacute; c&oacute; lượng mỡ cơ thể l&agrave;:</p>
+
+<p>60 x 20 % / 100 % = 12kg</p>
+<img alt="Tỷ lệ mỡ cần thiết cho cơ thể" class="size-medium wp-image-2307" src="https://khoedeptunhien24h.com/wp-content/uploads/2019/05/A-quiet-place-to-visit-while-youre-on-vacation-3-800x400.jpg" style="height:400px; width:800px" />
+<p>Tỷ lệ mỡ cần thiết cho cơ thể</p>
+
+<p>&nbsp;</p>
+
+<div class="blog-share text-center">
+<div class="is-divider medium">&nbsp;</div>
+
+<div class="relative share-icons share-row social-icons">&nbsp;</div>
+</div>
+</div>
 
 
 
