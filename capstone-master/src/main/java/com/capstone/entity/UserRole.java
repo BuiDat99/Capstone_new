@@ -11,8 +11,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-import lombok.Data;
-@Data
 @Entity
 @Table(name = "User_Role", //
         uniqueConstraints = { //
@@ -30,4 +28,30 @@ public class UserRole {
 	    @ManyToOne(fetch = FetchType.LAZY)
 	    @JoinColumn(name = "role_Id", nullable = false)
 	    private AppRole appRole;
+
+		public int getId() {
+			return id;
+		}
+
+		public void setId(int id) {
+			this.id = id;
+		}
+
+		public AppUser getAppUser() {
+			return appUser;
+		}
+
+		public void setAppUser(AppUser appUser) {
+			this.appUser = appUser;
+		}
+
+		public AppRole getAppRole() {
+			return appRole;
+		}
+
+		public void setAppRole(AppRole appRole) {
+			this.appRole = appRole;
+		}
+	    
+	    
 }

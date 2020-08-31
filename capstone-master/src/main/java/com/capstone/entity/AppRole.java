@@ -8,10 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-import lombok.Data;
-
 @Entity
-@Data
 @Table(name = "Role", //
         uniqueConstraints = { //
                 @UniqueConstraint(name = "APP_ROLE_UK", columnNames = "Role_Name") })
@@ -36,5 +33,31 @@ public class AppRole {
 	public AppRole() {
 		super();
 	}
+
+	public int getRoleId() {
+		return roleId;
+	}
+
+	public void setRoleId(int roleId) {
+		this.roleId = roleId;
+	}
+
+	public String getRoleName() {
+		return roleName;
+	}
+
+	public void setRoleName(String roleName) {
+		this.roleName = roleName;
+	}
+
+	public String getEnable() {
+		return enable;
+	}
+
+	public void setEnable(String enable) {
+		this.enable = enable;
+	}
     
+	
+	
 }

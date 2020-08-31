@@ -15,9 +15,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import lombok.Data;
-
-@Data
 @Entity
 @Table(name="Menu")
 public class Menu implements Serializable {
@@ -46,4 +43,62 @@ public class Menu implements Serializable {
 	
 	@Column(name = "enable", length = 50)
     private String enable;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getHashtag() {
+		return hashtag;
+	}
+
+	public void setHashtag(String hashtag) {
+		this.hashtag = hashtag;
+	}
+
+	public String getMenuName() {
+		return menuName;
+	}
+
+	public void setMenuName(String menuName) {
+		this.menuName = menuName;
+	}
+
+	public String getMenu_Description() {
+		return menu_Description;
+	}
+
+	public void setMenu_Description(String menu_Description) {
+		this.menu_Description = menu_Description;
+	}
+
+	public AppUser getUser() {
+		return user;
+	}
+
+	public void setUser(AppUser user) {
+		this.user = user;
+	}
+
+	public List<MenuProduct> getMenuProducts() {
+		return menuProducts;
+	}
+
+	public void setMenuProducts(List<MenuProduct> menuProducts) {
+		this.menuProducts = menuProducts;
+	}
+
+	public String getEnable() {
+		return enable;
+	}
+
+	public void setEnable(String enable) {
+		this.enable = enable;
+	}
+	
+	
 }

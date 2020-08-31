@@ -10,10 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import lombok.Data;
-
 @Entity
-@Data
 @Table(name="User_History")
 public class UserHistory {
 
@@ -43,5 +40,71 @@ public class UserHistory {
 	
 	@Column(name = "creation_Date", nullable = false)
 	private String creation_Date;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public AppUser getAppUser() {
+		return appUser;
+	}
+
+	public void setAppUser(AppUser appUser) {
+		this.appUser = appUser;
+	}
+
+	public float getHeight() {
+		return height;
+	}
+
+	public void setHeight(float height) {
+		this.height = height;
+	}
+
+	public float getWeight() {
+		return weight;
+	}
+
+	public void setWeight(float weight) {
+		this.weight = weight;
+	}
+
+	public float getBmi() {
+		return bmi;
+	}
+
+	public void setBmi(float bmi) {
+		this.bmi = bmi;
+	}
+
+	public String getDesire() {
+		return desire;
+	}
+
+	public void setDesire(String desire) {
+		this.desire = desire;
+	}
+
+	public String getTrack_Results() {
+		return track_Results;
+	}
+
+	public void setTrack_Results(String track_Results) {
+		this.track_Results = track_Results;
+	}
+
+	public String getCreation_Date() {
+		return creation_Date;
+	}
+
+	public void setCreation_Date(String creation_Date) {
+		this.creation_Date = creation_Date;
+	}
+	
+	
 	
 }

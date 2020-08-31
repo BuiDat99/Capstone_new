@@ -9,10 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import lombok.Data;
-
 @Entity
-@Data
 @Table(name="Hashtag_standard")
 public class HashtagStandard implements Serializable {
 
@@ -30,4 +27,38 @@ public class HashtagStandard implements Serializable {
 	
 	@Column(name = "enable", length = 50)
     private String enable;
+
+	public int getTagId() {
+		return tagId;
+	}
+
+	public void setTagId(int tagId) {
+		this.tagId = tagId;
+	}
+
+	public String getTagCode() {
+		return tagCode;
+	}
+
+	public void setTagCode(String tagCode) {
+		this.tagCode = tagCode;
+	}
+
+	public String getTagContent() {
+		return tagContent;
+	}
+
+	public void setTagContent(String tagContent) {
+		this.tagContent = tagContent;
+	}
+
+	public String getEnable() {
+		return enable;
+	}
+
+	public void setEnable(String enable) {
+		this.enable = enable;
+	}
+	
+	
 }

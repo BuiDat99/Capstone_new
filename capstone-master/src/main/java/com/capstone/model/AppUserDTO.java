@@ -4,8 +4,7 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import lombok.Data;
-@Data
+
 public class AppUserDTO {
 
 	private int userId;
@@ -25,7 +24,8 @@ public class AppUserDTO {
 		// TODO Auto-generated constructor stub
 	}
 
-	public AppUserDTO(int userId, String username, String password, String email, String enable, List<String> roles) {
+	public AppUserDTO(int userId, String username, String password, String email, String enable, List<String> roles,
+			String address, String name, String avata, MultipartFile file, String date_Of_Birth, String gender) {
 		super();
 		this.userId = userId;
 		this.username = username;
@@ -33,6 +33,12 @@ public class AppUserDTO {
 		this.email = email;
 		this.enable = enable;
 		this.roles = roles;
+		this.address = address;
+		this.name = name;
+		this.avata = avata;
+		this.file = file;
+		this.date_Of_Birth = date_Of_Birth;
+		this.gender = gender;
 	}
 
 	public int getUserId() {
@@ -82,5 +88,55 @@ public class AppUserDTO {
 	public void setRoles(List<String> roles) {
 		this.roles = roles;
 	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getAvata() {
+		return avata;
+	}
+
+	public void setAvata(String avata) {
+		this.avata = avata;
+	}
+
+	public MultipartFile getFile() {
+		return file;
+	}
+
+	public void setFile(MultipartFile file) {
+		this.file = file;
+	}
+
+	public String getDate_Of_Birth() {
+		return date_Of_Birth;
+	}
+
+	public void setDate_Of_Birth(String date_Of_Birth) {
+		this.date_Of_Birth = date_Of_Birth;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	
 	
 }

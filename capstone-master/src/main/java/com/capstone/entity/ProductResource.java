@@ -11,10 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import lombok.Data;
-
 @Entity
-@Data
 @Table(name="Product_Resource")
 public class ProductResource implements Serializable {
 
@@ -33,4 +30,38 @@ public class ProductResource implements Serializable {
 	private Product product;
 	
 	private Float kcal1g;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public Resource getResource() {
+		return resource;
+	}
+
+	public void setResource(Resource resource) {
+		this.resource = resource;
+	}
+
+	public Product getProduct() {
+		return product;
+	}
+
+	public void setProduct(Product product) {
+		this.product = product;
+	}
+
+	public Float getKcal1g() {
+		return kcal1g;
+	}
+
+	public void setKcal1g(Float kcal1g) {
+		this.kcal1g = kcal1g;
+	}
+	
+	
 }

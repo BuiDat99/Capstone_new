@@ -11,10 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import lombok.Data;
-
 @Entity
-@Data
 @Table(name="Resources")
 public class Resource implements Serializable {
 	
@@ -43,4 +40,62 @@ public class Resource implements Serializable {
 	
 	@Column(name = "enable", length = 50)
     private String enable;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
+	public String getResourceName() {
+		return resourceName;
+	}
+
+	public void setResourceName(String resourceName) {
+		this.resourceName = resourceName;
+	}
+
+	public String getResourceDescrption() {
+		return resourceDescrption;
+	}
+
+	public void setResourceDescrption(String resourceDescrption) {
+		this.resourceDescrption = resourceDescrption;
+	}
+
+	public float getKcal1g() {
+		return kcal1g;
+	}
+
+	public void setKcal1g(float kcal1g) {
+		this.kcal1g = kcal1g;
+	}
+
+	public ResourceCategory getCategory() {
+		return category;
+	}
+
+	public void setCategory(ResourceCategory category) {
+		this.category = category;
+	}
+
+	public String getEnable() {
+		return enable;
+	}
+
+	public void setEnable(String enable) {
+		this.enable = enable;
+	}
+	
+	
 }

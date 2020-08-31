@@ -1,8 +1,5 @@
 package com.capstone.model;
 
-import lombok.Data;
-
-@Data
 public class ProductResourceDTO {
 
 	private int id;
@@ -14,11 +11,12 @@ public class ProductResourceDTO {
 		// TODO Auto-generated constructor stub
 	}
 
-	public ProductResourceDTO(int id, ResourceDTO resource, ProductDTO product) {
+	public ProductResourceDTO(int id, ResourceDTO resource, ProductDTO product, float gram) {
 		super();
 		this.id = id;
 		this.resource = resource;
 		this.product = product;
+		this.gram = gram;
 	}
 
 	public int getId() {
@@ -44,6 +42,16 @@ public class ProductResourceDTO {
 	public void setProduct(ProductDTO product) {
 		this.product = product;
 	}
+
+	public float getGram() {
+		return gram;
+	}
+
+	public void setGram(float gram) {
+		this.gram = gram;
+	}
+
+	
 	
 	
 }

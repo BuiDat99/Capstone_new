@@ -10,10 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import lombok.Data;
-
 @Entity
-@Data
 @Table(name="Comment")
 public class Comment {
 
@@ -44,5 +41,71 @@ public class Comment {
     
     @Column(name = "enable", length = 50)
     private String enable;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public AppUser getAppUser() {
+		return appUser;
+	}
+
+	public void setAppUser(AppUser appUser) {
+		this.appUser = appUser;
+	}
+
+	public News getNews() {
+		return news;
+	}
+
+	public void setNews(News news) {
+		this.news = news;
+	}
+
+	public String getComment_Date() {
+		return comment_Date;
+	}
+
+	public void setComment_Date(String comment_Date) {
+		this.comment_Date = comment_Date;
+	}
+
+	public String getComment_Content() {
+		return comment_Content;
+	}
+
+	public void setComment_Content(String comment_Content) {
+		this.comment_Content = comment_Content;
+	}
+
+	public String getVote() {
+		return vote;
+	}
+
+	public void setVote(String vote) {
+		this.vote = vote;
+	}
+
+	public String getReact() {
+		return react;
+	}
+
+	public void setReact(String react) {
+		this.react = react;
+	}
+
+	public String getEnable() {
+		return enable;
+	}
+
+	public void setEnable(String enable) {
+		this.enable = enable;
+	}
+    
+    
 	
 }

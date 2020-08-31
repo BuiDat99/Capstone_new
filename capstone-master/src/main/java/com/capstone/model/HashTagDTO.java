@@ -1,8 +1,5 @@
 package com.capstone.model;
 
-import lombok.Data;
-
-@Data
 public class HashTagDTO {
 
 	private int tagId;
@@ -12,11 +9,12 @@ public class HashTagDTO {
 	public HashTagDTO() {
 		// TODO Auto-generated constructor stub
 	}
-	public HashTagDTO(int tagId, String tagCode, String tagContent) {
+	public HashTagDTO(int tagId, String tagCode, String tagContent, String enable) {
 		super();
 		this.tagId = tagId;
 		this.tagCode = tagCode;
 		this.tagContent = tagContent;
+		this.enable = enable;
 	}
 	public int getTagId() {
 		return tagId;
@@ -36,6 +34,13 @@ public class HashTagDTO {
 	public void setTagContent(String tagContent) {
 		this.tagContent = tagContent;
 	}
+	public String getEnable() {
+		return enable;
+	}
+	public void setEnable(String enable) {
+		this.enable = enable;
+	}
+	
 	
 	
 	
