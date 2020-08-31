@@ -9,6 +9,11 @@ public class NewCategoryDTO {
 	public NewCategoryDTO() {
 		// TODO Auto-generated constructor stub
 	}
+	public NewCategoryDTO(int id, String categoryName) {
+		super();
+		this.id = id;
+		this.categoryName = categoryName;
+	}
 	public NewCategoryDTO(int id, String categoryName, String count, String enable) {
 		super();
 		this.id = id;

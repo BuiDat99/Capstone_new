@@ -17,6 +17,12 @@ public class ProductDTO {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	public ProductDTO(int id, String productName, String image) {
+		super();
+		this.id = id;
+		this.productName = productName;
+		this.image = image;
+	}
 	public ProductDTO(int id, String productName, String image, List<String> resources, List<ResourceDTO> resource,
 			List<ProductResourceDTO> productResourceDTOs, String productDescription, String enable,
 			AppUserDTO appUserDTO) {
