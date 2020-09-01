@@ -44,10 +44,10 @@
 						<div class="blog_left_sidebar">
 							<article class="blog_item" th:each="m : ${listMenu}">
 								<p hidden="" th:text="${m.id}"></p>
-								<a th:href="@{'/detailMenu?Mid='+${m.id}}"><p th:text="${m.menuName}"></p></a>
-								<p th:text="${m.hashtag}"></p>
+								<a th:href="@{'/detailMenu?Mid='+${m.id}}"><p th:text="'Tên thực đơn: '+${m.menuName}"></p></a>
+								<p th:text="'Hashtag: '+${m.hashtag}"></p>
 								<div th:each="mp: ${m.menuProductDTOs}">
-								<p th:text="${mp.product.productName}"></p>
+								<span></span><p th:text="'Thực đơn bao gồm: '+ ${mp.product.productName}"></p>
 								<hr>
 							</article>
 							<nav class="blog-pagination justify-content-center d-flex">

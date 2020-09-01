@@ -314,6 +314,7 @@ public class UserController {
 	@RequestMapping(value = "/detailMenu", method = RequestMethod.GET)
 	public String detailMenu(HttpServletRequest request, Model model, @RequestParam(name = "Mid") int id,HttpSession httpSession) {
 //		NewCategoryDTO category = new NewCategoryDTO();
+		String has = request.getParameter("hashtag") == null ? "" : request.getParameter("hashtag");
 		AppUserDTO userDTO=(AppUserDTO) httpSession.getAttribute("userInfo");
 		request.setAttribute("userDTO",userDTO);
 		if(userDTO!=null) {
@@ -326,6 +327,20 @@ public class UserController {
 		System.out.println(menu.getMenuName());
 		model.addAttribute("menu", menu);
 		
+		request.setAttribute("hashtag", has);
+		List<NewCategoryDTO> listNewsCat = newCatService.getAllCategories("1");
+		List<NewsDTO> listNews4Date = newsService.getTop4NewsByDate("1");
+		List<HashTagDTO> listTag = hashtagService.getAllTags("1");
+		for (NewCategoryDTO newCate : listNewsCat) {
+			int countCat = 0;
+			countCat = newsService.countNewsOfCategory(has, "1", newCate.getId());
+			String count = "(" + countCat + ")";
+			newCate.setCount(count);
+		}
+//		int countCat = newsService.countNewsOfCategory(1);
+		request.setAttribute("listNewsCat", listNewsCat);
+		request.setAttribute("listTag", listTag);
+		request.setAttribute("listNews4Date", listNews4Date);
 		return "/user/detailMenu";
 
 	}

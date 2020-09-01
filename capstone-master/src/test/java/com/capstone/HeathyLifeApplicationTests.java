@@ -30,7 +30,9 @@ class HeathyLifeApplicationTests {
 		//  Tạo Data return
 		List<ProductDTO> productDTOs = new ArrayList<ProductDTO>();
 		ProductDTO productDTO = new ProductDTO(1, "Dat", "Dat");
+		ProductDTO productDTO1 = new ProductDTO(16, "Dat", "Dat");
 		productDTOs.add(productDTO);
+		productDTOs.add(productDTO1);
 		// Way to mock function getAllProducts in service and return data mock
 		when(productService.getAllProducts("1")).thenReturn(productDTOs);
 		adminMenuMock.setProductService(productService);

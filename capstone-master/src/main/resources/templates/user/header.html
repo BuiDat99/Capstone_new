@@ -112,12 +112,12 @@
 										<!--  <li><a th:href="@{/user/estimate}">Tạo Món ăn</a></li>-->
 										<li><a th:href="@{/menu}">Thực đơn</a>
 											<ul class="submenu">
-												<li><a th:href="@{/user/menu/add-menu}">Tạo Menu</a></li>
-												<li><a th:href="@{/user/menu/search}"> Menu đã tạo</a></li>
+												<li><a th:href="@{/user/menu/add-menu}">Tạo thực đơn</a></li>
+												<li><a th:href="@{/user/menu/search}">Thực đơn đã tạo</a></li>
 											</ul></li>
 										<!--  <li><a th:href="@{/user/menu/add-menu}">Tạo Menu</a></li>-->
 										<li><a th:href="@{#}">Tính chỉ số</a>
-											<ul class="submenu" sec:authorize="!isAuthenticated()">
+											<ul class="submenu">
 												<li><a th:href="@{/bmi}">BMI</a></li>
 												<li><a th:href="@{/bfp}">BFP</a></li>
 												<li><a th:href="@{/bmr}">BMR</a></li>

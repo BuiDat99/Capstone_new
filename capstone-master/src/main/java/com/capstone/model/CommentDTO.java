@@ -13,6 +13,12 @@ public class CommentDTO {
 	public CommentDTO() {
 		// TODO Auto-generated constructor stub
 	}
+	public CommentDTO(int id, String vote, String react) {
+		super();
+		this.id = id;
+		this.vote = vote;
+		this.react = react;
+	}
 	public CommentDTO(int id, String commentDate, String commentContent, String vote, String react, AppUserDTO user,
 			NewsDTO news, String enable) {
 		super();
