@@ -208,6 +208,7 @@ public class LoginController {
 	@RequestMapping(value = "/user/userInfo", method = RequestMethod.POST)
 	@ResponseBody
 	public int userupdateInfo(Model model, HttpSession session, @ModelAttribute AppUserDTO appUserDTO,
+			@RequestParam(name = "desire", required = false) String desire,
 			@RequestParam(name = "height", required = false) float height,
 			@RequestParam(name = "weight", required = false) float weight, Principal principal,
 			@RequestParam(name = "imageFile", required = false) MultipartFile file) {
@@ -232,7 +233,7 @@ public class LoginController {
 		userHistoryDTO.setWeight(weight);
 		userHistoryDTO.setBmi(bmi);
 		userHistoryDTO.setAppUser(UserDTO);
-		userHistoryDTO.setDesire("a");
+		userHistoryDTO.setDesire(desire);
 		userHistoryDTO.setTrack_Results("a");
 		userHistoryDTO.setCreation_Date(date.toString());
 		historyService.add(userHistoryDTO);
@@ -273,7 +274,7 @@ public class LoginController {
 	public String addUser(HttpServletRequest request, @ModelAttribute AppUserDTO user) {
 
 		user.setEnable("1");
-		user.setPassword(EncrytedPasswordUtils.encrytePassword(user.getPassword()));
+		user.setPassword(user.getPassword());
 
 		if (userService.checkExistUser(user.getUsername())) {
 			System.out.print("------------------EXIST------------");
@@ -286,7 +287,7 @@ public class LoginController {
 		}
 		System.out.print("------------------NOT EXIST------------");
 		userService.insert(user);
-		return "redirect:/login";
+		return "user/registersuccess";
 	}
 
 //	@RequestMapping(value = "/bmi", method = RequestMethod.GET)

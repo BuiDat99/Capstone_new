@@ -116,8 +116,11 @@
 													name="menuDescription" id="menuDescription" />
 											</div>
 											<div class="form-group">
-												<label>Hashtag</label> <input class="form-control" placeholder="Tên menu"
-													name="Hashtag" id="hashtag" />
+												<label>Hashtag</label>  
+												<div class="col-8">
+												<select id="hashtag" name="hashtag" >
+													<option th:each="h:${listTag}" th:value="${h.tagCode}" th:text="${h.tagCode}"  ></option>	
+												</select>
 											</div>
 											<div class="form-group">
 												 <input type="hidden" class="form-control" placeholder="user"

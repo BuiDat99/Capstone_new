@@ -44,6 +44,7 @@
 												
 												<th>Chiều Cao</th>
 												<th>Cân Nặng</th>
+												<th>Mong muốn</th>
 												<th>BMI</th>
 												<th>Ngày Tạo</th>
 												
@@ -53,6 +54,7 @@
 											<tr class="odd gradeX" th:each="u : ${historyDTOs}">
 												<td th:text="${u.height}"></td>
 												<td th:text="${u.weight}"></td>
+												<td th:text="${u.desire}"></td>
 												<td th:text="${u.bmi}"></td>
 												<td th:text="${u.creation_Date}"></td>
 												

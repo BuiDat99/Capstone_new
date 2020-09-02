@@ -100,8 +100,10 @@
 													placeholder="mo ta" name="menuDescription" th:field="*{menuDescription}"  id="menuDescription"/>
 											</div>
 											<div class="form-group">
-												<label>hashtag</label> <input class="form-control"
-													placeholder="Tên menu" name="hashtag" th:field="*{hashtag}"   id="hashtag"/>
+												<label>hashtag</label> <select id="hashtag" th:field="*{hashtag}">
+													<option th:each="h:${listTag}" th:value="${h.tagCode}"
+														th:text="${h.tagCode}"></option>
+												</select>
 											</div>
 											<div class="form-group">
 												 <input type="hidden" class="form-control"

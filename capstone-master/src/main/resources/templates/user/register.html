@@ -45,6 +45,7 @@
 			});
 		}
 	});
+	
 	function checkPass() {
 		var pass1 = document.getElementById('password');
 		var pass2 = document.getElementById('repassword');
@@ -55,13 +56,19 @@
 			pass2.style.backgroundColor = goodColor;
 			message.style.color = goodColor;
 			message.innerHTML = "Passwords Match!";
-		} else {
+		} else if(pass1.value.length<6||pass1.value.length>30){
+			message.innerHTML = "Password must be at least 6->30 characters long !";
+		}
+		else if((pass2.value === "" || pass2.value !== pass1.value)) {
 			pass2.style.backgroundColor = badColor;
 			message.style.color = badColor;
-			message.innerHTML = "Passwords Do Not Match!";
+			message.innerHTML = "Repasswords Do Not Match!";
 		}
+	 
 	}
+	
 </script>
+  
 </head>
 <body>
 	<div th:replace="/user/header :: head"></div>
@@ -75,7 +82,7 @@
 					<div class="col-lg-6 col-md-6 col-sm-6 col-xl-12">
 						<div class="jumbotron">
 							<!-- start -->
-							<form action="">
+							<form action="" >
 								<div class="form-group">
 									<span>Tài khoản *</span> <input class="form-control"
 										name="username" type="text" required=""  oninvalid="this.setCustomValidity('Hãy nhập tài khoản')" oninput="setCustomValidity('')">
@@ -92,12 +99,13 @@
 								</div>
 								<div class="form-group">
 									<span class="word">Nhập lại mật khẩu *</span> <input
-										type="password" class="form-control" name="repass"
-										id="repassword" onkeyup="checkPass(); return false;">
+										type="password" class="form-control" name="repassword"
+										id="repassword" onkeyup="checkPass(); return false;" >
 								</div>
 								<p type="text" th:text="${messErr}">MESS TEST ERR : </p>
+								<p id="confirmMessage"></p>
 								<div class="text-center">
-									<button type="submit" class="btn btn-primary" value="register">Đăng
+									<button type="submit" class="btn btn-primary" >Đăng
 										ký</button>
 								</div>
 							</form>
