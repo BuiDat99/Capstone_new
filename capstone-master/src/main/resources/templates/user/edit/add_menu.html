@@ -117,15 +117,13 @@
 											</div>
 											<div class="form-group">
 												<label>Hashtag</label>  
-												<div class="col-8">
+												<div>
 												<select id="hashtag" name="hashtag" >
 													<option th:each="h:${listTag}" th:value="${h.tagCode}" th:text="${h.tagCode}"  ></option>	
 												</select>
+												</div>
 											</div>
-											<div class="form-group">
-												 <input type="hidden" class="form-control" placeholder="user"
-													name="userId" id="userId" />
-											</div>
+											
 											<div class="form-group">
 												<label>Món ăn:</label>
 												<div>
@@ -134,7 +132,7 @@
 												</div>
 											</div>
 
-											<button type="submit" class="btn btn-default">Thêm</button>
+											<button type="submit" class="btn btn-default">Tạo Menu</button>
 											<button type="reset" class="btn btn-primary">Làm mới</button>
 										</form>
 
@@ -185,7 +183,7 @@
 	<script th:src="@{/assets/js/jquery.magnific-popup.js}"></script>
 
 	<!-- Nice-select, sticky -->
-	<script th:src="@{/assets/js/jquery.nice-select.min.js}"></script>
+	
 	<script th:src="@{/assets/js/jquery.sticky.js}"></script>
 
 	<!-- contact js -->

@@ -59,7 +59,7 @@ public class UserPasswordController {
 						+ " , yêu cầu bảo mật và không cung cấp mật khẩu cho bất kì ai!!!"
 
 						+ "</body>" + "</html>");
-		return "redirect:/login";
+		return "user/changepasswordsuccess";
 	}
 
 	@RequestMapping(value = "/resetPass", method = RequestMethod.GET)

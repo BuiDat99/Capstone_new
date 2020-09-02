@@ -213,6 +213,7 @@ public class UserController {
 			newCate.setCount(count);
 		}
 		model.addAttribute("products", products);
+		request.setAttribute("products", products);
 		request.setAttribute("countCom", countCom);
 		request.setAttribute("comment", comment);
 		request.setAttribute("catName", catName);
