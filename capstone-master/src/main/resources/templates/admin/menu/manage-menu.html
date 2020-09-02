@@ -111,7 +111,7 @@ a.underline {
 												<td th:text="${menu.hashtag}"></td>
 												<td>
 													<div th:each="mp: ${menu.menuProductDTOs}">
-														<p th:text="${mp.product.productName}"></p>
+														<i style="font-style: normal;" th:text="' -'+${mp.product.productName}"></i>
 													</div>
 												</td>
 												<td th:text="${menu.userName}"></td>

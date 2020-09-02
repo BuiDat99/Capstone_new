@@ -110,7 +110,7 @@
 											</div>
 											<div class="form-group">
 												<label for="image">Chọn hình ảnh</label> <input type="file"
-													name="image" id="image" accept="image/*">
+													name="image" id="imageFile" accept="image/*">
 											</div>
 											<div class="form-group">
 												<label>Loại nguyên liệu</label> <br> <select
@@ -342,7 +342,7 @@
 	    e.preventDefault();
 	    var productName = $("#productName").val();
 	    var productDescription = CKEDITOR.instances.productDescription.getData();
-	    var image = $('#image')[0].files[0];
+	    var image = $('#imageFile')[0].files[0];
 	    var id =$("#id").val();
 	   
 	    var form_data = new FormData();

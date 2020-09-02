@@ -45,6 +45,7 @@ public class CommentServiceImpl implements CommentService{
 		m.setNews(n);
 		
 		commentDAO.addComment(m);
+		comment.setId(m.getId());
 		
 	}
 

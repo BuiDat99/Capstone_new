@@ -66,8 +66,30 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-8 mb-5 mb-lg-0">
+					<div id="wrapper">
+							<!-- /. NAV SIDE  -->
+							<div id="page-wrapper">
+								<div id="page-inner">
+									<div class="row">
+										<div class="col-md-12">
+											<h2>Tất cả món ăn của bạn</h2>
+										</div>
+									</div>
+									<!-- /. ROW  -->
+									<hr />
+
+									<div class="row">
+										<div class="col-md-12">
+											<!-- Advanced Tables -->
+											<div class="panel panel-default">
+												<div class="panel-heading"></div>
+												<div class="panel-body">
+													<!-- <div class="table-responsive"> -->
 						<table class="table table-striped table-bordered table-hover"
 										id="dataTables-example">
+										<div class="row">
+										
+									</div>
 										<thead>
 											<div >
 												<form th:action="@{/user/estimate}">
@@ -75,6 +97,7 @@
 
 												</form>
 											</div>
+											<br/>
 											<tr>												
 												<th>Tên Sản phẩm</th>												
 												<th>Hình ảnh</th>
@@ -104,6 +127,14 @@
 										</tbody>
 
 									</table>
+					</div>
+					</div>
+					</div>
+					</div>
+					</div>
+					
+					</div>
+					</div>
 					</div>
 					<!-- right side -->
 					<div th:replace="/user/rightProduct.html :: rightProduct"></div>

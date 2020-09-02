@@ -47,7 +47,7 @@
 				<div class="row">
 					<div class="col-lg-8 posts-list">
 						<div class="single-post">
-							<p>nnnnnnnnnnn</p>
+							
 							<!--  <div class="feature-img">
 								<img class="img-fluid"
 									th:src="@{*{image}}" alt="post">
@@ -55,12 +55,17 @@
 
 							<div class="blog_details">
 								<h2 style="color: #2d2d2d;" th:text="${menu.menuName}"></h2>
-								<p th:utext="${menu.menuDescription}"></p>
+								<br/>
+								
+								
+								<span>Thực đơn bao gồm:</span>
 								<div th:each="mp: ${menu.menuProductDTOs}">
-									<a th:href="@{'/detailProduct?Pid='+${mp.product.id}}"><p th:text="${mp.product.productName}"></p></a>
-									<img class="img-fluid"
-									th:src="@{${mp.product.image}}" alt="post">
+									<a th:href="@{'/detailProduct?Pid='+${mp.product.id}}"><i style="font-style: normal;" th:text="' -'+${mp.product.productName}"></i></a>
+									<!-- <img class="img-fluid"
+									th:src="@{${mp.product.image}}" alt="post"> -->
 								</div>
+								<br/>
+								<p th:utext="${menu.menuDescription}"></p>
 							</div>
 						</div>
 						<!-- end comment-form -->

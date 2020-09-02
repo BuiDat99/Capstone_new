@@ -53,13 +53,13 @@
 							</div>
 
 							<div class="blog_details">
-								<h2 style="color: #2d2d2d;" th:text="'Tên món ăn: '+*{productName}"></h2>																																	
-								<p th:utext="'mô tả :'+*{productDescription}"></p>
-								<p> các nguyên liệu :</p>
+								<h2 style="color: #2d2d2d;" th:text="'Tên món ăn: '+*{productName}"></h2>																																									
+								<p>Các nguyên liệu :</p>
 								<div th:each="r:${products.productResourceDTOs}">
 									<p th:text="${r.resource.resourceName + '('+r.resource.kcal1g+' kcal1g)'+' : '+r.gram +'gram'}"></p>
 									
 								</div>
+								<p th:utext="*{productDescription}"></p>
 
 							</div>
 						</div>						

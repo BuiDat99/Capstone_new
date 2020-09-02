@@ -11,7 +11,9 @@ import org.springframework.stereotype.Service;
 
 import com.capstone.dao.AppUserDAO;
 import com.capstone.dao.UserRoleDAO;
+import com.capstone.entity.AppRole;
 import com.capstone.entity.AppUser;
+import com.capstone.entity.UserRole;
 import com.capstone.google.GoogleUtils;
 import com.capstone.model.AppUserDTO;
 import com.capstone.repository.AppUserRepository;
@@ -63,15 +65,15 @@ public class AppUserServiceImpl implements AppUserService {
 		userDao.insert(user);
 		userDTO.setUserId(user.getUserId());
 
-//		AppRole r = new AppRole();
-//		r.setRoleId(2);		
-//		
-//		UserRole ur = new UserRole();
-//		ur.setAppUser(user);
-//		ur.setAppRole(r);
-//		
-//		
-//		userRoleDao.addUserRole(ur);
+		AppRole r = new AppRole();
+		r.setRoleId(2);		
+		
+		UserRole ur = new UserRole();
+		ur.setAppUser(user);
+		ur.setAppRole(r);
+		
+		
+		userRoleDao.addUserRole(ur);
 	}
 
 	@Override

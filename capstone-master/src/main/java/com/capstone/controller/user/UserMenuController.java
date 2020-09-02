@@ -171,7 +171,7 @@ public class UserMenuController {
 	public MenuDTO updateMenuPost(HttpServletRequest request, @RequestBody MenuDTO menuDTO) {
 		MenuDTO menuDTO2 = menuService.getMenubyId(menuDTO.getId());
 
-		menuDTO.setEnable("1");
+		menuDTO.setEnable("0");
 		menuService.updateMenu(menuDTO);
 
 		for (String string : menuDTO.getListproductId()) {

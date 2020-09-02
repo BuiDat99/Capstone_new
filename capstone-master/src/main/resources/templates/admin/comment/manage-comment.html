@@ -74,9 +74,7 @@
 												<th>Người bình luận</th>
 												<th>Nội dung bình luận</th>
 												<th>Bài bình luận</th>
-												<th>Ngày bình luận</th>
-												<th>Biểu cảm</th>
-												<th>Đánh giá</th>
+												<th>Ngày bình luận</th>												
 												<th>Tuỳ chọn</th>
 											</tr>
 										</thead>
@@ -87,8 +85,6 @@
 												<td th:text="${com.commentContent}"></td>
 												<td th:text="${com.news.title}"></td>
 												<td th:text="${com.commentDate}"></td>
-												<td th:text="${com.vote}"></td>
-												<td th:text="${com.react}"></td>
 												<td><!-- <a
 													th:href="@{'/admin/comment/update?id='+${com.id}}">Sửa</a>&nbsp;&nbsp;|&nbsp;&nbsp;
 													<a data-target="#confirm-delete" data-toggle="modal" th:data-href="@{'/admin/comment/delete?id='+${com.id}}" th:href="@{#}">Xoá</a> -->
