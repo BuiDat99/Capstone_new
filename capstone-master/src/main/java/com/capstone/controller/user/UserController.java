@@ -199,10 +199,10 @@ public class UserController {
 //		NewCategoryDTO category = new NewCategoryDTO();
 		String has = request.getParameter("hashtag") == null ? "" : request.getParameter("hashtag");
 		ProductDTO products = productService.getProductbyId(id);
-		NewCategoryDTO newCat = newCatService.getCategorybyId(id);
+		//NewCategoryDTO newCat = newCatService.getCategorybyId(id);
 		int countCom = commentService.countCommentOfPost(id);
 		List<CommentDTO> comment = commentService.getComentbyPostId("1", id, 0, 100);
-		String catName = newCat.getCategoryName();
+		//String catName = newCat.getCategoryName();
 		List<NewCategoryDTO> listNewsCat = newCatService.getAllCategories("1");
 		List<NewsDTO> listNews4Date = newsService.getTop4NewsByDate("1");
 		List<HashTagDTO> listTag = hashtagService.getAllTags("1");
@@ -216,7 +216,7 @@ public class UserController {
 		request.setAttribute("products", products);
 		request.setAttribute("countCom", countCom);
 		request.setAttribute("comment", comment);
-		request.setAttribute("catName", catName);
+		//request.setAttribute("catName", catName);
 		request.setAttribute("listNewsCat", listNewsCat);
 		request.setAttribute("listTag", listTag);
 		request.setAttribute("listNews4Date", listNews4Date);
