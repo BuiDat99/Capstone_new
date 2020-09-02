@@ -140,14 +140,16 @@ public class ProductServiceimpl implements ProductService {
 		productDTO.setAppUserDTO(appUserDTO);
 		List<ProductResource> resources=product.getProductResources();
 		List<ProductResourceDTO> resourceDTOs= new ArrayList<ProductResourceDTO>();
-		
+		List <String> strings= new ArrayList<String>();
 		for(ProductResource resource:resources) {
 			ProductResourceDTO resourceDTO = new ProductResourceDTO();
 			resourceDTO.setGram(resource.getKcal1g());
 			ResourceDTO resourceDTO2= resourceDao.getResourcebyId(resource.getResource().getId());
 			resourceDTO.setResource(resourceDTO2);
+			strings.add(resourceDTO2.getResourceName());
 			resourceDTOs.add(resourceDTO);
 		}
+		productDTO.setResources(strings);
 		productDTO.setEnable(product.getEnable());
 		productDTO.setProductResourceDTOs(resourceDTOs);
 		productDTO.setProductDescription(product.getProductDescription());

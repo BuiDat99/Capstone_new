@@ -65,8 +65,8 @@
 			<aside class="single_sidebar_widget tag_cloud_widget">
 				<h4 class="widget_title" style="color: #2d2d2d;">Thẻ tag</h4>
 				<ul class="list">
-					<li th:each="tag : ${listTag}"><a th:text=${tag.tagCode}
-						href="#"></a></li>
+					<li th:each="tag : ${listTag}"><a th:text="${'#'+tag.tagCode}"
+					th:href="@{'/news_and_menu?hashtag='+${tag.tagCode}}"></a></li>
 				</ul>
 			</aside>
 
