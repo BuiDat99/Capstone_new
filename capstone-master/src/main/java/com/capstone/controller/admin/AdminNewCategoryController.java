@@ -1,6 +1,5 @@
 package com.capstone.controller.admin;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,13 +20,13 @@ import com.capstone.service.NewCategoryService;
 public class AdminNewCategoryController {
 	@Autowired
 	private NewCategoryService categoryService;
-	
+
 	@GetMapping(value = "/admin/newCat/search")
 	public String searchCategory(HttpServletRequest request
 //			,
 //			@RequestParam(value = "keyword", required = false) String keyword,
 //			@RequestParam(value = "page", required = false) Integer page
-			) {
+	) {
 //		final int PAGE_SIZE = 7;
 //		page = page == null ? 1 : page;
 //		keyword = keyword == null ? "" : keyword;
@@ -46,21 +44,21 @@ public class AdminNewCategoryController {
 //		request.setAttribute("listCount", listCount);
 		return "admin/newsCategory/manage-news-category";
 	}
-	
+
 	@GetMapping(value = "/admin/newCat/insert")
-    public String CategoryInsert() {       
-        return "admin/newsCategory/add-news-category";
-    }
-	
+	public String CategoryInsert() {
+		return "admin/newsCategory/add-news-category";
+	}
+
 	@PostMapping(value = "/admin/newCat/insert")
 	@ResponseBody
-	public NewCategoryDTO AdminAddCategoryPost(@RequestBody NewCategoryDTO category) {		
+	public NewCategoryDTO AdminAddCategoryPost(@RequestBody NewCategoryDTO category) {
 		categoryService.addCategory(category);
 		// return "redirect:/admin/newCat/search";
-		//return "admin/success";
+		// return "admin/success";
 		return category;
 	}
-	
+
 	@GetMapping(value = "/admin/newCat/update")
 	public String AdminUpdateCategoryGet(Model model, @RequestParam(name = "id") int id) {
 		NewCategoryDTO category = categoryService.getCategorybyId(id);
@@ -75,21 +73,22 @@ public class AdminNewCategoryController {
 		categoryService.updateCategory(category);
 		return category;
 	}
+
 	@GetMapping(value = "/admin/newCat/khoa")
 	public String AdminUpdatekhoaCategoryPost(@RequestParam(name = "id") int id) {
-		NewCategoryDTO categoryDTO=categoryService.getCategorybyId(id);
+		NewCategoryDTO categoryDTO = categoryService.getCategorybyId(id);
 		categoryDTO.setEnable("0");
 		categoryService.updateCategory(categoryDTO);
 		return "redirect:/admin/newCat/search";
 	}
+
 	@GetMapping(value = "/admin/newCat/mokhoa")
 	public String AdminUpdatemokhoaCategoryPost(@RequestParam(name = "id") int id) {
-		NewCategoryDTO categoryDTO=categoryService.getCategorybyId(id);
+		NewCategoryDTO categoryDTO = categoryService.getCategorybyId(id);
 		categoryDTO.setEnable("1");
 		categoryService.updateCategory(categoryDTO);
 		return "redirect:/admin/newCat/search";
 	}
-			
 
 	@GetMapping(value = "/admin/newCat/delete")
 	public String deleteCategory(int id) {

@@ -1,6 +1,5 @@
 package com.capstone.controller.admin;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,7 +27,7 @@ public class AdminHashTagController {
 //			,
 //			@RequestParam(value = "keyword", required = false) String keyword,
 //			@RequestParam(value = "page", required = false) Integer page
-			) {
+	) {
 //		final int PAGE_SIZE = 50;
 //		page = page == null ? 1 : page;
 //		keyword = keyword == null ? "" : keyword;
@@ -47,20 +45,20 @@ public class AdminHashTagController {
 //		request.setAttribute("listCount", listCount);
 		return "admin/hashtag/manage-tag";
 	}
-	
+
 	@GetMapping(value = "/admin/tag/insert")
-    public String TagInsert() {       
-        return "admin/hashtag/add-tag";
-    }
-	
+	public String TagInsert() {
+		return "admin/hashtag/add-tag";
+	}
+
 	@PostMapping(value = "/admin/tag/insert")
 	@ResponseBody
-	public HashTagDTO AdminAddTagPost(@RequestBody HashTagDTO tag) {		
+	public HashTagDTO AdminAddTagPost(@RequestBody HashTagDTO tag) {
 		tagService.addTag(tag);
 		return tag;
 
 	}
-	
+
 	@GetMapping(value = "/admin/tag/update")
 	public String AdminUpdateTagGet(Model model, @RequestParam(name = "id") int id) {
 		HashTagDTO tag = tagService.getTagbyId(id);
@@ -75,28 +73,28 @@ public class AdminHashTagController {
 		tagService.updateTag(tag);
 		return tag;
 	}
-			
 
 	@GetMapping(value = "/admin/tag/delete")
 	public String deleteTag(int id) {
-		tagService.deleteTag(id);;
+		tagService.deleteTag(id);
+		;
 		return "redirect:/admin/tag/search";
 	}
-	
+
 	@GetMapping(value = "/admin/tag/mokhoa")
-	public String mokhoaTag(@RequestParam(name="id") int id) {
+	public String mokhoaTag(@RequestParam(name = "id") int id) {
 		HashTagDTO tag = tagService.getTagbyId(id);
 		tag.setEnable("1");
 		tagService.updateTag(tag);
 		return "redirect:/admin/tag/search";
 	}
+
 	@GetMapping(value = "/admin/tag/khoa")
-	public String khoaTag(@RequestParam(name="id") int id) {
+	public String khoaTag(@RequestParam(name = "id") int id) {
 		HashTagDTO tag = tagService.getTagbyId(id);
 		tag.setEnable("0");
 		tagService.updateTag(tag);
 		return "redirect:/admin/tag/search";
 	}
-	
-	
+
 }

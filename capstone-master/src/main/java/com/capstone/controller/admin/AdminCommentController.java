@@ -17,22 +17,25 @@ public class AdminCommentController {
 
 	@Autowired
 	private CommentService commentService;
+
 	@GetMapping(value = "/admin/comment/search")
 	public String searchComment(HttpServletRequest request) {
 		List<CommentDTO> comList = commentService.getAllComment();
 		request.setAttribute("comList", comList);
 		return "admin/comment/manage-comment";
 	}
+
 	@GetMapping(value = "/admin/comment/mokhoa")
-	public String AdminmokhoaUserGet(@RequestParam (name="id") int id) {
-		CommentDTO appUserDTO= commentService.getCommentbyId(id);
+	public String AdminmokhoaUserGet(@RequestParam(name = "id") int id) {
+		CommentDTO appUserDTO = commentService.getCommentbyId(id);
 		appUserDTO.setEnable("1");
 		commentService.updateComment(appUserDTO);
 		return "redirect:/admin/comment/search";
 	}
+
 	@GetMapping(value = "/admin/comment/khoa")
-	public String AdminkhoaUserGet(@RequestParam (name="id") int id) {
-		CommentDTO appUserDTO= commentService.getCommentbyId(id);
+	public String AdminkhoaUserGet(@RequestParam(name = "id") int id) {
+		CommentDTO appUserDTO = commentService.getCommentbyId(id);
 		appUserDTO.setEnable("0");
 		commentService.updateComment(appUserDTO);
 		return "redirect:/admin/comment/search";

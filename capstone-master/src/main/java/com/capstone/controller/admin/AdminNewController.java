@@ -63,7 +63,7 @@ public class AdminNewController {
 		model.addAttribute("news", new NewsDTO());
 		List<NewCategoryDTO> list = categoryService.search("1", "", 0, 100);
 		request.setAttribute("categoryList", list);
-		List<HashTagDTO> hashTagDTOs= hashTagService.getAllTags("1");
+		List<HashTagDTO> hashTagDTOs = hashTagService.getAllTags("1");
 		request.setAttribute("hashTagDTOs", hashTagDTOs);
 		return "admin/news/add-news";
 	}
@@ -72,7 +72,7 @@ public class AdminNewController {
 	@ResponseBody
 	public NewsDTO AdminAddNewsPost(@ModelAttribute NewsDTO news, @RequestParam(name = "imageFile") MultipartFile file,
 			@RequestParam(name = "categoryId") int id) {
-		NewCategoryDTO categoryDTO= new NewCategoryDTO();
+		NewCategoryDTO categoryDTO = new NewCategoryDTO();
 		categoryDTO.setId(id);
 		news.setCategory(categoryDTO);
 		news.setImageTitle(imgurUtil.uploadImage(file));
@@ -85,7 +85,7 @@ public class AdminNewController {
 	public String AdminUpdateNewGet(HttpServletRequest request, Model model, @RequestParam(name = "id") int id) {
 		NewsDTO news = newsService.getNewsbyId(id);
 		List<NewCategoryDTO> list = categoryService.search("1", "", 0, 100);
-		List<HashTagDTO> hashTagDTOs= hashTagService.getAllTags("1");
+		List<HashTagDTO> hashTagDTOs = hashTagService.getAllTags("1");
 		request.setAttribute("hashTagDTOs", hashTagDTOs);
 		model.addAttribute("news", news);
 		request.setAttribute("categoryList", list);
@@ -94,10 +94,11 @@ public class AdminNewController {
 
 	@PostMapping(value = "/admin/news/update")
 	@ResponseBody
-	public NewsDTO AdminUpdateNewsPost(@ModelAttribute NewsDTO news, @RequestParam(name = "imageFile", required = false) MultipartFile file,
+	public NewsDTO AdminUpdateNewsPost(@ModelAttribute NewsDTO news,
+			@RequestParam(name = "imageFile", required = false) MultipartFile file,
 			@RequestParam(name = "categoryId") int id) {
 		NewsDTO newsDTO = newsService.getNewsbyId(news.getId());
-		news.setCategory(new NewCategoryDTO(id,""));
+		news.setCategory(new NewCategoryDTO(id, ""));
 		news.setImageTitle(newsDTO.getImageTitle());
 		String image = imgurUtil.uploadImage(file);
 		if (image != null) {

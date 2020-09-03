@@ -23,7 +23,7 @@
 </head>
 
 <body>
-	<div th:replace="/user/header.html :: head"></div>
+	<div th:replace="user/header.html :: head"></div>
 
 	<!--? Preloader Start -->
 	<div id="preloader-active">
@@ -71,7 +71,7 @@
 						<!-- end comment-form -->
 					</div>
 					<!-- right side -->
-					<div th:replace="/user/rightMenu.html :: rightMenu"></div>
+					<div th:replace="user/rightMenu.html :: rightMenu"></div>
 					<!-- end right side -->
 				</div>
 			</div>
@@ -79,7 +79,7 @@
 		</section>
 		<!--================ Blog Area end =================-->
 	</main>
-	<div th:replace="/user/footer :: foot"></div>
+	<div th:replace="user/footer :: foot"></div>
 
 	<!-- JS here -->
 	<script src="./assets/js/vendor/modernizr-3.5.0.min.js"></script>

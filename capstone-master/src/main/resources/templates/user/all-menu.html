@@ -24,7 +24,7 @@
 <link rel="stylesheet" th:href="@{/assets/css/login.css}" />
 </head>
 <body>
-	<div th:replace="/user/header.html :: head"></div>
+	<div th:replace="user/header.html :: head"></div>
 	<div >
 		<div th:each="s : ${menuDTOs}" style="border:1px solid red;">
 			<p th:text="${s.id}"></p>
@@ -34,7 +34,7 @@
 		</div>
 	</div>
 
-	<div th:replace="/user/footer :: foot"></div>
+	<div th:replace="user/footer :: foot"></div>
 
 	<script th:src="@{/assets/js/vendor/modernizr-3.5.0.min.js}"></script>
 	<!-- Jquery, Popper, Bootstrap -->

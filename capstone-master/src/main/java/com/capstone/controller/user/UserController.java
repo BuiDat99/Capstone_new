@@ -32,7 +32,6 @@ import com.capstone.service.HashTagService;
 import com.capstone.service.MenuService;
 import com.capstone.service.NewCategoryService;
 import com.capstone.service.NewsService;
-import com.capstone.service.ProductResourceService;
 import com.capstone.service.ProductService;
 import com.capstone.service.UserHistoryService;
 
@@ -54,9 +53,6 @@ public class UserController {
 
 	@Autowired
 	private ProductService productService;
-
-	@Autowired
-	private ProductResourceService productResourceService;
 
 	@Autowired
 	private AppUserDAO appUserDAO;
@@ -225,7 +221,7 @@ public class UserController {
 		request.setAttribute("listNewsCat", listNewsCat);
 		request.setAttribute("listTag", listTag);
 		request.setAttribute("listNews4Date", listNews4Date);
-		return "/user/detailProducts";
+		return "user/detailProducts";
 
 	}
 
@@ -351,7 +347,7 @@ public class UserController {
 		request.setAttribute("listNewsCat", listNewsCat);
 		request.setAttribute("listTag", listTag);
 		request.setAttribute("listNews4Date", listNews4Date);
-		return "/user/detailMenu";
+		return "user/detailMenu";
 
 	}
 

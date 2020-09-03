@@ -42,7 +42,7 @@
 		</div>
 	</div> -->
 
-<div th:replace="/user/header.html :: head"></div>
+<div th:replace="user/header.html :: head"></div>
 
 	<main>
 	<div class="modal fade" id="notifyModal">
@@ -166,14 +166,14 @@
 		<!-- /. PAGE WRAPPER  -->
 					</div>
 					<!-- right side -->
-					<div th:replace="/user/rightProduct.html :: rightProduct"></div>
+					<div th:replace="user/rightProduct.html :: rightProduct"></div>
 					<!-- end right side -->
 				</div>
 			</div>
 		</section>
 		<!--================Blog Area =================-->
 	</main>
-	<div th:replace="/user/footer :: foot"></div>
+	<div th:replace="user/footer :: foot"></div>
 
 	<script th:src="@{/js/jquery-1.10.2.js}"></script>
 	<!-- BOOTSTRAP SCRIPTS -->

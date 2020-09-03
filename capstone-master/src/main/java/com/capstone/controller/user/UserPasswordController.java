@@ -30,16 +30,17 @@ public class UserPasswordController {
 	private AppUserService appUserService;
 
 	@RequestMapping(value = "/user/changePassword", method = RequestMethod.GET)
-	public String ChangePassGet(HttpServletRequest request,HttpSession httpSession) {
-		AppUserDTO userDTO=(AppUserDTO) httpSession.getAttribute("userInfo");
-		request.setAttribute("userDTO",userDTO);
-		if(userDTO!=null) {
-		if (userDTO.getAvata() != null) {
-			System.out.println(" co avata");
-			String check = "yes";
-			request.setAttribute("check", check);
-		}}
-		return "/user/changedPassword";
+	public String ChangePassGet(HttpServletRequest request, HttpSession httpSession) {
+		AppUserDTO userDTO = (AppUserDTO) httpSession.getAttribute("userInfo");
+		request.setAttribute("userDTO", userDTO);
+		if (userDTO != null) {
+			if (userDTO.getAvata() != null) {
+				System.out.println(" co avata");
+				String check = "yes";
+				request.setAttribute("check", check);
+			}
+		}
+		return "user/changedPassword";
 	}
 
 	@RequestMapping(value = "/user/changePassword", method = RequestMethod.POST)
@@ -64,15 +65,16 @@ public class UserPasswordController {
 
 	@RequestMapping(value = "/resetPass", method = RequestMethod.GET)
 	public String ResetPassGet(HttpServletRequest request, HttpSession httpSession) {
-		AppUserDTO userDTO=(AppUserDTO) httpSession.getAttribute("userInfo");
-		request.setAttribute("userDTO",userDTO);
-		if(userDTO!=null) {
-		if (userDTO.getAvata() != null) {
-			System.out.println(" co avata");
-			String check = "yes";
-			request.setAttribute("check", check);
-		}}
-		return "/user/resetPassword";
+		AppUserDTO userDTO = (AppUserDTO) httpSession.getAttribute("userInfo");
+		request.setAttribute("userDTO", userDTO);
+		if (userDTO != null) {
+			if (userDTO.getAvata() != null) {
+				System.out.println(" co avata");
+				String check = "yes";
+				request.setAttribute("check", check);
+			}
+		}
+		return "user/resetPassword";
 	}
 
 	@RequestMapping(value = "/resetPass", method = RequestMethod.POST)

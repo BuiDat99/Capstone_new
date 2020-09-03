@@ -1,6 +1,5 @@
 package com.capstone.controller.admin;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,13 +21,13 @@ public class AdminResourceCategoryController {
 
 	@Autowired
 	private ResourceCategoryService categoryService;
-	
+
 	@GetMapping(value = "/admin/resourceCat/search")
 	public String searchCategory(HttpServletRequest request
 //			,
 //			@RequestParam(value = "keyword", required = false) String keyword,
 //			@RequestParam(value = "page", required = false) Integer page
-			) {
+	) {
 //		final int PAGE_SIZE = 7;
 //		page = page == null ? 1 : page;
 //		keyword = keyword == null ? "" : keyword;
@@ -47,34 +45,36 @@ public class AdminResourceCategoryController {
 //		request.setAttribute("listCount", listCount);
 		return "admin/resourceCategory/manage-resoures-category";
 	}
-	
+
 	@GetMapping(value = "/admin/resourceCat/insert")
-    public String CategoryInsert() {       
-        return "admin/resourceCategory/add-resources-category";
-    }
+	public String CategoryInsert() {
+		return "admin/resourceCategory/add-resources-category";
+	}
+
 	@GetMapping(value = "/admin/resourceCat/khoa")
-    public String Categorykhoa(@RequestParam(name="id") int id) {   
+	public String Categorykhoa(@RequestParam(name = "id") int id) {
 		ResourceCategoryDTO category = categoryService.getCategorybyId(id);
 		category.setEnable("0");
 		categoryService.updateCategory(category);
 		return "redirect:/admin/resourceCat/search";
-    }
+	}
+
 	@GetMapping(value = "/admin/resourceCat/mokhoa")
-    public String Categorymokhoa(@RequestParam(name="id") int id) {   
+	public String Categorymokhoa(@RequestParam(name = "id") int id) {
 		ResourceCategoryDTO category = categoryService.getCategorybyId(id);
 		category.setEnable("1");
 		categoryService.updateCategory(category);
 		return "redirect:/admin/resourceCat/search";
-    }
-	
+	}
+
 	@PostMapping(value = "/admin/resourceCat/insert")
 	@ResponseBody
-	public ResourceCategoryDTO AdminAddCategoryPost(@RequestBody ResourceCategoryDTO ResourceCategoryDTO) {		
+	public ResourceCategoryDTO AdminAddCategoryPost(@RequestBody ResourceCategoryDTO ResourceCategoryDTO) {
 		categoryService.addCategory(ResourceCategoryDTO);
 		return ResourceCategoryDTO;
 
 	}
-	
+
 	@GetMapping(value = "/admin/resourceCat/update")
 	public String AdminUpdateCategoryGet(Model model, @RequestParam(name = "id") int id) {
 		ResourceCategoryDTO category = categoryService.getCategorybyId(id);
@@ -89,7 +89,6 @@ public class AdminResourceCategoryController {
 		categoryService.updateCategory(category);
 		return category;
 	}
-			
 
 	@GetMapping(value = "/admin/resourceCat/delete")
 	public String deleteCategory(int id) {

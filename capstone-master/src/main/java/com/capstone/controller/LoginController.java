@@ -8,30 +8,24 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.http.HttpRequest;
 import org.apache.http.client.ClientProtocolException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.capstone.dao.AppUserDAO;
@@ -46,7 +40,6 @@ import com.capstone.model.UserHistoryDTO;
 import com.capstone.repository.AppUserRepository;
 import com.capstone.service.AppUserService;
 import com.capstone.service.UserHistoryService;
-import com.capstone.utils.EncrytedPasswordUtils;
 import com.capstone.utils.ImgurUtil;
 import com.capstone.utils.WebUtils;
 
@@ -62,13 +55,14 @@ public class LoginController {
 	private AppUserService userService;
 
 	@Autowired
-	private AppUserRepository userRepository;
-	@Autowired
 	private UserRoleDAO userRoleDao;
+
 	@Autowired
 	private UserDetailsService userDetailsService;
+
 	@Autowired
 	private GoogleUtils googleUtils;
+
 	@Autowired
 	UserHistoryService historyService;
 
@@ -145,17 +139,22 @@ public class LoginController {
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String loginPage(Model model, @RequestParam(name="error", required = false) String err,HttpServletRequest request) {
-		if(err!=null) {request.setAttribute("err", "1");}
+	public String loginPage(Model model, @RequestParam(name = "error", required = false) String err,
+			HttpServletRequest request) {
+		if (err != null) {
+			request.setAttribute("err", "1");
+		}
 		return "user/loginP";
 	}
 
 	@RequestMapping(value = "/login-success", method = RequestMethod.GET)
-	public String loginPageh(Model model, @RequestParam(name="error", required = false) String err,HttpServletRequest request) {
-		if(err!=null) {request.setAttribute("err", "1");}
+	public String loginPageh(Model model, @RequestParam(name = "error", required = false) String err,
+			HttpServletRequest request) {
+		if (err != null) {
+			request.setAttribute("err", "1");
+		}
 		return "user/loginsuccess";
 	}
-	
 
 //    @RequestMapping(value = "/logoutSuccessful", method = RequestMethod.GET)
 //    public String logoutSuccessfulPage(Model model) {
@@ -199,7 +198,6 @@ public class LoginController {
 			request.setAttribute("check", check);
 		}
 		request.setAttribute("userDTO", userDTO);
-		
 
 		return "user/userInfoPage";
 
@@ -262,12 +260,12 @@ public class LoginController {
 
 	@GetMapping(value = "/register")
 	public String registerPage(Model model) {
-		return "/user/register";
+		return "user/register";
 	}
 
 	@GetMapping(value = "/")
 	public String HomePage() {
-		return "/user/home";
+		return "user/home";
 	}
 
 	@PostMapping(value = "/register") // Fix check exist User by Thang Pan
@@ -296,6 +294,6 @@ public class LoginController {
 //	}
 	@GetMapping(value = "/about")
 	public String ABout(Model model) {
-		return "/user/about";
+		return "user/about";
 	}
 }

@@ -27,11 +27,10 @@ import com.capstone.service.HashTagService;
 import com.capstone.service.MenuProductService;
 import com.capstone.service.MenuService;
 import com.capstone.service.ProductService;
-import com.capstone.service.impl.ProductServiceimpl;
 
 @Controller
 public class AdminMenuController {
-		
+
 	@Autowired
 	MenuProductDAO dao;
 
@@ -46,7 +45,7 @@ public class AdminMenuController {
 
 	@Autowired
 	private ProductService productService;
-	
+
 	@Autowired
 	private HashTagService hashTagService;
 
@@ -57,7 +56,7 @@ public class AdminMenuController {
 	@GetMapping(value = "/admin/menu/search")
 	public String searchMenu(HttpServletRequest request) {
 
-		List<MenuDTO> listMenu = menuService.getAllMenu("","");
+		List<MenuDTO> listMenu = menuService.getAllMenu("", "");
 		request.setAttribute("listMenu", listMenu);
 		for (MenuDTO menuDTO : listMenu) {
 			List<MenuProductDTO> dtos = (menuDTO.getMenuProductDTOs());
@@ -76,7 +75,7 @@ public class AdminMenuController {
 	public String addMenuGet(HttpServletRequest request) {
 		List<ProductDTO> productDTOs = productService.getAllProducts("1");
 		request.setAttribute("listProduct", productDTOs);
-		List<HashTagDTO> hashTagDTOs= hashTagService.getAllTags("1");
+		List<HashTagDTO> hashTagDTOs = hashTagService.getAllTags("1");
 		request.setAttribute("hashTagDTOs", hashTagDTOs);
 		return "admin/menu/add-menu";
 	}
@@ -104,7 +103,7 @@ public class AdminMenuController {
 	public String updateMenuGet(HttpServletRequest request, @RequestParam(name = "id") int id, Model model) {
 		MenuDTO menuDTO = menuService.getMenubyId(id);
 		model.addAttribute("menuDTO", menuDTO);
-		List<HashTagDTO> hashTagDTOs= hashTagService.getAllTags("1");
+		List<HashTagDTO> hashTagDTOs = hashTagService.getAllTags("1");
 		request.setAttribute("hashTagDTOs", hashTagDTOs);
 		return "admin/menu/edit-menu";
 	}

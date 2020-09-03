@@ -43,7 +43,7 @@ import com.capstone.utils.ImgurUtil;
 
 @Controller
 public class AdminProductController {
-	
+
 	@Autowired
 	private AppUserDAO appUserService;
 
@@ -67,10 +67,9 @@ public class AdminProductController {
 
 	@Autowired
 	private ResourceRepository resourceRepository;
-	
+
 	@Autowired
 	private ProductResourceService productResourceService;
-	
 
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
@@ -87,7 +86,7 @@ public class AdminProductController {
 			System.out.println(p.getId());
 			List<String> resources = new ArrayList<>();
 			List<ProductResource> rlist = productResourceRepository.findAll();
-			for (ProductResource pr: rlist) {
+			for (ProductResource pr : rlist) {
 				if (pr.getProduct().getId() == p.getId()) {
 					resources.add(pr.getResource().getResourceName());
 				}
@@ -109,7 +108,7 @@ public class AdminProductController {
 	public @ResponseBody int addProductPost(HttpServletRequest request,
 			@RequestParam(value = "productName", required = false) String productName,
 			@RequestParam(value = "productDescription", required = false) String productDescription,
-			@RequestParam(value = "image", required = false) MultipartFile file,Principal principal) {
+			@RequestParam(value = "image", required = false) MultipartFile file, Principal principal) {
 		User loginedUser = (User) ((Authentication) principal).getPrincipal();
 		AppUser user = appUserService.findAppUserbyUserName(loginedUser.getUsername());
 		Product p = new Product();
@@ -119,28 +118,30 @@ public class AdminProductController {
 		p.setUser(user);
 		p.setEnable("1");
 		p = productRepository.save(p);
-		
+
 		return p.getId();
 	}
-	
+
 	@GetMapping(value = "/admin/product/edit-product")
-	public String editProduct(HttpServletRequest request, @RequestParam  (name="id") int id,Model model) {
-		ProductDTO productDTO= productService.getProductbyId(id);
+	public String editProduct(HttpServletRequest request, @RequestParam(name = "id") int id, Model model) {
+		ProductDTO productDTO = productService.getProductbyId(id);
 		model.addAttribute("productDTO", productDTO);
 		List<ResourceCategoryDTO> categoryList = categoryService.getAllCategories("1");
 		request.setAttribute("categoryList", categoryList);
 		return "admin/product/edit-product";
 	}
+
 	@GetMapping(value = "/admin/product/mokhoa")
-	public String editmokhoaProduct( @RequestParam  (name="id") int id) {
-		ProductDTO productDTO= productService.getProductbyId(id);
+	public String editmokhoaProduct(@RequestParam(name = "id") int id) {
+		ProductDTO productDTO = productService.getProductbyId(id);
 		productDTO.setEnable("1");
 		productService.updateProduct(productDTO);
 		return "redirect:/admin/product/search";
 	}
+
 	@GetMapping(value = "/admin/product/khoa")
-	public String editkhoaProduct( @RequestParam  (name="id") int id) {
-		ProductDTO productDTO= productService.getProductbyId(id);
+	public String editkhoaProduct(@RequestParam(name = "id") int id) {
+		ProductDTO productDTO = productService.getProductbyId(id);
 		productDTO.setEnable("0");
 		productService.updateProduct(productDTO);
 		return "redirect:/admin/product/search";
@@ -150,25 +151,22 @@ public class AdminProductController {
 	public @ResponseBody void editProductPost(HttpServletRequest request,
 			@RequestParam(value = "productName", required = false) String productName,
 			@RequestParam(value = "productDescription", required = false) String productDescription,
-			@RequestParam(value = "image", required = false) MultipartFile file,
-			@RequestParam(value="id") int id
-			) {
-		
+			@RequestParam(value = "image", required = false) MultipartFile file, @RequestParam(value = "id") int id) {
+
 		ProductDTO p = productService.getProductbyId(id);
 		p.setProductName(productName);
 		p.setProductDescription(productDescription);
-		String image=imgurUtil.uploadImage(file);
-		if(image!=null) {
+		String image = imgurUtil.uploadImage(file);
+		if (image != null) {
 			p.setImage(image);
 		}
-		
+
 		productService.updateProduct(p);
-		List<ProductResourceDTO> productResourceDTOs= productResourceService.getProductResourceByProductId(id);
-		for(ProductResourceDTO productResourceDTO:productResourceDTOs) {
+		List<ProductResourceDTO> productResourceDTOs = productResourceService.getProductResourceByProductId(id);
+		for (ProductResourceDTO productResourceDTO : productResourceDTOs) {
 			productResourceService.deleteProductResource(productResourceDTO.getId());
 		}
-		
-		
+
 	}
 
 	@PostMapping(value = "/admin/product/add-resources-to-product", consumes = MediaType.APPLICATION_JSON_VALUE, produces = "text/plain;charset=UTF-8")
@@ -190,13 +188,14 @@ public class AdminProductController {
 		}
 		return "admin/product/manage-product";
 	}
+
 	@PostMapping(value = "/admin/product/edit-resources-to-product")
 	@ResponseBody
 	public void editResourceToProduct(HttpServletRequest request,
 			@RequestBody ProductResource2Dto ProductResource2Dto) {
 //		List<ProductResourceDTO> productResourceDTOs= productResourceService.getProductResourceByProductId(productResourceDto.getProductId());
-		ProductDTO productDTO= productService.getProductbyId(ProductResource2Dto.getProductId());
-		Product product= new Product();
+		ProductDTO productDTO = productService.getProductbyId(ProductResource2Dto.getProductId());
+		Product product = new Product();
 		product.setId(productDTO.getId());
 		for (Resource2Dto r : ProductResource2Dto.getResources()) {
 			Resource res = resourceRepository.findById(r.getId()).get();
@@ -207,12 +206,12 @@ public class AdminProductController {
 			productResourceRepository.save(prodResource);
 		}
 	}
-	
+
 	@GetMapping(value = "/admin/product/delete")
 	public String deleteProduct(int id) {
 		prService.deleteProductResource(id);
 		productRepository.deleteById(id);
-		
+
 		return "redirect:/admin/product/search";
 	}
 }
