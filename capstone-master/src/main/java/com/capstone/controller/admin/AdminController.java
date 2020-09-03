@@ -10,7 +10,7 @@ public class AdminController {
 		
 	@RequestMapping(value = "/admin/home", method = RequestMethod.GET)
     public String adminHome(Model model) {       
-        return "/admin/blank";
+        return "admin/blank";
     }
     
 //	@RequestMapping(value = "/admin/newCat", method = RequestMethod.GET)
