@@ -91,9 +91,8 @@
 							</div>
 							<div class="row" >
 								<div class="text-center col" th:each="hash:${hashtags}">
-									<a th:href="@{'/news_and_menu?hashtag='+${hash}}" ><p th:text="${hash}"></p></a>
-									
-								</div>								
+									<a th:href="@{'/news_and_menu?hashtag='+${hash}}" ><p class="border-tag" th:text="'#'+${hash}"></p></a>									
+								</div>														
 							</div>
 						</div>
 					</div>

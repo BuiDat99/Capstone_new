@@ -143,7 +143,7 @@ public class UserCalculateController {
 			hashtags.add("tag9");
 		} else if (bmi >= 18.5 && bmi < 25) {
 			tinhtrangBMI = " Bình thường";
-			hashtags.add("tag10");
+			hashtags.add("beo");
 			hashtags.add("tag11");
 			hashtags.add("tag12");
 		} else if (bmi >= 25 && bmi < 30) {

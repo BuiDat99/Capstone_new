@@ -22,20 +22,24 @@
 <link rel="stylesheet" th:href="@{/assets/css/nice-select.css}" />
 <link rel="stylesheet" th:href="@{/assets/css/style.css}" />
 <link rel="stylesheet" th:href="@{/assets/css/login.css}" />
+</style>
 </head>
 <body>
 	<div th:replace="user/header.html :: head"></div>
-	
+	<br/>
+	<div style="margin: 40px 50px 75px 150px;width: 500px;">
 	<h3>Một số bài viết phù hợp với bạn</h3>
 	<div >
-		<div th:each="n : ${listNews}" style="border:1px solid red;">
-			<a th:href="@{'/detailNews?id='+${n.id}}"><p th:text="${n.title}"></p></a>
+		<div th:each="n : ${listNews}"  >
+			<a th:href="@{'/detailNews?id='+${n.id}}"><p  th:text="'- '+${n.title}"></p></a>
 		</div>
 	</div>
 	<h3>Một số thực đơn phù hợp với bạn</h3>
 	  <div >
-	 		<div th:each="m : ${menuDTOs}" style="border:1px solid red;">	
-			<a th:href="@{'/detailMenu?Mid='+${m.id}}"><p  th:text="${m.menuName}"></p></a>
+	 		<div th:each="m : ${menuDTOs}" >	
+			<a th:href="@{'/detailMenu?Mid='+${m.id}}"><p  th:text="'- '+${m.menuName}"></p></a>
+	</div>
+	</div>
 	</div>
 	<div th:replace="user/footer :: foot"></div>
 
