@@ -9,6 +9,4 @@ public class HeathyLifeApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(HeathyLifeApplication.class, args);
 	}
-		
-
 }

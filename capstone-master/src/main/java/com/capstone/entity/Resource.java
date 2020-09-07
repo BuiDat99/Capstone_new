@@ -1,4 +1,4 @@
-package com.capstone.entity;
+	package com.capstone.entity;
 
 import java.io.Serializable;
 
