@@ -11,18 +11,10 @@
 	th:href="@{/assets/img/favicon.ico}" />
 
 <!-- CSS here -->
-<link rel="stylesheet" th:href="@{/assets/css/bootstrap.min.css}" />
-<link rel="stylesheet" th:href="@{/assets/css/owl.carousel.min.css}" />
-<link rel="stylesheet" th:href="@{/assets/css/slicknav.css}" />
-<link rel="stylesheet" th:href="@{/assets/css/animate.min.css}" />
-<link rel="stylesheet" th:href="@{/assets/css/magnific-popup.css}" />
-<link rel="stylesheet" th:href="@{/assets/css/fontawesome-all.min.css}" />
-<link rel="stylesheet" th:href="@{/assets/css/themify-icons.css}" />
-<link rel="stylesheet" th:href="@{/assets/css/slick.css}" />
-<link rel="stylesheet" th:href="@{/assets/css/nice-select.css}" />
-<link rel="stylesheet" th:href="@{/assets/css/style.css}" />
-<link rel="stylesheet" th:href="@{/assets/css/login.css}" />
-<link th:href="@{/css/font-awesome.css}" rel="stylesheet" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous">
 
 </head>
 <body>
@@ -40,17 +32,17 @@
 			</div>
 		</div>
 	</div> -->
-	<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog"
-		aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
+	<div class="modal" id="confirm-delete" tabindex="-1" role="dialog">
+		<div class="modal-dialog" role="document">
 			<div class="modal-content">
-
 				<div class="modal-header">
+					<h5 class="modal-title">Bạn có chắc chắn không?</h5>
 					<button type="button" class="close" data-dismiss="modal"
-						aria-hidden="true">&times;</button>
-					<h4 class="modal-title" id="myModalLabel">Bạn có chắc chắn
-						 không?</h4>
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
 				</div>
+				<div class="modal-body"></div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Không</button>
 					<a class="btn btn-danger btn-ok">Có</a>
@@ -58,7 +50,8 @@
 			</div>
 		</div>
 	</div>
-<div th:replace="user/header.html :: head"></div>
+
+	<div th:replace="user/header.html :: head"></div>
 
 	<main>
 		<!--================Blog Area =================-->
@@ -66,7 +59,7 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-8 mb-5 mb-lg-0">
-					<div id="wrapper">
+						<div id="wrapper">
 							<!-- /. NAV SIDE  -->
 							<div id="page-wrapper">
 								<div id="page-inner">
@@ -85,56 +78,61 @@
 												<div class="panel-heading"></div>
 												<div class="panel-body">
 													<!-- <div class="table-responsive"> -->
-						<table class="table table-striped table-bordered table-hover"
-										id="dataTables-example">
-										<div class="row">
-										
-									</div>
-										<thead>
-											<div >
-												<form th:action="@{/user/estimate}">
-													<button type="submit">Thêm món ăn mới</button>
+													<table
+														class="table table-striped table-bordered table-hover"
+														id="dataTables-example">
+														<div class="row"></div>
+														<thead>
+															<div>
+																<form th:action="@{/user/estimate}">
+																	<button type="submit">Thêm món ăn mới</button>
 
-												</form>
+																</form>
+															</div>
+															<br />
+															<tr>
+																<th>Tên Sản phẩm</th>
+																<th>Hình ảnh</th>
+																<th>Nguyên liệu</th>
+																<th>Tuỳ chỉnh</th>
+															</tr>
+														</thead>
+														<tbody>
+															<tr class="odd gradeX" th:each="pro : ${listProduct}">
+																<!-- <td th:text="${pro.id}"></td> -->
+																<td th:text="${pro.productName}"></td>
+																<td><img style="width: 200px;"
+																	th:src="${pro.image}"></td>
+																<td><i style="font-style: normal;"
+																	th:each="res : ${pro.resources}" th:text="|${res}, |"></i>
+																</td>
+																<td><a
+																	th:href="@{'/user/product/edit-product?id='+${pro.id}}">Sửa</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+																	<a data-target="#confirm-delete" data-toggle="modal"
+																	th:data-href="@{'/user/product/delete?id='+${pro.id}}"
+																	th:href="@{#}">Xoá</a>
+																	<div>
+																		<a data-target="#confirm-delete" data-toggle="modal"
+																			th:if="${pro.enable == '1'}"
+																			th:data-href="@{'/user/product/khoa?id='+${pro.id}}"
+																			th:href="@{#}">Cá nhân</a> <a
+																			data-target="#confirm-delete" data-toggle="modal"
+																			th:if="${pro.enable == '0'}"
+																			th:data-href="@{'/user/product/mokhoa?id='+${pro.id}}"
+																			th:href="@{#}">Công khai</a>
+																	</div></td>
+															</tr>
+														</tbody>
+
+													</table>
+												</div>
 											</div>
-											<br/>
-											<tr>												
-												<th>Tên Sản phẩm</th>												
-												<th>Hình ảnh</th>
-												<th>Nguyên liệu</th>	 											
-												<th>Tuỳ chỉnh</th>
-											</tr>
-										</thead>
-										<tbody >
-											<tr class="odd gradeX" th:each="pro : ${listProduct}"   >
-												<!-- <td th:text="${pro.id}"></td> -->
-												<td th:text="${pro.productName}"></td>
-												<td>
-													<img style="width: 200px;" th:src="${pro.image}">
-												</td>																																				
-											    <td>
-													<i style="font-style: normal;" th:each="res : ${pro.resources}" th:text="|${res}, |"></i>
-											    </td> 												
-												<td><a
-													th:href="@{'/user/product/edit-product?id='+${pro.id}}">Sửa</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-													<a data-target="#confirm-delete" data-toggle="modal" th:data-href="@{'/user/product/delete?id='+${pro.id}}" th:href="@{#}">Xoá</a>
-													<div>
-														<a data-target="#confirm-delete" data-toggle="modal" th:if="${pro.enable == '1'}" th:data-href="@{'/user/product/khoa?id='+${pro.id}}" th:href="@{#}">Cá nhân</a>
-														<a data-target="#confirm-delete" data-toggle="modal" th:if="${pro.enable == '0'}" th:data-href="@{'/user/product/mokhoa?id='+${pro.id}}" th:href="@{#}">Công khai</a>
-													</div>
-												</td>
-											</tr>
-										</tbody>
+										</div>
+									</div>
+								</div>
 
-									</table>
-					</div>
-					</div>
-					</div>
-					</div>
-					</div>
-					
-					</div>
-					</div>
+							</div>
+						</div>
 					</div>
 					<!-- right side -->
 					<div th:replace="user/rightProduct.html :: rightProduct"></div>
@@ -145,50 +143,30 @@
 		<!--================Blog Area =================-->
 	</main>
 	<div th:replace="user/footer :: foot"></div>
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+		integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+		crossorigin="anonymous"></script>
+	<script type="text/javascript">
+		$('#confirm-delete').on(
+				'show.bs.modal',
+				function(e) {
+					$(this).find('.btn-ok').attr('href',
+							$(e.relatedTarget).data('href'));
 
-	<script th:src="@{/assets/js/vendor/modernizr-3.5.0.min.js}"></script>
-	<!-- Jquery, Popper, Bootstrap -->
-	<script th:src="@{/assets/js/vendor/jquery-1.12.4.min.js}"></script>
-	<script th:src="@{/assets/js/popper.min.js}"></script>
-	<script th:src="@{/assets/js/bootstrap.min.js}"></script>
-	<!-- Jquery Mobile Menu -->
-	<script th:src="@{/assets/js/jquery.slicknav.min.js}"></script>
-
-	<!-- Jquery Slick , Owl-Carousel Plugins -->
-	<script th:src="@{/assets/js/owl.carousel.min.js}"></script>
-	<script th:src="@{/assets/js/slick.min.js}"></script>
-
-	<!-- One Page, Animated-HeadLin -->
-	<script th:src="@{/assets/js/wow.min.js}"></script>
-	<script th:src="@{/assets/js/animated.headline.js}"></script>
-	<script th:src="@{/assets/js/jquery.magnific-popup.js}"></script>
-
-	<!-- Nice-select, sticky -->
-	<script th:src="@{/assets/js/jquery.nice-select.min.js}"></script>
-	<script th:src="@{/assets/js/jquery.sticky.js}"></script>
-
-	<!-- contact js -->
-	<script th:src="@{/assets/js/contact.js}"></script>
-	<script th:src="@{/assets/js/jquery.form.js}"></script>
-	<script th:src="@{/assets/js/jquery.validate.min.js}"></script>
-	<script th:src="@{/assets/js/mail-script.js}"></script>
-	<script th:src="@{/assets/js/jquery.ajaxchimp.min.js}"></script>
-
-	<!-- Jquery Plugins, main Jquery -->
-	<script th:src="@{/assets/js/plugins.js}"></script>
-	<script th:src="@{/assets/js/main.js}"></script>
-		<script>
-		$(document).ready(function() {
-			$('#dataTables-example').dataTable();
-		});
+					$('.debug-url').html(
+							'Delete URL: <strong>'
+									+ $(this).find('.btn-ok').attr('href')
+									+ '</strong>');
+				});
 	</script>
-	    <script>
-        $('#confirm-delete').on('show.bs.modal', function(e) {
-            $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
-            
-            $('.debug-url').html('Delete URL: <strong>' + $(this).find('.btn-ok').attr('href') + '</strong>');
-        });
-    </script>
-	
+
 </body>
 </html>
