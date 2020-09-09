@@ -268,6 +268,7 @@ public class UserEstimateController {
 			) {
 		
 		ProductDTO p = productService.getProductbyId(id);
+		p.setEnable("0");
 		p.setProductName(productName);
 		p.setProductDescription(productDescription);
 		String image=imgurUtil.uploadImage(file);
