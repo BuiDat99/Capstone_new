@@ -212,11 +212,13 @@ public class LoginController {
 			@RequestParam(name = "imageFile", required = false) MultipartFile file) {
 
 		appUserDTO.setEnable("1");
+		System.out.println(appUserDTO.getAvata());
 		appUserDTO.setAvata(appUserDTO.getAvata());
 		String avata = imgurUtil.uploadImage(file);
 		if (avata != null) {
 			appUserDTO.setAvata(avata);
 		}
+		System.out.println(appUserDTO.getAvata());
 		userService.update(appUserDTO);
 
 		float heights = height / 100;

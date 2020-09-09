@@ -87,6 +87,7 @@ public class CommentServiceImpl implements CommentService{
 			dto.setEnable(m.getEnable());
 			AppUserDTO u = new AppUserDTO();
 			u.setUsername(m.getAppUser().getUserName());
+			u.setAvata(m.getAppUser().getImage());
 			dto.setUser(u);
 			
 			NewsDTO n = new NewsDTO();
@@ -128,6 +129,7 @@ public class CommentServiceImpl implements CommentService{
 			dto.setEnable(m.getEnable());
 			AppUserDTO u = new AppUserDTO();
 			u.setUsername(m.getAppUser().getUserName());
+			u.setAvata(m.getAppUser().getImage());
 			dto.setUser(u);
 			
 			NewsDTO n = new NewsDTO();
