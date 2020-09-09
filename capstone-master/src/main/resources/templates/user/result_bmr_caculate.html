@@ -28,7 +28,7 @@
 	<div th:replace="user/header :: head"></div>
 <div class="form-signin">
 
-		<form class="form-signin" th:action="@{bmi}" method="POST">
+		<form class="form-signin" th:action="@{bmr}" method="POST">
 
 			<div class="container col-container">
 				<div class="d-flex justify-content-sm-center">
@@ -45,7 +45,10 @@
 								<span class="word">Cân nặng</span> <input required=""  oninvalid="this.setCustomValidity('Hãy nhập cân nặng của bạn')" oninput="setCustomValidity('')" type="number"
 									placeholder="KG" class="form-control" name="weight"/>
 							</div>
-							
+							<div class="form-group ">
+								<span class="word">Tuổi</span> <input required=""  oninvalid="this.setCustomValidity('Hãy nhập tuổi của bạn')" oninput="setCustomValidity('')" type="number"
+									placeholder="từ 2 - 98 tuổi" class="form-control" name="age"/>
+							</div>
 							<div class="form-group">
 								<span class="word form-check-inline">Giới tính</span>
 								<div class="form-check form-check-inline">
@@ -90,12 +93,12 @@
 								<h2 class="account-in text-center">Kết quả của bạn</h2>
 							</div>
 							<div class="text-center">
-								<p class="border-btn" th:text="${bmi}" ></p>
+								<p class="border-btn" th:text="${BMR}" ></p>
 							</div>
 							<div class="text-center">
-								Chỉ số của bạn đang ở mức: <p type="text" th:text="${tinhtrang}"></p>
+								Chỉ số của bạn đang ở mức: <p type="text" th:text="${tdee}"></p>
 							</div>
-							<div class="text-center">
+							<!-- <div class="text-center">
 								<p type="text" class="">Có thể bạn quan tâm vền những điều
 									sau</p>
 							</div>
@@ -104,7 +107,7 @@
 									<a th:href="@{'/news_and_menu?hashtag='+${hash}}" ><p th:text="${hash}"></p></a>
 									
 								</div>								
-							</div>
+							</div> -->
 						</div>
 					</div>
 				</div>
