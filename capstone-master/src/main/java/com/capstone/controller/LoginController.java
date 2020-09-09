@@ -229,9 +229,9 @@ public class LoginController {
 		AppUser user = userDao.findAppUserbyUserName(loginedUser.getUsername());
 		AppUserDTO UserDTO = userService.get(user.getUserId());
 		UserHistoryDTO userHistoryDTO = new UserHistoryDTO();
-		userHistoryDTO.setHeight(height);
-		userHistoryDTO.setWeight(weight);
-		userHistoryDTO.setBmi(bmi);
+		userHistoryDTO.setHeight(String.valueOf(height));
+		userHistoryDTO.setWeight(String.valueOf(weight));
+		userHistoryDTO.setBmi(String.valueOf(bmi));
 		userHistoryDTO.setAppUser(UserDTO);
 		userHistoryDTO.setDesire(desire);
 		userHistoryDTO.setTrack_Results("a");

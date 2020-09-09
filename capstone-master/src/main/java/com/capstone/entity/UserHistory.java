@@ -24,13 +24,13 @@ public class UserHistory {
     private AppUser appUser;
 	
 	@Column(name = "height", nullable = false)
-	private float height;
+	private String height;
 	
 	@Column(name = "weight", nullable = false)
-	private float weight;
+	private String weight;
 	
 	@Column(name = "bmi", nullable = false)
-	private float bmi;
+	private String bmi;
 	
 	@Column(name = "desire", length = 255, nullable = false)
 	private String desire;
@@ -57,27 +57,29 @@ public class UserHistory {
 		this.appUser = appUser;
 	}
 
-	public float getHeight() {
+	
+
+	public String getHeight() {
 		return height;
 	}
 
-	public void setHeight(float height) {
+	public void setHeight(String height) {
 		this.height = height;
 	}
 
-	public float getWeight() {
+	public String getWeight() {
 		return weight;
 	}
 
-	public void setWeight(float weight) {
+	public void setWeight(String weight) {
 		this.weight = weight;
 	}
 
-	public float getBmi() {
+	public String getBmi() {
 		return bmi;
 	}
 
-	public void setBmi(float bmi) {
+	public void setBmi(String bmi) {
 		this.bmi = bmi;
 	}
 

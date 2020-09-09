@@ -142,9 +142,11 @@ public class AdminUserController {
 	@GetMapping(value = "/admin/user/update-role-admin")
 	public String updateRoleADmin(HttpServletRequest request, Model model, @RequestParam(name = "id") int id) {
 		AppUserDTO appUserDTO = userService.get(id);
+		appUserDTO.setName("admin");
 		userRoleService.deleteUserRole(appUserDTO);
 		UserRoleDTO userRole = new UserRoleDTO();
 		AppRoleDTO appRoleDTO = new AppRoleDTO();
+	
 		appRoleDTO.setId(1);
 		userRole.setUser(appUserDTO);
 		userRole.setRole(appRoleDTO);

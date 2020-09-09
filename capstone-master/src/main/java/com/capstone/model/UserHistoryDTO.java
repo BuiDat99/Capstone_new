@@ -3,9 +3,9 @@ package com.capstone.model;
 public class UserHistoryDTO {
     private int id;
     private AppUserDTO appUser;
-	private float height;
-	private float weight;
-	private float bmi;
+	private String height;
+	private String weight;
+	private String bmi;
 	private String desire;
 	private String track_Results;
 	private String creation_Date;
@@ -16,7 +16,7 @@ public class UserHistoryDTO {
 		super();
 		this.id = id;
 	}
-	public UserHistoryDTO(int id, AppUserDTO appUser, float height, float weight, float bmi, String desire,
+	public UserHistoryDTO(int id, AppUserDTO appUser, String height, String weight, String bmi, String desire,
 			String track_Results, String creation_Date) {
 		super();
 		this.id = id;
@@ -40,24 +40,7 @@ public class UserHistoryDTO {
 	public void setAppUser(AppUserDTO appUser) {
 		this.appUser = appUser;
 	}
-	public float getHeight() {
-		return height;
-	}
-	public void setHeight(float height) {
-		this.height = height;
-	}
-	public float getWeight() {
-		return weight;
-	}
-	public void setWeight(float weight) {
-		this.weight = weight;
-	}
-	public float getBmi() {
-		return bmi;
-	}
-	public void setBmi(float bmi) {
-		this.bmi = bmi;
-	}
+	
 	public String getDesire() {
 		return desire;
 	}
@@ -75,6 +58,24 @@ public class UserHistoryDTO {
 	}
 	public void setCreation_Date(String creation_Date) {
 		this.creation_Date = creation_Date;
+	}
+	public String getHeight() {
+		return height;
+	}
+	public void setHeight(String height) {
+		this.height = height;
+	}
+	public String getWeight() {
+		return weight;
+	}
+	public void setWeight(String weight) {
+		this.weight = weight;
+	}
+	public String getBmi() {
+		return bmi;
+	}
+	public void setBmi(String bmi) {
+		this.bmi = bmi;
 	}
 	
 	

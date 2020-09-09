@@ -35,12 +35,12 @@ class UserHistoryServiceImpl implements UserHistoryService {
 	@Override
 	public void add(UserHistoryDTO historyDTO) {
 		UserHistory userHistory = new UserHistory();
-		userHistory.setHeight(historyDTO.getHeight());
-		userHistory.setWeight(historyDTO.getWeight());
+		userHistory.setHeight(String.valueOf(historyDTO.getHeight()));
+		userHistory.setWeight(String.valueOf(historyDTO.getWeight()));
 		AppUser appUser = new AppUser();
 		appUser.setUserId(historyDTO.getAppUser().getUserId());
 		userHistory.setAppUser(appUser);
-		userHistory.setBmi(historyDTO.getBmi());
+		userHistory.setBmi(String.valueOf(historyDTO.getBmi()));
 		userHistory.setCreation_Date(historyDTO.getCreation_Date());
 		userHistory.setDesire(historyDTO.getDesire());
 		userHistory.setTrack_Results(historyDTO.getTrack_Results());
@@ -52,12 +52,12 @@ class UserHistoryServiceImpl implements UserHistoryService {
 	public void update(UserHistoryDTO userHistoryDTO) {
 		UserHistory userHistory = userHistoryDao.getUserHistory(userHistoryDTO.getId());
 		if (userHistory != null) {
-			userHistory.setHeight(userHistoryDTO.getHeight());
-			userHistory.setWeight(userHistoryDTO.getWeight());
+			userHistory.setHeight(String.valueOf(userHistoryDTO.getHeight()));
+			userHistory.setWeight(String.valueOf(userHistoryDTO.getWeight()));
 			AppUser appUser = new AppUser();
 			appUser.setUserId(userHistoryDTO.getAppUser().getUserId());
 			userHistory.setAppUser(appUser);
-			userHistory.setBmi(userHistoryDTO.getBmi());
+			userHistory.setBmi(String.valueOf(userHistoryDTO.getBmi()));
 			userHistory.setCreation_Date(userHistoryDTO.getCreation_Date());
 			userHistory.setDesire(userHistoryDTO.getDesire());
 			userHistory.setTrack_Results(userHistoryDTO.getTrack_Results());
@@ -77,8 +77,8 @@ class UserHistoryServiceImpl implements UserHistoryService {
 	public UserHistoryDTO getUserHistory(int id) {
 		UserHistory userHistory = userHistoryDao.getUserHistory(id);
 		UserHistoryDTO userHistoryDTO= new UserHistoryDTO();
-		userHistoryDTO.setHeight(userHistory.getHeight());
-		userHistoryDTO.setWeight(userHistory.getWeight());
+		userHistoryDTO.setHeight(String.valueOf(userHistory.getHeight()));
+		userHistoryDTO.setWeight(String.valueOf(userHistory.getWeight()));
 		AppUserDTO appUserDTO = new AppUserDTO();
 		appUserDTO.setUserId(userHistory.getAppUser().getUserId());
 		userHistoryDTO.setAppUser(appUserDTO);
