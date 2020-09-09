@@ -2,6 +2,7 @@ package com.capstone.controller;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -35,11 +36,14 @@ import com.capstone.entity.AppUser;
 import com.capstone.entity.UserRole;
 import com.capstone.google.GooglePojo;
 import com.capstone.google.GoogleUtils;
+import com.capstone.model.AppRoleDTO;
 import com.capstone.model.AppUserDTO;
 import com.capstone.model.UserHistoryDTO;
+import com.capstone.model.UserRoleDTO;
 import com.capstone.repository.AppUserRepository;
 import com.capstone.service.AppUserService;
 import com.capstone.service.UserHistoryService;
+import com.capstone.service.UserRoleService;
 import com.capstone.utils.ImgurUtil;
 import com.capstone.utils.WebUtils;
 
@@ -62,6 +66,9 @@ public class LoginController {
 
 	@Autowired
 	private GoogleUtils googleUtils;
+	
+	@Autowired
+	private UserRoleService userRoleService;
 
 	@Autowired
 	UserHistoryService historyService;
@@ -78,23 +85,35 @@ public class LoginController {
 		GooglePojo googlePojo = googleUtils.getUserInfo(accessToken);
 		Boolean check = userService.checkExistUserEmail(googlePojo.getEmail());
 		AppUserDTO userDTO = new AppUserDTO();
+		
 		if (!check) {
 
 			userDTO.setUsername(googlePojo.getEmail());
 			userDTO.setPassword("");
 			userDTO.setEmail(googlePojo.getEmail());
 			userDTO.setEnable("1");
-
+			
 			userService.insert(userDTO);
-			AppUser user = userDao.get(userDTO.getUserId());
-			AppRole r = new AppRole();
-			r.setRoleId(2);
-
-			UserRole ur = new UserRole();
-			ur.setAppUser(user);
-			ur.setAppRole(r);
-
-			userRoleDao.addUserRole(ur);
+			UserRoleDTO userRoleDTO = new UserRoleDTO();
+			AppRoleDTO role = new AppRoleDTO();
+			role.setId(2);
+			userRoleDTO.setRole(role);
+			userRoleDTO.setUser(userDTO);
+			try {userRoleService.addUserRole(userRoleDTO);}
+			catch(Exception exception) {
+				
+			}
+			
+			
+//			AppUser user = userDao.get(userDTO.getUserId());
+//			AppRole r = new AppRole();
+//			r.setRoleId(2);
+//
+//			UserRole ur = new UserRole();
+//			ur.setAppUser(user);
+//			ur.setAppRole(r);
+//
+//			userRoleDao.addUserRole(ur);
 		}
 
 		UserDetails userDetail = userDetailsService.loadUserByUsername(googlePojo.getEmail());
